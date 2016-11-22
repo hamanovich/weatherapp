@@ -1,0 +1,33 @@
+{
+  "name": "weatherapp",
+  "version": "1.0.0",
+  "description": "Weather App using Angular 2",
+  "main": "webpack.config.js",
+  "scripts": {
+    "start": "./node_modules/.bin/webpack-dev-server --content-base dist --inline --hot --port 8008",
+    "production": "webpack -p",
+    "lint": "tslint \"app/**/*.ts\"",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "typings": "typings"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://hamanovich.github.io/weatherapp/"
+  },
+  "author": "Siarhei Hamanovich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hamanovich/weatherapp/issues"
+  },
+  "homepage": "https://github.com/hamanovich/weatherapp#readme",
+  "devDependencies": {
+    "html-webpack-plugin": "^2.24.1",
+    "ts-loader": "^1.2.2",
+    "tslint": "^4.0.1",
+    "typescript": "^2.0.10",
+    "typings": "^2.0.0",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
