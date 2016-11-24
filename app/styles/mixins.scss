@@ -1,0 +1,15 @@
+@mixin box($w, $h) {
+  width: $w;
+  height: $h;
+}
+
+@mixin square($s) {
+  @include box($s, $s);
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
