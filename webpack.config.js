@@ -1,4 +1,4 @@
-var path = require('path'),
+const path = require('path'),
   webpack = require('webpack'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
   HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
@@ -25,17 +25,24 @@ var path = require('path'),
 
     module: {
       loaders: [
+        // ts
         {
           test: /\.tsx?$/,
           exclude: /node_modules/,
           loader: "ts-loader"
+        },
+
+        // CSS
+        {
+          test: /\.scss/,
+          loader: 'style-loader!css-loader!sass-loader'
         }
       ]
     },
 
     plugins: [
-      HTMLWebpackPluginConfig,
-      new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false })
+      HTMLWebpackPluginConfig
+      // new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false })
     ]
   };
 

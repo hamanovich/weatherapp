@@ -1,7 +1,7 @@
-class Person{
-    name: String;
-}
+import "./styles/index.scss";
 
-let Ivan = new Person();
+import GMap from './gmap';
+import Geo from './geo';
 
-console.log('js works fine');
+new GMap().init();
+new Geo(50).getPosition();

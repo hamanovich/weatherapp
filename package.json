@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://hamanovich.github.io/weatherapp/"
+    "url": "https://github.com/hamanovich/weatherapp/"
   },
   "author": "Siarhei Hamanovich",
   "license": "ISC",
@@ -22,7 +22,11 @@
   },
   "homepage": "https://github.com/hamanovich/weatherapp#readme",
   "devDependencies": {
+    "css-loader": "^0.26.0",
     "html-webpack-plugin": "^2.24.1",
+    "node-sass": "^3.13.0",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
     "ts-loader": "^1.2.2",
     "tslint": "^4.0.1",
     "typescript": "^2.0.10",
