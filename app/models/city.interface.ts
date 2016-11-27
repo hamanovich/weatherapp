@@ -1,4 +1,4 @@
-interface ICity {
+interface City {
     readonly id: number;
     readonly name: string;
     readonly main: {
@@ -10,4 +10,4 @@ interface ICity {
     }
 }
 
-export default ICity;
+export default City;

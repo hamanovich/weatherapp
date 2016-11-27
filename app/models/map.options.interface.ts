@@ -1,9 +1,9 @@
-interface IGmapOpts {
-    center: {
+interface MapOptions {
+    center?: {
         lat: number,
         lng: number
     };
     zoom: number;
 }
 
-export default IGmapOpts;
+export default MapOptions;
