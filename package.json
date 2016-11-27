@@ -7,9 +7,7 @@
     "start": "./node_modules/.bin/webpack-dev-server --content-base dist --inline --hot --port 8008",
     "production": "webpack -p",
     "lint": "tslint \"app/**/*.ts\"",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "typings": "typings"
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",
@@ -22,6 +20,8 @@
   },
   "homepage": "https://github.com/hamanovich/weatherapp#readme",
   "devDependencies": {
+    "@types/es6-shim": "^0.31.32",
+    "@types/google-maps": "^3.1.28",
     "css-loader": "^0.26.0",
     "html-webpack-plugin": "^2.24.1",
     "node-sass": "^3.13.0",
@@ -29,6 +29,7 @@
     "style-loader": "^0.13.1",
     "ts-loader": "^1.2.2",
     "tslint": "^4.0.1",
+    "tslint-loader": "^3.2.0",
     "typescript": "^2.0.10",
     "typings": "^2.0.0",
     "webpack": "^1.13.3",

@@ -1,49 +1,56 @@
-const path = require('path'),
-  webpack = require('webpack'),
-  HtmlWebpackPlugin = require('html-webpack-plugin'),
-  HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
     template: path.join(__dirname, 'app/index.html'),
     filename: 'index.html',
     inject: 'body'
-  }),
+});
 
-  config = {
+const config = {
     devtool: "inline-sourcemap",
 
     entry: [
-      './app/index.ts'
+        './app/index.ts'
     ],
 
     output: {
-      path: path.join(__dirname, 'dist'),
-      filename: "index.js"
+        path: path.join(__dirname, 'dist'),
+        filename: "index.js"
     },
 
     resolve: {
-      extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
+        extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
     },
 
     module: {
-      loaders: [
-        // ts
-        {
-          test: /\.tsx?$/,
-          exclude: /node_modules/,
-          loader: "ts-loader"
-        },
+        preLoaders: [
+            {
+                test: /\.ts$/,
+                loader: 'tslint-loader'
+            }
+        ],
 
-        // CSS
-        {
-          test: /\.scss/,
-          loader: 'style-loader!css-loader!sass-loader'
-        }
-      ]
+        loaders: [
+            // ts
+            {
+                test: /\.ts$/,
+                exclude: /node_modules/,
+                loader: "ts-loader"
+            },
+
+            // CSS
+            {
+                test: /\.scss/,
+                loader: 'style-loader!css-loader!sass-loader'
+            }
+        ]
     },
 
     plugins: [
-      HTMLWebpackPluginConfig
-      // new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false })
+        HTMLWebpackPluginConfig
+        // new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false })
     ]
-  };
+};
 
 module.exports = config;

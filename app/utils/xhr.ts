@@ -1,7 +1,7 @@
 import Templates from './templates';
+import City from '../models/city.interface';
 
 export default class XHR {
-
     constructor(private type: string = 'GET',
                 private async: boolean = true) {
     }
@@ -23,13 +23,11 @@ export default class XHR {
             else {
                 const cities = JSON.parse(XHR.responseText).list;
 
-                for (let city in cities) {
-                    if (!cities.hasOwnProperty(city)) {
-                        return;
-                    }
+                cities.forEach((item: City): void => {
+                    template.tableRowLayout(item);
+                });
 
-                    template.tableLayout(cities[city]);
-                }
+                template.appendToTable();
             }
         };
 
