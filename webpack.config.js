@@ -8,7 +8,7 @@ const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 const config = {
-    devtool: "inline-sourcemap",
+    devtool: "source-map",
 
     entry: [
         './app/index.ts'

@@ -1,3 +1,6 @@
+/// <reference path="../node_modules/@types/googlemaps/index.d.ts" />
+/// <reference path="../node_modules/@types/es6-shim/index.d.ts" />
+
 import MapOptions from './models/map.options.interface';
 import * as constants from './constants';
 
