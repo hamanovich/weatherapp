@@ -1,10 +1,10 @@
 interface City {
-    readonly id: number;
-    readonly name: string;
-    readonly main: {
+    id: number;
+    name: string;
+    main: {
         temp: string
     };
-    readonly coord: {
+    coord: {
         lat: string,
         lon: string
     }
