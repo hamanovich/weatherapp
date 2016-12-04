@@ -8,19 +8,21 @@ const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 const config = {
-    devtool: "source-map",
+    devtool: "inline-source-map",
 
-    entry: [
-        './app/index.ts'
-    ],
+    entry: {
+        'polyfills': path.join(__dirname, '/app/polyfills.ts'),
+        'vendor': path.join(__dirname, 'app/vendor.ts'),
+        'app': path.join(__dirname, 'app/main.ts')
+    },
 
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: "index.js"
+        filename: '[name].js'
     },
 
     resolve: {
-        extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
+        extensions: ['', '.ts', '.js']
     },
 
     module: {
@@ -32,24 +34,39 @@ const config = {
         ],
 
         loaders: [
-            // ts
+            // TS
             {
                 test: /\.ts$/,
                 exclude: /node_modules/,
-                loader: "ts-loader"
+                loaders: ['awesome-typescript-loader', 'angular2-template-loader']
             },
 
-            // CSS
+            // SCSS
             {
                 test: /\.scss/,
-                loader: 'style-loader!css-loader!sass-loader'
-            }
+                exclude: /node_modules/,
+                loaders: ['raw-loader', 'sass-loader']
+            },
+
+            // HTML
+            {
+                test: /\.html$/,
+                loader: 'html-loader'
+            },
+
+            // FILES
+            {
+                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
+                loader: 'file?name=assets/[name].[hash].[ext]'
+            },
         ]
     },
 
     plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ['vendor', 'polyfills']
+        }),
         HTMLWebpackPluginConfig
-        // new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false })
     ]
 };
 

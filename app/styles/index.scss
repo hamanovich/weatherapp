@@ -2,51 +2,5 @@
 
 body {
   font-family: 'Roboto Slab', sans-serif;
-}
-
-.navbar {
-  @include border-radius(0);
-}
-
-#google-map {
-  @include box(100%, 500px);
-  margin: auto;
-}
-
-#table-cities {
-  position: relative;
-  min-height: 7em;
-
-  &:after {
-    position: absolute;
-    z-index: 111;
-    display: block;
-    width: 100%;
-    content: 'Loading… Please wait.';
-    text-align: center;
-    font-size: 2em;
-    color: #000;
-    left: 0;
-    top: 1.625em;
-  }
-
-  &.done {
-    min-height: 0;
-
-    &:after {
-      display: none;
-    }
-  }
-}
-
-.footer {
-  padding: 2em 0;
-  margin-top: 3em;
-  color: #fff;
-  text-align: center;
-  background-color: #2a2730;
-
-  p {
-    margin: 0;
-  }
+  padding-top: 50px;
 }

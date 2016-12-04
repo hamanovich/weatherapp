@@ -1,0 +1,5 @@
+@import '../styles/mixins';
+
+.google-map{
+  @include box(100%, 500px);
+}

@@ -7,7 +7,7 @@ interface City {
     coord: {
         lat: string,
         lon: string
-    }
+    };
 }
 
 export default City;
