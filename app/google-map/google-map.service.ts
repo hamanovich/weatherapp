@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 
+import {googleMapID} from '../constants';
+
 import MapOptions from '../models/map.options.interface';
 
 @Injectable()
@@ -21,11 +23,11 @@ export class GoogleMapService {
 
         options = Object.assign(this.options, options || {});
 
-        this.gMap = new google.maps.Map(document.getElementById("google-map"), options);
+        this.gMap = new google.maps.Map(document.getElementById(googleMapID), options);
         this.marker = new google.maps.Marker({
             position: pos,
             map: this.gMap,
-            title: 'Demo marker'
+            title: 'I\'m here'
         });
     }
 }
