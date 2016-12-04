@@ -1,4 +1,4 @@
-import {Component, Input, AfterViewInit, OnChanges} from '@angular/core';
+import {Component, Input, AfterViewInit, OnChanges, ViewChild, ElementRef} from '@angular/core';
 
 import {GoogleMapService} from './google-map.service';
 
@@ -13,24 +13,21 @@ import * as constants from '../constants';
 })
 
 export class GoogleMapComponent implements AfterViewInit, OnChanges {
-    private GOOGLE_MAP_TITLE: string = 'Google Map';
-    private GOOGLE_MAP_TITLE_SUB: string = 'Maps JavaScript API';
-    private GOOGLE_URL: string = constants.GOOGLE_URL;
-    private googleMapId: string = constants.googleMapID;
+    public GOOGLE_MAP_TITLE: string = 'Google Map';
+    public GOOGLE_MAP_TITLE_SUB: string = 'Maps JavaScript API';
+    public GOOGLE_URL: string = constants.GOOGLE_URL;
 
     @Input() position: CurrentPosition;
+    @ViewChild('googleMapElement') googleMapElememt: ElementRef;
 
     constructor(private gooMapService: GoogleMapService) {
     }
 
     ngAfterViewInit() {
-        this.gooMapService.init(this.position, {zoom: 13});
+        this.gooMapService.init(this.position, this.googleMapElememt.nativeElement);
     }
 
     ngOnChanges() {
-        if (!document.getElementById(this.googleMapId)) {
-            return false;
-        }
-        this.gooMapService.init(this.position, {zoom: 13});
+        this.gooMapService.init(this.position, this.googleMapElememt.nativeElement);
     }
 }

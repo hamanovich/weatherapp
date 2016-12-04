@@ -5,5 +5,3 @@ export const API_URL = 'http://openweathermap.org/api';
 export const GOOGLE_URL = 'https://developers.google.com/maps/';
 
 export const NUMBER_OF_CITIES = 10;
-
-export const googleMapID = 'google-map';
