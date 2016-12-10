@@ -15,7 +15,7 @@ import * as constants from '../constants';
 })
 
 export class WeatherComponent implements OnChanges {
-    thead: string[] = ['ID', 'Name', 'Coordinates; lat,lng', 'Temperature; K'];
+    thead: string[] = ['ID', 'Name', 'Coordinates; lat,lng', 'Temperature; C'];
     cities: City[] = [];
     coords: Coords;
     done: boolean = false;
@@ -26,14 +26,10 @@ export class WeatherComponent implements OnChanges {
     }
 
     ngOnChanges() {
-        if (!this.position) {
-            return false;
-        }
-
         this.weatherService.getCities(`${constants.GEO_URL}find?lat=${this.position.coords.latitude}&lon=${this.position.coords.longitude}&cnt=${constants.NUMBER_OF_CITIES}&appid=${constants.GEO_API_KEY}`)
             .subscribe(
                 data => {
-                    this.cities = data.list;
+                    this.cities.push(data);
                     this.coords = this.position.coords;
                     this.done = true;
                 }
