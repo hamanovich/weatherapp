@@ -1,7 +1,5 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
 
 import {Capitalize} from '../pipes/capitalize.pipe';
 import {WeatherService} from '../weather/weather.service';

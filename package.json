@@ -6,8 +6,7 @@
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server --content-base dist --inline --hot --port 8008",
     "production": "webpack -p",
-    "lint": "tslint \"app/**/*.ts\"",
-    "tsc": "tsc"
+    "lint": "tslint \"app/**/*.ts\""
   },
   "repository": {
     "type": "git",
