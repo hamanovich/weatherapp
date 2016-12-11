@@ -18,12 +18,6 @@ export class WeatherService {
 
     public getCities(url: string) {
         return this.http.get(url)
-            .flatMap((response: Response) => response.json().list);
-    }
-
-    public getCity(url: string) {
-        return this.http.get(url)
             .map((response: Response) => response.json());
     }
-
 }

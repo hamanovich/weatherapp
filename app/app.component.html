@@ -1,6 +1,6 @@
 <wapi-navbar></wapi-navbar>
 
-<wapi-jumbotron></wapi-jumbotron>
+<wapi-jumbotron *ngIf="position" [position]="position"></wapi-jumbotron>
 
 <main class="main" id="main" *ngIf="position">
     <wapi-search></wapi-search>

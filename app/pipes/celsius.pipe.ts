@@ -1,4 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
+import {TEMP_DIFFERENCE} from '../constants';
 
 @Pipe({
     name: 'KelvinToCelsius'
@@ -6,6 +7,6 @@ import {Pipe, PipeTransform} from '@angular/core';
 
 export class KelvinToCelsius implements PipeTransform {
     transform(value: number): number {
-        return +(+value - 273).toFixed(2);
+        return Number((value - TEMP_DIFFERENCE).toFixed(2));
     }
 }

@@ -5,6 +5,8 @@ import {Capitalize} from '../pipes/capitalize.pipe';
 import {WeatherService} from '../weather/weather.service';
 import * as constants from '../constants';
 
+import City from '../models/city.interface';
+
 @Component({
     selector: 'wapi-search',
     templateUrl: './search.component.html'
@@ -14,7 +16,7 @@ export class SearchComponent {
     cityName: FormControl;
     searchForm: FormGroup;
     city: string;
-    weather: string;
+    weather: City;
 
     constructor(private weatherService: WeatherService,
                 private fb: FormBuilder) {
@@ -42,7 +44,7 @@ export class SearchComponent {
             return;
         }
 
-        this.weatherService.getCity(`${constants.GEO_URL}weather?q=${this.city}&appid=${constants.GEO_API_KEY}`)
+        this.weatherService.getCities(`${constants.GEO_URL}weather?q=${this.city}&appid=${constants.GEO_API_KEY}`)
             .subscribe(
                 data => {
                     this.weather = data;

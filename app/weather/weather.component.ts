@@ -1,5 +1,4 @@
 import {Component, Input, OnChanges} from '@angular/core';
-
 import {WeatherService} from './weather.service';
 
 import CurrentPosition from '../models/position.interface';
@@ -26,10 +25,11 @@ export class WeatherComponent implements OnChanges {
     }
 
     ngOnChanges() {
-        this.weatherService.getCities(`${constants.GEO_URL}find?lat=${this.position.coords.latitude}&lon=${this.position.coords.longitude}&cnt=${constants.NUMBER_OF_CITIES}&appid=${constants.GEO_API_KEY}`)
+        this.weatherService
+            .getCities(`${constants.GEO_URL}find?lat=${this.position.coords.latitude}&lon=${this.position.coords.longitude}&cnt=${constants.NUMBER_OF_CITIES}&appid=${constants.GEO_API_KEY}`)
             .subscribe(
                 data => {
-                    this.cities.push(data);
+                    this.cities = data.list;
                     this.coords = this.position.coords;
                     this.done = true;
                 }
