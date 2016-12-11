@@ -1,10 +1,9 @@
 import {Pipe, PipeTransform} from '@angular/core';
-
-import {cityCache} from '../constants';
-
+import {Observable, Subscriber} from 'rxjs/Rx';
+import {WeatherService} from '../weather/weather.service';
 import {KelvinToCelsius} from '../pipes/celsius.pipe';
-
 import City from '../models/city.interface';
+import * as constants from '../constants';
 
 @Pipe({
     name: 'CityWeather'
@@ -12,16 +11,34 @@ import City from '../models/city.interface';
 
 export class CityWeather implements PipeTransform {
     cachedNames: City[];
-    temp: number;
+    CITY_CACHE: City[] = [];
+    weather: Observable<City>;
 
-    transform(value: City): string {
-        this.temp = new KelvinToCelsius().transform(value.main.temp);
-        this.cachedNames = cityCache.map(n => n.name);
+    constructor(private weatherService: WeatherService) {
+    }
 
-        if (this.cachedNames.indexOf(value.name) === -1) {
-            cityCache.push(value);
+    transform(value: string): Observable<City> {
+        this.cachedNames = this.CITY_CACHE.map(n => n.name);
+
+        if (this.cachedNames.indexOf(value) === -1) {
+            this.weather = this.weatherService
+                .getCities(`${constants.GEO_URL}weather?q=${value}&appid=${constants.GEO_API_KEY}`)
+                .map(city => {
+                    this.CITY_CACHE.push(city);
+                    return city;
+                })
+                .map(city => `${city.name}: current temperature is ${new KelvinToCelsius().transform(city.main.temp)}°C`);
+        }
+        else {
+            const name = this.CITY_CACHE[this.cachedNames.indexOf(value)].name;
+            const temp = new KelvinToCelsius().transform(this.CITY_CACHE[this.cachedNames.indexOf(value)].main.temp);
+
+            this.weather = new Observable(
+                (observer: Subscriber<City>) => {
+                    observer.next(`${name}: current temperature is ${temp}°C`);
+                });
         }
 
-        return `${value.name}: current temperature is ${this.temp}°C`;
+        return this.weather;
     }
 }

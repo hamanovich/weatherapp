@@ -2,7 +2,7 @@
 import {NgModule}      from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpModule} from '@angular/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 
 // Import Components
 import {AppComponent}  from './app.component';
@@ -27,7 +27,6 @@ import {Capitalize} from './pipes/capitalize.pipe';
     imports: [
         BrowserModule,
         HttpModule,
-        FormsModule,
         ReactiveFormsModule
     ],
     declarations: [

@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {APP_BRAND} from "../constants";
 
 @Component({
     selector: 'wapi-navbar',
@@ -6,5 +7,5 @@ import {Component} from '@angular/core';
     styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-    public APP_NAME: string = 'Weather APP';
+    public APP_BRAND: string = APP_BRAND;
 }

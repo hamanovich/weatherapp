@@ -13,9 +13,9 @@ import * as constants from '../constants';
 })
 
 export class JumbotronComponent implements OnInit {
-    private APP_TITLE: string = 'Weather Application';
-    private APP_TITLE_SUB: string = 'OpenWeatherMap';
-    private API_URL: string = constants.API_URL;
+    APP_TITLE: string = constants.APP_TITLE;
+    APP_TITLE_SUB: string = constants.APP_TITLE_SUB;
+    API_URL: string = constants.API_URL;
 
     coords: Coords;
     yourWeather: Observable<City>;
