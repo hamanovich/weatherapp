@@ -33,21 +33,6 @@ export class SearchComponent {
     }
 
     getWeather() {
-        const cachedNames = constants.cityCache.map(n => n['name']);
-
-        if (cachedNames.indexOf(this.city) !== -1) {
-            this.weather = constants.cityCache[cachedNames.indexOf(this.city)];
-            this.searchForm.reset();
-
-            return;
-        }
-
-        this.weatherService.getCity(`${constants.GEO_URL}weather?q=${this.city}&appid=${constants.GEO_API_KEY}`)
-            .subscribe(
-                data => {
-                    this.weather = data;
-                    this.searchForm.reset();
-                }
-            );
+       this.weather = this.city;
     }
 }

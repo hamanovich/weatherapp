@@ -1,23 +1,35 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {cityCache} from '../constants';
-import {KelvinToCelsius} from '../pipes/celsius.pipe';
+import * as constants from '../constants';
+import {WeatherService} from '../weather/weather.service';
 
 @Pipe({
-    name: 'CityWeather'
+    name: 'CityWeather',
+    pure: false
 })
 
 export class CityWeather implements PipeTransform {
+    mapObject: any;
+
+    constructor(private weatherService: WeatherService) {
+        this.mapObject = {};
+    }
+
     cachedNames: string[];
     temp: number;
+    weather: any;
 
     transform(value: string): string {
-        this.temp = new KelvinToCelsius().transform(value['main']['temp']);
-        this.cachedNames = cityCache.map(n => n['name']);
 
-        if (this.cachedNames.indexOf(value['name']) === -1) {
-            cityCache.push(value);
+        if ((Object.keys(this.mapObject).indexOf(value) === -1)) {
+            this.mapObject[value] = '';
+            this.weatherService.getCity(`${constants.GEO_URL}weather?q=` + value + `&appid=04d22a81627d5df2de71730e3d30221d`)
+                .subscribe(
+                    data => {
+                        this.mapObject[value] = data.main.temp + 'K';
+                    }, err => {
+                        this.mapObject[value] = err.statusText;
+                    });
         }
-
-        return `${value['name']}: current temperature is ${this.temp}°C`;
+        return this.mapObject[value];
     }
 }

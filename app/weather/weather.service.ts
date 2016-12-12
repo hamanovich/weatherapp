@@ -17,13 +17,22 @@ export class WeatherService {
     }
 
     public getCities(url: string) {
-        return this.http.get(url)
-            .flatMap((response: Response) => response.json().list);
+       return this.http.get(url)
+                .map((response: Response) => response.json().list)
+                .map((val) => {
+                    return {
+                        cities: val,
+                        city: val[0]
+                    }
+                })
+                .publishReplay(1)
+                .refCount();
     }
 
     public getCity(url: string) {
+
         return this.http.get(url)
-            .map((response: Response) => response.json());
+            .map((response: Response) => response.json())
     }
 
 }
