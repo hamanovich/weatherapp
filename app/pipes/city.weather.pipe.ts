@@ -10,28 +10,31 @@ import * as constants from '../constants';
 })
 
 export class CityWeather implements PipeTransform {
-    cachedNames: City[];
-    CITY_CACHE: City[] = [];
+    index: number = 0;
+    cachedNames: string[];
+    cityCache: City[] = [];
     weather: Observable<City>;
 
     constructor(private weatherService: WeatherService) {
     }
 
     transform(value: string): Observable<City> {
-        this.cachedNames = this.CITY_CACHE.map(n => n.name);
+        this.cachedNames = this.cityCache.map(n => n.name);
+        this.index = this.cachedNames.indexOf(value);
 
-        if (this.cachedNames.indexOf(value) === -1) {
+        if (this.index === -1) {
             this.weather = this.weatherService
                 .getCities(`${constants.GEO_URL}weather?q=${value}&appid=${constants.GEO_API_KEY}`)
-                .map(city => {
-                    this.CITY_CACHE.push(city);
+                .do(city => {
+                    city.main.temp = new KelvinToCelsius().transform(city.main.temp);
+                    this.cityCache.push(city);
                     return city;
                 })
-                .map(city => `${city.name}: current temperature is ${new KelvinToCelsius().transform(city.main.temp)}°C`);
+                .map(city => `${city.name}: current temperature is ${city.main.temp}°C`);
         }
         else {
-            const name = this.CITY_CACHE[this.cachedNames.indexOf(value)].name;
-            const temp = new KelvinToCelsius().transform(this.CITY_CACHE[this.cachedNames.indexOf(value)].main.temp);
+            const name = this.cityCache[this.index].name;
+            const temp = this.cityCache[this.index].main.temp;
 
             this.weather = new Observable(
                 (observer: Subscriber<City>) => {
