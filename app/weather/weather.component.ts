@@ -1,4 +1,10 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {
+    Component,
+    Input,
+    OnChanges,
+    ChangeDetectorRef,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import {WeatherService} from './weather.service';
 
 import CurrentPosition from '../models/position.interface';
@@ -10,18 +16,32 @@ import * as constants from '../constants';
 @Component({
     selector: 'wapi-weather',
     templateUrl: './weather.component.html',
-    styleUrls: ['./weather.component.scss']
+    styleUrls: ['./weather.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class WeatherComponent implements OnChanges {
-    thead: string[] = ['ID', 'Name', 'Coordinates; lat,lng', 'Temperature; C'];
-    cities: City[] = [];
+    cities: City[];
     coords: Coords;
-    done: boolean = false;
+    thead: string[];
+    done: boolean;
+    highlight: boolean;
 
     @Input() position: CurrentPosition;
 
-    constructor(private weatherService: WeatherService) {
+    constructor(
+        private weatherService: WeatherService,
+        private cd: ChangeDetectorRef) {
+        this.thead = ['ID', 'Name', 'Coordinates; lat,lng', 'Temperature; C'];
+        this.cities = [];
+        this.done = false;
+        this.highlight = true;
+
+        //cd.detach();
+        //setInterval(() => {
+        //    this.cd.detectChanges();
+        //    console.log('UEP')
+        //}, 2000);
     }
 
     ngOnChanges() {
@@ -32,7 +52,23 @@ export class WeatherComponent implements OnChanges {
                     this.cities = data.list;
                     this.coords = this.position.coords;
                     this.done = true;
+                    this.cd.markForCheck();
                 }
             );
+    }
+
+    checked(i: number): void {
+        let highlight = this.cities[i].highlight;
+
+        if (!highlight){
+            this.cities
+                .filter(city => city.highlight)
+                .map(city => {
+                    delete city.highlight;
+                    return city;
+                });
+        }
+
+        this.cities[i].highlight = !highlight;
     }
 }

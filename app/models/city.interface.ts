@@ -9,6 +9,7 @@ interface City {
         lon: string
     };
     dt?: number;
+    highlight?: boolean;
 }
 
 export default City;

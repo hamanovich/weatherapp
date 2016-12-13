@@ -1,4 +1,11 @@
-import {Component, Input, AfterViewInit, OnChanges, ViewChild, ElementRef} from '@angular/core';
+import {
+    Component,
+    Input,
+    OnChanges,
+    ViewChild,
+    ElementRef,
+    ChangeDetectionStrategy
+} from '@angular/core';
 
 import {GoogleMapService} from './google-map.service';
 
@@ -9,22 +16,22 @@ import * as constants from '../constants';
 @Component({
     selector: 'wapi-google-map',
     templateUrl: './google-map.component.html',
-    styleUrls: ['./google-map.component.scss']
+    styleUrls: ['./google-map.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class GoogleMapComponent implements AfterViewInit, OnChanges {
-    public GOOGLE_MAP_TITLE: string = 'Google Map';
-    public GOOGLE_MAP_TITLE_SUB: string = 'Maps JavaScript API';
-    public GOOGLE_URL: string = constants.GOOGLE_URL;
+export class GoogleMapComponent implements OnChanges {
+    GOOGLE_MAP_TITLE: string;
+    GOOGLE_MAP_TITLE_SUB: string;
+    GOOGLE_URL: string;
 
     @Input() position: CurrentPosition;
     @ViewChild('googleMapElement') googleMapElememt: ElementRef;
 
     constructor(private gooMapService: GoogleMapService) {
-    }
-
-    ngAfterViewInit() {
-        this.gooMapService.init(this.position, this.googleMapElememt.nativeElement);
+        this.GOOGLE_MAP_TITLE = 'Google Map';
+        this.GOOGLE_MAP_TITLE_SUB = 'Maps JavaScript API';
+        this.GOOGLE_URL = constants.GOOGLE_URL;
     }
 
     ngOnChanges() {

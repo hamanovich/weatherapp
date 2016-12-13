@@ -10,7 +10,6 @@ import {Capitalize} from '../pipes/capitalize.pipe';
 export class SearchComponent {
     cityName: FormControl;
     searchForm: FormGroup;
-    city: string;
     weather: string;
 
     constructor(private fb: FormBuilder) {

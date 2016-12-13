@@ -1,28 +1,30 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {WeatherService} from '../weather/weather.service';
 import CurrentPosition from '../models/position.interface';
 import City from '../models/city.interface';
-import Coords from '../models/coords.interface';
 
 import * as constants from '../constants';
 
 @Component({
     selector: 'wapi-jumbotron',
-    templateUrl: './jumbotron.component.html'
+    templateUrl: './jumbotron.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class JumbotronComponent implements OnInit {
-    APP_TITLE: string = constants.APP_TITLE;
-    APP_TITLE_SUB: string = constants.APP_TITLE_SUB;
-    API_URL: string = constants.API_URL;
+    APP_TITLE: string;
+    APP_TITLE_SUB: string;
+    API_URL: string;
 
-    coords: Coords;
     yourWeather: Observable<City>;
 
     @Input() position: CurrentPosition;
 
     constructor(private weatherService: WeatherService) {
+        this.APP_TITLE = constants.APP_TITLE;
+        this.APP_TITLE_SUB = constants.APP_TITLE_SUB;
+        this.API_URL = constants.API_URL;
     }
 
     ngOnInit() {

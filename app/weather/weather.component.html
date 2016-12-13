@@ -9,14 +9,19 @@
         <p *ngIf="done">Time of last update: {{cities[0].dt * 1000 | date: 'dd/MM/yy HH:mm:ss'}}</p>
     </header>
     <div class="table-responsive table-cities" [ngClass]="{'done': done}">
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-hover table-bordered">
             <thead>
             <tr>
                 <th *ngFor="let th of thead">{{th | uppercase}}</th>
             </tr>
             </thead>
             <tbody class="cities">
-            <tr wapi-city *ngFor="let city of cities" [city]="city"></tr>
+            <tr
+                wapi-city
+                *ngFor="let city of cities; let i = index"
+                [city]="city"
+                (click)="checked(i)"
+                [ngClass]="{highlight: city.highlight}"></tr>
             </tbody>
         </table>
     </div>
