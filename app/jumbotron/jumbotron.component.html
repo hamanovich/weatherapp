@@ -4,6 +4,8 @@
             <small>{{APP_TITLE_SUB}}</small>
         </h1>
         <p>It detects your current geo location and returns the table with the nearest cities.</p>
+        <h4>Look, now is <b>{{yourWeather | async | uppercase}}.</b></h4>
+        <br/>
         <a href="{{API_URL}}" target="_blank" class="btn btn-primary btn-lg">Weather API</a>
     </div>
 </section>

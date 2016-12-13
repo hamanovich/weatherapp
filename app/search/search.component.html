@@ -1,0 +1,19 @@
+<div class="container">
+    <form
+            class="form-inline"
+            [formGroup]="searchForm"
+            (ngSubmit)="getWeather()">
+        <div class="form-group">
+            <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter city name"
+                    formControlName="cityName">
+        </div>
+        <button type="submit" class="btn btn-primary">Get Weather</button>
+    </form>
+
+    <h4 class="well" *ngIf="weather">{{weather | CityWeather | async}}</h4>
+
+    <hr/>
+</div>
