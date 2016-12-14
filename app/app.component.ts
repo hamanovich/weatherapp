@@ -27,4 +27,8 @@ export class AppComponent implements OnInit {
             this.position = position;
         });
     }
+
+    ngOnChanges() {
+        this.ngOnInit();
+    }
 }

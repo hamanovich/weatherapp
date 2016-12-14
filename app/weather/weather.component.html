@@ -16,11 +16,11 @@
             </tr>
             </thead>
             <tbody class="cities">
-            <tr
-                wapi-city
+            <tr wapi-city
                 *ngFor="let city of cities; let i = index"
                 [city]="city"
-                (click)="checked(i)"
+                (remove)="onRemove(i)"
+                (click)="onHighlight(i)"
                 [ngClass]="{highlight: city.highlight}"></tr>
             </tbody>
         </table>

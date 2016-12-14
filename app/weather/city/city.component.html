@@ -1,0 +1,5 @@
+<th scope="row">{{city.id}}</th>
+<td>{{city.name}}</td>
+<td>{{city.coord.lat | number: '1.2-2'}}, {{city.coord.lon | number: '1.2-2'}}</td>
+<td>{{city.main.temp | KelvinToCelsius | number: '1.2-2'}}</td>
+<td class="text-center"><span class="icon-remove" (click)="onRemove()">&times;</span></td>

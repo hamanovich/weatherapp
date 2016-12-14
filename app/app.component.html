@@ -3,8 +3,9 @@
 <wapi-jumbotron *ngIf="position" [position]="position"></wapi-jumbotron>
 
 <main class="main" id="main" *ngIf="position">
-    <wapi-search></wapi-search>
-    <wapi-weather [position]="position"></wapi-weather>
+    <wapi-meteo [position]="position"></wapi-meteo>
+    <!--<wapi-search></wapi-search>-->
+    <!--<wapi-weather [position]="position"></wapi-weather>-->
     <wapi-google-map [position]="position"></wapi-google-map>
 </main>
 
