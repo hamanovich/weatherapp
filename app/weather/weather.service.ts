@@ -27,11 +27,18 @@ export class WeatherService {
     }
 
     public storeCities(value: City[]): void {
+        this.storage = value;
+        console.log('storeCities this.storage', this.storage);
+    }
+
+    public addToStore(value: City[]): void{
         this.storage.push(...value);
+        console.log('addToStore this.storage', this.storage);
     }
 
     public updateStore(value: City[]): void {
         this.storage = value;
+        console.log('updateStore this.storage', this.storage);
     }
 
     public getStore(): City[] {

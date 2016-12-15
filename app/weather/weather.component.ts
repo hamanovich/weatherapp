@@ -20,7 +20,7 @@ import * as constants from '../constants';
     selector: 'wapi-weather',
     templateUrl: './weather.component.html',
     styleUrls: ['./weather.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class WeatherComponent implements OnInit, OnChanges {
@@ -29,37 +29,27 @@ export class WeatherComponent implements OnInit, OnChanges {
     thead: string[];
     done: boolean;
     highlight: boolean;
+    highlightCity: City;
+    highlightCityCheck: boolean;
 
     @Input() position: CurrentPosition;
     @Input() updated: City[];
     @Output() remove = new EventEmitter<number>();
 
-    constructor(
-        private weatherService: WeatherService,
-        private cd: ChangeDetectorRef) {
+    constructor(private weatherService: WeatherService,
+                private cd: ChangeDetectorRef) {
         this.thead = ['ID', 'Name', 'Coordinates; lat,lng', 'Temperature; C', 'Remove'];
         this.cities = [];
         this.done = false;
         this.highlight = true;
 
-        //cd.detach();
+        cd.detach();
 
-        //setInterval(() => {
-        //    this.cities = this.weatherService.getStore();
-        //    console.log('interval ->', this.cities);
-        //    this.cd.markForCheck();
-        //}, 5000);
-
-        //setTimeout(() => {
-        //    console.log('upd ', this.updated);
-        //   // this.cities = this.updated;
-        //}, 8000);
-
-        //setInterval(() => {
-        //    this.getData();
-        //
-        //    this.cd.detectChanges();
-        //}, constants.UPDATE_TIME);
+        setInterval(() => {
+            this.getData();
+            console.log('interval!')
+            this.cd.detectChanges();
+        }, 55000);
     }
 
     getData(): void {
@@ -87,7 +77,7 @@ export class WeatherComponent implements OnInit, OnChanges {
     }
 
     onHighlight(i: number): void {
-        let highlight: boolean = this.cities[i].highlight;
+        let highlight: boolean = this.cities[i].highlight || false;
 
         if (!highlight) {
             this.cities
@@ -99,11 +89,11 @@ export class WeatherComponent implements OnInit, OnChanges {
         }
 
         this.cities[i].highlight = !highlight;
+        this.highlightCity = this.cities[i];
+        this.highlightCityCheck = this.cities[i].highlight;
     }
 
     onRemove(value: number) {
         this.remove.emit(value);
-        console.log('onRemoveValue', value)
-        //this.cities = [...this.cities.slice(0, value), ...this.cities.slice(value + 1)];
     }
 }

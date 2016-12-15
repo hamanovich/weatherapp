@@ -18,6 +18,7 @@ import {MeteoComponent}  from './meteo/meteo.component';
 // Import Services
 import {GoogleMapService} from './google-map/google-map.service';
 import {WeatherService} from './weather/weather.service';
+import {ZoneService} from './zone.service';
 
 // Import Pipes
 import {KelvinToCelsius} from './pipes/celsius.pipe';
@@ -46,7 +47,8 @@ import {Capitalize} from './pipes/capitalize.pipe';
     ],
     providers: [
         GoogleMapService,
-        WeatherService
+        WeatherService,
+        ZoneService
     ],
     bootstrap: [AppComponent]
 })

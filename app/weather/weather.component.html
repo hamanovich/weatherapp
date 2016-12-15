@@ -3,10 +3,18 @@
         <h2>Table of the nearest cities
             <small>Weather stats</small>
         </h2>
-        <p *ngIf="done">Your current position is <span
-                class="text-success">{{coords.latitude | number: '1.2-2'}}, {{coords.longitude | number: '1.2-2'}}</span>
+        <p *ngIf="done">
+            Your current position is
+            <span class="text-success">
+                {{coords.latitude | number: '1.2-2'}},
+                {{coords.longitude | number: '1.2-2'}}
+            </span>
         </p>
         <p *ngIf="done">Time of last update: {{cities[0].dt * 1000 | date: 'dd/MM/yy HH:mm:ss'}}</p>
+        <p *ngIf="highlightCityCheck">
+            You've just highlighted
+            <strong class="text-danger">{{highlightCity.name}}</strong>
+        </p>
     </header>
     <div class="table-responsive table-cities" [ngClass]="{'done': done}">
         <table class="table table-striped table-hover table-bordered">
@@ -25,5 +33,4 @@
             </tbody>
         </table>
     </div>
-    <hr/>
 </div>

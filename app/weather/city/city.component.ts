@@ -14,6 +14,5 @@ export class CityComponent {
 
     onRemove() {
         this.remove.emit(0);
-        console.log('city remove');
     }
 }
