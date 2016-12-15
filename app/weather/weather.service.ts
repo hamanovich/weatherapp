@@ -16,32 +16,25 @@ export class WeatherService {
         console.error('Unable to retrieve your location');
     }
 
-    public getPosition(callback: (p: Position) => void): void {
+    getPosition(callback: (p: Position) => void): void {
         navigator.geolocation
             .getCurrentPosition(callback.bind(this), this.getPosError);
     }
 
-    public getCities(url: string) {
+    getCities(url: string) {
         return this.http.get(url)
             .map((response: Response) => response.json());
     }
 
-    public storeCities(value: City[]): void {
+    storeCities(value: City[]): void {
         this.storage = value;
-        console.log('storeCities this.storage', this.storage);
     }
 
-    public addToStore(value: City[]): void{
-        this.storage.push(...value);
-        console.log('addToStore this.storage', this.storage);
-    }
-
-    public updateStore(value: City[]): void {
+    updateStore(value: City[]): void {
         this.storage = value;
-        console.log('updateStore this.storage', this.storage);
     }
 
-    public getStore(): City[] {
+    getStore(): City[] {
         return this.storage;
     }
 }

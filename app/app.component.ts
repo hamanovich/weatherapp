@@ -1,9 +1,4 @@
-import {
-    Component,
-    ViewEncapsulation,
-    OnInit
-} from '@angular/core';
-
+import {Component, ViewEncapsulation, OnInit} from '@angular/core';
 import {WeatherService} from './weather/weather.service';
 
 @Component({

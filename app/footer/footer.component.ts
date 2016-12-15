@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
     selector: 'wapi-footer',
@@ -7,5 +7,4 @@ import {Component, Input} from '@angular/core';
 })
 
 export class FooterComponent {
-    @Input() test:number;
 }

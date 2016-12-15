@@ -47,9 +47,8 @@ export class WeatherComponent implements OnInit, OnChanges {
 
         setInterval(() => {
             this.getData();
-            console.log('interval!')
             this.cd.detectChanges();
-        }, 55000);
+        }, constants.UPDATE_TIME);
     }
 
     getData(): void {
@@ -65,6 +64,8 @@ export class WeatherComponent implements OnInit, OnChanges {
                     this.weatherService.storeCities(this.cities);
                 }
             );
+
+        this.highlightCityCheck = false;
     }
 
     ngOnInit() {
@@ -72,7 +73,6 @@ export class WeatherComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges() {
-        console.info('changessssss.......................');
         this.cities = this.updated;
     }
 

@@ -11,7 +11,7 @@ import {JumbotronComponent}  from './jumbotron/jumbotron.component';
 import {FooterComponent}  from './footer/footer.component';
 import {GoogleMapComponent}  from './google-map/google-map.component';
 import {WeatherComponent}  from './weather/weather.component';
-import {CityComponent}  from './weather/city/city.component';
+import {CityComponent}  from './city/city.component';
 import {SearchComponent}  from './search/search.component';
 import {MeteoComponent}  from './meteo/meteo.component';
 

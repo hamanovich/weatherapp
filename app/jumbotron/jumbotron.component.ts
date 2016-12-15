@@ -1,4 +1,9 @@
-import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {
+    Component,
+    Input,
+    OnInit,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {WeatherService} from '../weather/weather.service';
 import CurrentPosition from '../models/position.interface';

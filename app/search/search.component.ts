@@ -33,7 +33,7 @@ export class SearchComponent {
         this.searchForm.reset();
     }
 
-    onAdd(){
+    onAdd() {
         this.weatherService
             .getCities(`${constants.GEO_URL}weather?q=${this.weather}&appid=${constants.GEO_API_KEY}`)
             .subscribe(

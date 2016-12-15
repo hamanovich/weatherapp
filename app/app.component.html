@@ -2,7 +2,7 @@
 
 <wapi-jumbotron *ngIf="position" [position]="position"></wapi-jumbotron>
 
-<main class="main" id="main" *ngIf="position">
+<main class="main" *ngIf="position">
     <wapi-meteo [position]="position"></wapi-meteo>
     <wapi-google-map [position]="position"></wapi-google-map>
 </main>

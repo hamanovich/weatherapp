@@ -26,9 +26,9 @@
             <tbody class="cities">
             <tr wapi-city
                 *ngFor="let city of cities; let i = index"
-                [city]="city"
                 (remove)="onRemove(i)"
                 (click)="onHighlight(i)"
+                [city]="city"
                 [ngClass]="{highlight: city.highlight}"></tr>
             </tbody>
         </table>
