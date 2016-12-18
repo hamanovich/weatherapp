@@ -35,7 +35,7 @@ export class JumbotronComponent implements OnInit {
     ngOnInit() {
         this.yourWeather = this.weatherService
             .getCities(`${constants.GEO_URL}weather?lat=${this.position.coords.latitude}&lon=${this.position.coords.longitude}&appid=${constants.GEO_API_KEY}`)
-            .map(n => n.weather)
-            .map(p => p[0].description);
+            .map((n: {weather: [{description: string}]}) => n.weather)
+            .map((p: [{description: string}]) => p[0].description);
     }
 }

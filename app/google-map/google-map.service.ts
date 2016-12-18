@@ -9,7 +9,7 @@ export class GoogleMapService {
     private options: MapOptions;
 
     init(position: Position, el: Element, options?: MapOptions) {
-        const pos = {
+        const pos: {lat: number, lng: number} = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         };

@@ -7,9 +7,11 @@ import City from "../models/city.interface";
 @Injectable()
 export class WeatherService {
     storage: City[];
+    weatherStore: City[];
 
     constructor(private http: Http) {
         this.storage = [];
+        this.weatherStore = [];
     }
 
     private getPosError(): void {
@@ -27,10 +29,6 @@ export class WeatherService {
     }
 
     storeCities(value: City[]): void {
-        this.storage = value;
-    }
-
-    updateStore(value: City[]): void {
         this.storage = value;
     }
 

@@ -10,7 +10,7 @@ import City from '../models/city.interface';
 
 export class CityComponent {
     @Input() city: City;
-    @Output() remove = new EventEmitter<number>();
+    @Output() remove: EventEmitter<number> = new EventEmitter<number>();
 
     onRemove() {
         this.remove.emit(0);

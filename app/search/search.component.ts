@@ -17,11 +17,10 @@ export class SearchComponent {
     searchForm: FormGroup;
     weather: string;
 
-    @Output() add = new EventEmitter<City[]>();
+    @Output() add: EventEmitter<string> = new EventEmitter<string>();
 
     constructor(
-        private fb: FormBuilder,
-        private weatherService: WeatherService) {
+        private fb: FormBuilder) {
         this.cityName = new FormControl();
         this.searchForm = fb.group({
             cityName: this.cityName
@@ -34,12 +33,6 @@ export class SearchComponent {
     }
 
     onAdd() {
-        this.weatherService
-            .getCities(`${constants.GEO_URL}weather?q=${this.weather}&appid=${constants.GEO_API_KEY}`)
-            .subscribe(
-                city => {
-                    this.add.emit([city]);
-                }
-            );
+        this.add.emit(this.weather);
     }
 }

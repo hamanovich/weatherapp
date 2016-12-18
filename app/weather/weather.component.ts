@@ -34,7 +34,6 @@ export class WeatherComponent implements OnInit, OnChanges {
 
     @Input() position: CurrentPosition;
     @Input() updated: City[];
-    @Output() remove = new EventEmitter<number>();
 
     constructor(private weatherService: WeatherService,
                 private cd: ChangeDetectorRef) {
@@ -55,7 +54,7 @@ export class WeatherComponent implements OnInit, OnChanges {
         this.weatherService
             .getCities(`${constants.GEO_URL}find?lat=${this.position.coords.latitude}&lon=${this.position.coords.longitude}&cnt=${constants.NUMBER_OF_CITIES}&appid=${constants.GEO_API_KEY}`)
             .subscribe(
-                data => {
+                (data: {list: Array<City>}) => {
                     this.cities = data.list;
                     this.coords = this.position.coords;
                     this.done = true;
@@ -77,23 +76,16 @@ export class WeatherComponent implements OnInit, OnChanges {
     }
 
     onHighlight(i: number): void {
-        let highlight: boolean = this.cities[i].highlight || false;
+        this.cities = this.cities.map((city: City, index: number) => {
+            city.highlight = index === i ? !city.highlight : false;
 
-        if (!highlight) {
-            this.cities
-                .filter(city => city.highlight)
-                .map(city => {
-                    delete city.highlight;
-                    return city;
-                });
-        }
-
-        this.cities[i].highlight = !highlight;
-        this.highlightCity = this.cities[i];
-        this.highlightCityCheck = this.cities[i].highlight;
+            return city;
+        });
     }
 
     onRemove(value: number) {
-        this.remove.emit(value);
+        this.updated = this.weatherService.getStore();
+        this.updated.splice(value, 1);
+        this.cities = this.updated.slice();
     }
 }

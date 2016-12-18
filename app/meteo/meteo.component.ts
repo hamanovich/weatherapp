@@ -12,23 +12,21 @@ export class MeteoComponent {
     @Input() position: CurrentPosition;
     @Input() updated: City[];
 
+    storeNames: City[];
+    weatherStoreValue: City[];
+
     constructor(private weatherService: WeatherService) {
     }
 
-    onAdd(value: City[]): void {
+    onAdd(value: string): void {
         let newValue: City[] = this.weatherService.getStore().slice(0);
+        this.storeNames = newValue.filter((city: City) => city.name === value);
+        this.weatherStoreValue = this.weatherService.weatherStore.filter((city: City) => city.name === value);
 
-        newValue.push(...value);
-        this.updated = newValue;
-        this.weatherService.updateStore(this.updated);
-    }
-
-    onRemove(value: number): void {
-        this.updated = this.weatherService.getStore();
-        this.updated = [
-            ...this.updated.slice(0, value),
-            ...this.updated.slice(value + 1)
-        ];
-        this.weatherService.updateStore(this.updated);
+        if (this.storeNames.length === 0) {
+            newValue.push(...this.weatherStoreValue);
+            this.updated = newValue;
+            this.weatherService.storeCities(this.updated);
+        }
     }
 }

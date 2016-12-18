@@ -10,6 +10,11 @@ interface City {
     };
     dt?: number;
     highlight?: boolean;
+    weather? : {
+        description: string;
+        main: string;
+    }
+    length?: number;
 }
 
 export default City;
