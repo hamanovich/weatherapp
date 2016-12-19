@@ -29,7 +29,6 @@ export class WeatherComponent implements OnInit, OnChanges {
     thead: string[];
     done: boolean;
     highlight: boolean;
-    highlightCity: City;
     highlightCityCheck: boolean;
 
     @Input() position: CurrentPosition;

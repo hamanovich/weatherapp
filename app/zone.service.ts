@@ -14,11 +14,9 @@ export class ZoneService implements OnDestroy {
     }
 
     onZoneStable() {
-        // console.info('Zone stable');
     }
 
     onZoneUnstable() {
-        // console.info('Zone unstable');
     }
 
     onZoneError(error: Error) {

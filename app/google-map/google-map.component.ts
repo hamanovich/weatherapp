@@ -8,7 +8,9 @@ import {
 } from '@angular/core';
 
 import {GoogleMapService} from './google-map.service';
+
 import CurrentPosition from '../models/position.interface';
+
 import * as constants from '../constants';
 
 @Component({

@@ -1,11 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
+
 import {Capitalize} from '../pipes/capitalize.pipe';
-
-import {WeatherService} from '../weather/weather.service';
-import City from '../models/city.interface';
-
-import * as constants from '../constants';
 
 @Component({
     selector: 'wapi-search',

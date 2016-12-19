@@ -1,9 +1,12 @@
 import {Pipe, PipeTransform} from '@angular/core';
+import {Response} from '@angular/http';
+
 import {WeatherService} from '../weather/weather.service';
 import {KelvinToCelsius} from '../pipes/celsius.pipe';
-import {Response} from '@angular/http';
-import * as constants from '../constants';
+
 import City from '../models/city.interface';
+
+import * as constants from '../constants';
 
 @Pipe({
     name: 'CityWeather',

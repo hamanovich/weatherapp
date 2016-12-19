@@ -5,7 +5,9 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import {Observable} from 'rxjs/Rx';
+
 import {WeatherService} from '../weather/weather.service';
+
 import CurrentPosition from '../models/position.interface';
 import City from '../models/city.interface';
 
@@ -35,7 +37,6 @@ export class JumbotronComponent implements OnInit {
     ngOnInit() {
         this.yourWeather = this.weatherService
             .getCities(`${constants.GEO_URL}weather?lat=${this.position.coords.latitude}&lon=${this.position.coords.longitude}&appid=${constants.GEO_API_KEY}`)
-            .map((n: {weather: [{description: string}]}) => n.weather)
-            .map((p: [{description: string}]) => p[0].description);
+            .map((n: {weather: [{description: string}]}) => n.weather[0].description);
     }
 }
