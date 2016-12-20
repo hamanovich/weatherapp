@@ -25,6 +25,13 @@
             true,
             "allow-null-check"
         ],
+        "typedef": [
+            true,
+            "parameter",
+            "member-variable-declaration",
+            "arrow-parameter",
+            "variable-declaration"
+        ],
         "typedef-whitespace": [
             true,
             {

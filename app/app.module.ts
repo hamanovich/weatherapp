@@ -13,10 +13,12 @@ import {GoogleMapComponent}  from './google-map/google-map.component';
 import {WeatherComponent}  from './weather/weather.component';
 import {CityComponent}  from './city/city.component';
 import {SearchComponent}  from './search/search.component';
+import {MeteoComponent}  from './meteo/meteo.component';
 
 // Import Services
 import {GoogleMapService} from './google-map/google-map.service';
 import {WeatherService} from './weather/weather.service';
+import {ZoneService} from './zone.service';
 
 // Import Pipes
 import {KelvinToCelsius} from './pipes/celsius.pipe';
@@ -38,13 +40,15 @@ import {Capitalize} from './pipes/capitalize.pipe';
         WeatherComponent,
         CityComponent,
         SearchComponent,
+        MeteoComponent,
         KelvinToCelsius,
         CityWeather,
         Capitalize
     ],
     providers: [
         GoogleMapService,
-        WeatherService
+        WeatherService,
+        ZoneService
     ],
     bootstrap: [AppComponent]
 })

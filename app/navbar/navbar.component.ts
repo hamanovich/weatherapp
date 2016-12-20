@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+
 import {APP_BRAND} from "../constants";
 
 @Component({
@@ -7,5 +8,9 @@ import {APP_BRAND} from "../constants";
     styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-    public APP_BRAND: string = APP_BRAND;
+    APP_BRAND: string;
+
+    constructor() {
+        this.APP_BRAND = APP_BRAND;
+    }
 }

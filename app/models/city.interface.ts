@@ -9,6 +9,12 @@ interface City {
         lon: string
     };
     dt?: number;
+    highlight?: boolean;
+    weather? : {
+        description: string;
+        main: string;
+    }
+    length?: number;
 }
 
 export default City;

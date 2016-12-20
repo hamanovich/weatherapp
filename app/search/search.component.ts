@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
+
 import {Capitalize} from '../pipes/capitalize.pipe';
 
 @Component({
@@ -10,10 +11,12 @@ import {Capitalize} from '../pipes/capitalize.pipe';
 export class SearchComponent {
     cityName: FormControl;
     searchForm: FormGroup;
-    city: string;
     weather: string;
 
-    constructor(private fb: FormBuilder) {
+    @Output() add: EventEmitter<string> = new EventEmitter<string>();
+
+    constructor(
+        private fb: FormBuilder) {
         this.cityName = new FormControl();
         this.searchForm = fb.group({
             cityName: this.cityName
@@ -23,5 +26,9 @@ export class SearchComponent {
     getWeather() {
         this.weather = new Capitalize().transform(this.cityName.value);
         this.searchForm.reset();
+    }
+
+    onAdd() {
+        this.add.emit(this.weather);
     }
 }

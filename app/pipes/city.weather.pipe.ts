@@ -1,50 +1,40 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Observable, Subscriber} from 'rxjs/Rx';
+import {Response} from '@angular/http';
+
 import {WeatherService} from '../weather/weather.service';
 import {KelvinToCelsius} from '../pipes/celsius.pipe';
+
 import City from '../models/city.interface';
+
 import * as constants from '../constants';
 
 @Pipe({
-    name: 'CityWeather'
+    name: 'CityWeather',
+    pure: false
 })
 
 export class CityWeather implements PipeTransform {
-    cachedNames: string[];
-    cityCache: City[] = [];
-    weather: Observable<City>;
+    cWeather: any;
 
     constructor(private weatherService: WeatherService) {
+        this.cWeather = {};
     }
 
-    transform(value: string): Observable<City> {
-        let index: number;
-
-        this.cachedNames = this.cityCache.map(n => n.name);
-
-        index = this.cachedNames.indexOf(value);
-
-        if (index === -1) {
-            this.weather = this.weatherService
+    transform(value: string): string {
+        if (this.cWeather[value] === undefined) {
+            this.cWeather[value] = '';
+            this.weatherService
                 .getCities(`${constants.GEO_URL}weather?q=${value}&appid=${constants.GEO_API_KEY}`)
-                .map(city => {
-                    city.main.temp = new KelvinToCelsius().transform(city.main.temp);
-                    this.cityCache.push(city);
-                    return city;
-                })
-                .map(city => `${city.name}: current temperature is ${city.main.temp}°C`);
-        }
-        else {
-            const cachedIndex = this.cityCache[index];
-            const name = cachedIndex.name;
-            const temp = cachedIndex.main.temp;
-
-            this.weather = new Observable(
-                (observer: Subscriber<City>) => {
-                    observer.next(`${name}: current temperature is ${temp}°C`);
-                });
+                .subscribe(
+                    (city: City) => {
+                        this.weatherService.weatherStore.push(city);
+                        this.cWeather[value] = `${city.name}: ${new KelvinToCelsius().transform(city.main.temp)}°C`;
+                    },
+                    (error: Response) => {
+                        this.cWeather[value] = error.statusText;
+                    });
         }
 
-        return this.weather;
+        return this.cWeather[value];
     }
 }

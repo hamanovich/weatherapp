@@ -1,5 +1,4 @@
 import {Component, ViewEncapsulation, OnInit} from '@angular/core';
-
 import {WeatherService} from './weather/weather.service';
 
 @Component({
@@ -13,7 +12,7 @@ export class AppComponent implements OnInit {
 
     constructor(private weatherService: WeatherService) {
         if (!navigator.geolocation) {
-            alert('Geolocation is not supported by your browser');
+            console.error('Geolocation is not supported by your browser');
             return;
         }
     }

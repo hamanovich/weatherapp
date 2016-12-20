@@ -8,8 +8,8 @@ export class GoogleMapService {
     private marker: google.maps.Marker;
     private options: MapOptions;
 
-    public init(position: Position, el: Element, options?: MapOptions) {
-        const pos = {
+    init(position: Position, el: Element, options?: MapOptions) {
+        const pos: {lat: number, lng: number} = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         };

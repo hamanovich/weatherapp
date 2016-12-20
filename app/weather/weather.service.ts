@@ -2,22 +2,37 @@ import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import 'rxjs/Rx';
 
+import City from "../models/city.interface";
+
 @Injectable()
 export class WeatherService {
+    storage: City[];
+    weatherStore: City[];
+
     constructor(private http: Http) {
+        this.storage = [];
+        this.weatherStore = [];
     }
 
     private getPosError(): void {
         console.error('Unable to retrieve your location');
     }
 
-    public getPosition(callback: (p: Position) => void): void {
+    getPosition(callback: (p: Position) => void): void {
         navigator.geolocation
             .getCurrentPosition(callback.bind(this), this.getPosError);
     }
 
-    public getCities(url: string) {
+    getCities(url: string) {
         return this.http.get(url)
             .map((response: Response) => response.json());
+    }
+
+    storeCities(value: City[]): void {
+        this.storage = value;
+    }
+
+    getStore(): City[] {
+        return this.storage;
     }
 }

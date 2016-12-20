@@ -1,19 +1,26 @@
 <div class="container">
-    <form
-            class="form-inline"
-            [formGroup]="searchForm"
-            (ngSubmit)="getWeather()">
+    <form class="form-inline"
+          [formGroup]="searchForm"
+          (ngSubmit)="getWeather()">
         <div class="form-group">
-            <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter city name"
-                    formControlName="cityName">
+            <input type="text"
+                   class="form-control"
+                   placeholder="Enter city name"
+                   formControlName="cityName">
         </div>
-        <button type="submit" class="btn btn-primary">Get Weather</button>
+        <button type="submit"
+                class="btn btn-primary"
+                [disabled]="!cityName.value">Get Weather</button>
     </form>
 
-    <h4 class="well" *ngIf="weather">{{weather | CityWeather | async}}</h4>
+    <br>
+
+    <div class="well" *ngIf="weather">
+        <h4>{{weather | CityWeather}}</h4>
+        <button class="btn btn-sm btn-default" (click)="onAdd()">
+            Add to table
+        </button>
+    </div>
 
     <hr/>
 </div>
