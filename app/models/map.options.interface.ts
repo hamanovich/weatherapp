@@ -4,6 +4,7 @@ interface MapOptions {
         lng: number
     };
     zoom: number;
+    scrollwheel: boolean;
 }
 
 export default MapOptions;

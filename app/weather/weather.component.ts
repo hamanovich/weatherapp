@@ -1,13 +1,13 @@
 import {
     Component,
     Input,
-    Output,
-    EventEmitter,
     OnInit,
     OnChanges,
     ChangeDetectorRef,
     ChangeDetectionStrategy
 } from '@angular/core';
+import {Response} from '@angular/http';
+
 import {WeatherService} from './weather.service';
 
 import CurrentPosition from '../models/position.interface';
@@ -27,43 +27,62 @@ export class WeatherComponent implements OnInit, OnChanges {
     cities: City[];
     coords: Coords;
     thead: string[];
-    done: boolean;
-    highlight: boolean;
-    highlightCityCheck: boolean;
+    isDone: boolean;
+    isHighlight: boolean;
+    highlightCity: City;
+    isHighlightCity: boolean;
+    errorText: string;
 
     @Input() position: CurrentPosition;
     @Input() updated: City[];
 
     constructor(private weatherService: WeatherService,
                 private cd: ChangeDetectorRef) {
-        this.thead = ['ID', 'Name', 'Coordinates; lat,lng', 'Temperature; C', 'Remove'];
+        this.thead = [
+            'ID',
+            'Name',
+            'Coords; lat,lng',
+            'Temp; C',
+            'Wind',
+            'Overall',
+            ''
+        ];
         this.cities = [];
-        this.done = false;
-        this.highlight = true;
+        this.isDone = false;
+        this.isHighlight = true;
 
         cd.detach();
 
         setInterval(() => {
+            this.clearData();
             this.getData();
             this.cd.detectChanges();
         }, constants.UPDATE_TIME);
+    }
+
+    clearData(): void {
+        this.weatherService.weatherStore = [];
+        this.weatherService.weatherKey = {};
     }
 
     getData(): void {
         this.weatherService
             .getCities(`${constants.GEO_URL}find?lat=${this.position.coords.latitude}&lon=${this.position.coords.longitude}&cnt=${constants.NUMBER_OF_CITIES}&appid=${constants.GEO_API_KEY}`)
             .subscribe(
-                (data: {list: Array<City>}) => {
+                (data: {list: City[]}) => {
                     this.cities = data.list;
                     this.coords = this.position.coords;
-                    this.done = true;
+                    this.isDone = true;
                     this.cd.markForCheck();
 
                     this.weatherService.storeCities(this.cities);
-                }
-            );
+                },
+                (error: Response) => {
+                    this.errorText = error.status + ': ' + error.statusText;
+                    this.cd.markForCheck();
+                });
 
-        this.highlightCityCheck = false;
+        this.isHighlightCity = false;
     }
 
     ngOnInit() {
@@ -76,15 +95,30 @@ export class WeatherComponent implements OnInit, OnChanges {
 
     onHighlight(i: number): void {
         this.cities = this.cities.map((city: City, index: number) => {
-            city.highlight = index === i ? !city.highlight : false;
+            city.isHighlight = index === i ? !city.isHighlight : false;
+            this.highlightCity = this.cities[i];
+            this.isHighlightCity = this.cities[i].isHighlight;
 
             return city;
         });
     }
 
     onRemove(value: number) {
+        let valueName: string = this.weatherService.getStore()[value].name;
+        let valueWeatherName: City = this.weatherService.getWeatherStore()
+                .filter((city: City) => city.name === valueName)[0] || [];
+        let valueWeatherIndex: number = this.weatherService.weatherStore.indexOf(valueWeatherName);
+
+        if (valueWeatherIndex !== -1) {
+            this.weatherService.getWeatherStore().splice(valueWeatherIndex, 1);
+        }
+
+        if (this.highlightCity && valueName === this.highlightCity.name){
+            this.isHighlightCity = false;
+        }
+
         this.updated = this.weatherService.getStore();
         this.updated.splice(value, 1);
-        this.cities = this.updated.slice();
+        this.cities = this.updated;
     }
 }

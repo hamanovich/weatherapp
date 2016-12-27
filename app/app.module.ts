@@ -14,6 +14,12 @@ import {WeatherComponent}  from './weather/weather.component';
 import {CityComponent}  from './city/city.component';
 import {SearchComponent}  from './search/search.component';
 import {MeteoComponent}  from './meteo/meteo.component';
+import {WindComponent}  from './wind/wind.component';
+import {IconWeatherComponent} from './icon-weather/icon-weather.component';
+
+// Import Directives
+import {ColorWeather} from './directives/color-weather.directive';
+import {WindWeather} from './directives/wind-weather.directive';
 
 // Import Services
 import {GoogleMapService} from './google-map/google-map.service';
@@ -41,9 +47,13 @@ import {Capitalize} from './pipes/capitalize.pipe';
         CityComponent,
         SearchComponent,
         MeteoComponent,
+        WindComponent,
+        IconWeatherComponent,
         KelvinToCelsius,
         CityWeather,
-        Capitalize
+        Capitalize,
+        ColorWeather,
+        WindWeather
     ],
     providers: [
         GoogleMapService,

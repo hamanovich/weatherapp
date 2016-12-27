@@ -3,3 +3,9 @@
 .navbar {
   @include border-radius(0);
 }
+
+@media screen and (max-width: 768px) {
+  .btn-group{
+    display: none;
+  }
+}

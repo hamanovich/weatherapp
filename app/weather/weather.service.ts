@@ -8,10 +8,14 @@ import City from "../models/city.interface";
 export class WeatherService {
     storage: City[];
     weatherStore: City[];
+    weatherKey: {
+        [key: string]: string
+    };
 
     constructor(private http: Http) {
         this.storage = [];
         this.weatherStore = [];
+        this.weatherKey = {};
     }
 
     private getPosError(): void {
@@ -34,5 +38,9 @@ export class WeatherService {
 
     getStore(): City[] {
         return this.storage;
+    }
+
+    getWeatherStore(): City[] {
+        return this.weatherStore;
     }
 }

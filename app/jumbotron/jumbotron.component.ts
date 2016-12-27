@@ -16,22 +16,18 @@ import * as constants from '../constants';
 @Component({
     selector: 'wapi-jumbotron',
     templateUrl: './jumbotron.component.html',
+    styleUrls: ['jumbotron.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class JumbotronComponent implements OnInit {
     APP_TITLE: string;
-    APP_TITLE_SUB: string;
-    API_URL: string;
-
     yourWeather: Observable<City>;
 
     @Input() position: CurrentPosition;
 
     constructor(private weatherService: WeatherService) {
         this.APP_TITLE = constants.APP_TITLE;
-        this.APP_TITLE_SUB = constants.APP_TITLE_SUB;
-        this.API_URL = constants.API_URL;
     }
 
     ngOnInit() {

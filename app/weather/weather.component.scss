@@ -23,7 +23,11 @@
     }
   }
 
-  .highlight{
-    background-color: lightgreen;
+  thead > th {
+    vertical-align: middle;
+  }
+
+  .highlight {
+    background-color: lightgreen !important;
   }
 }

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 
-import {APP_BRAND} from "../constants";
+import * as constants from "../constants";
 
 @Component({
     selector: 'wapi-navbar',
@@ -9,8 +9,12 @@ import {APP_BRAND} from "../constants";
 })
 export class NavbarComponent {
     APP_BRAND: string;
+    GOOGLE_URL: string;
+    API_URL: string;
 
     constructor() {
-        this.APP_BRAND = APP_BRAND;
+        this.APP_BRAND = constants.APP_BRAND;
+        this.GOOGLE_URL = constants.GOOGLE_URL;
+        this.API_URL = constants.API_URL;
     }
 }

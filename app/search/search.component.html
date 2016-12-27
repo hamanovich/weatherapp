@@ -5,21 +5,26 @@
         <div class="form-group">
             <input type="text"
                    class="form-control"
-                   placeholder="Enter city name"
+                   placeholder="Enter city"
                    formControlName="cityName">
         </div>
         <button type="submit"
                 class="btn btn-primary"
-                [disabled]="!cityName.value">Get Weather</button>
+                [disabled]="!cityName.value">Get Weather
+        </button>
     </form>
 
-    <br>
+    <div *ngIf="!serverError">
+        <div class="well" *ngIf="weather">
+            <h4>{{weather | CityWeather}}</h4>
+            <button class="btn btn-sm btn-default" (click)="onAdd()">
+                Add to table
+            </button>
+        </div>
+    </div>
 
-    <div class="well" *ngIf="weather">
-        <h4>{{weather | CityWeather}}</h4>
-        <button class="btn btn-sm btn-default" (click)="onAdd()">
-            Add to table
-        </button>
+    <div class="alert alert-danger" *ngIf="serverError">
+        {{serverError}}
     </div>
 
     <hr/>
