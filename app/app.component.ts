@@ -1,5 +1,5 @@
 import {Component, ViewEncapsulation, OnInit} from '@angular/core';
-import {WeatherService} from './weather/weather.service';
+import {WeatherService} from './meteo/weather/weather.service';
 
 @Component({
     selector: 'wapi',

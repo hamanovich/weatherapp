@@ -1,12 +1,12 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
 
-import {Capitalize} from '../pipes/capitalize.pipe';
+import {Capitalize} from '../../pipes/capitalize.pipe';
 
 @Component({
     selector: 'wapi-search',
-    templateUrl: './search.component.html',
-    styleUrls: ['./search.component.scss']
+    templateUrl: 'search.component.html',
+    styleUrls: ['search.component.scss']
 })
 
 export class SearchComponent {

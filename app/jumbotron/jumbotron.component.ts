@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 
-import {WeatherService} from '../weather/weather.service';
+import {WeatherService} from '../meteo/weather/weather.service';
 
 import CurrentPosition from '../models/position.interface';
 import City from '../models/city.interface';

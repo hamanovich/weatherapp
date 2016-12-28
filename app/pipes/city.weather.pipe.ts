@@ -1,7 +1,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {Response} from '@angular/http';
 
-import {WeatherService} from '../weather/weather.service';
+import {WeatherService} from '../meteo/weather/weather.service';
 import {KelvinToCelsius} from './celsius.pipe';
 
 import City from '../models/city.interface';

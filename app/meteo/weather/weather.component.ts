@@ -10,16 +10,16 @@ import {Response} from '@angular/http';
 
 import {WeatherService} from './weather.service';
 
-import CurrentPosition from '../models/position.interface';
-import City from '../models/city.interface';
-import Coords from '../models/coords.interface';
+import CurrentPosition from '../../models/position.interface';
+import City from '../../models/city.interface';
+import Coords from '../../models/coords.interface';
 
-import * as constants from '../constants';
+import * as constants from '../../constants';
 
 @Component({
     selector: 'wapi-weather',
-    templateUrl: './weather.component.html',
-    styleUrls: ['./weather.component.scss'],
+    templateUrl: 'weather.component.html',
+    styleUrls: ['weather.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
@@ -75,7 +75,7 @@ export class WeatherComponent implements OnInit, OnChanges {
                     this.isDone = true;
                     this.cd.markForCheck();
 
-                    this.weatherService.storeCities(this.cities);
+                    this.weatherService.setCities(this.cities);
                 },
                 (error: Response) => {
                     this.errorText = error.status + ': ' + error.statusText;
@@ -105,15 +105,8 @@ export class WeatherComponent implements OnInit, OnChanges {
 
     onRemove(value: number) {
         let valueName: string = this.weatherService.getStore()[value].name;
-        let valueWeatherName: City = this.weatherService.getWeatherStore()
-                .filter((city: City) => city.name === valueName)[0] || [];
-        let valueWeatherIndex: number = this.weatherService.weatherStore.indexOf(valueWeatherName);
 
-        if (valueWeatherIndex !== -1) {
-            this.weatherService.getWeatherStore().splice(valueWeatherIndex, 1);
-        }
-
-        if (this.highlightCity && valueName === this.highlightCity.name){
+        if (this.highlightCity && valueName === this.highlightCity.name) {
             this.isHighlightCity = false;
         }
 
