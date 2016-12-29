@@ -10,12 +10,14 @@ import {NavbarComponent}  from './navbar/navbar.component';
 import {JumbotronComponent}  from './jumbotron/jumbotron.component';
 import {FooterComponent}  from './footer/footer.component';
 import {GoogleMapComponent}  from './google-map/google-map.component';
-import {WeatherComponent}  from './meteo/weather/weather.component';
-import {CityComponent}  from './meteo/weather/city/city.component';
-import {SearchComponent}  from './meteo/search/search.component';
-import {MeteoComponent}  from './meteo/meteo.component';
-import {WindComponent}  from './meteo/weather/city/wind/wind.component';
-import {IconWeatherComponent} from './meteo/weather/city/icon-weather/icon-weather.component';
+import {
+    MeteoComponent,
+    SearchComponent,
+    WeatherComponent,
+    CityComponent,
+    IconWeatherComponent,
+    WindComponent
+} from './meteo';
 
 // Import Directives
 import {ColorWeather} from './directives/color-weather.directive';
