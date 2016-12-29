@@ -1,11 +1,12 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
 
-import {Capitalize} from '../pipes/capitalize.pipe';
+import {Capitalize} from '../../pipes/capitalize.pipe';
 
 @Component({
     selector: 'wapi-search',
-    templateUrl: './search.component.html'
+    templateUrl: 'search.component.html',
+    styleUrls: ['search.component.scss']
 })
 
 export class SearchComponent {
@@ -15,8 +16,7 @@ export class SearchComponent {
 
     @Output() add: EventEmitter<string> = new EventEmitter<string>();
 
-    constructor(
-        private fb: FormBuilder) {
+    constructor(private fb: FormBuilder) {
         this.cityName = new FormControl();
         this.searchForm = fb.group({
             cityName: this.cityName

@@ -1,8 +1,8 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {Response} from '@angular/http';
 
-import {WeatherService} from '../weather/weather.service';
-import {KelvinToCelsius} from '../pipes/celsius.pipe';
+import {WeatherService} from '../meteo/weather/weather.service';
+import {KelvinToCelsius} from './celsius.pipe';
 
 import City from '../models/city.interface';
 
@@ -14,27 +14,24 @@ import * as constants from '../constants';
 })
 
 export class CityWeather implements PipeTransform {
-    cWeather: any;
-
     constructor(private weatherService: WeatherService) {
-        this.cWeather = {};
     }
 
     transform(value: string): string {
-        if (this.cWeather[value] === undefined) {
-            this.cWeather[value] = '';
+        if (this.weatherService.weatherKey[value] === undefined) {
+            this.weatherService.weatherKey[value] = '';
             this.weatherService
                 .getCities(`${constants.GEO_URL}weather?q=${value}&appid=${constants.GEO_API_KEY}`)
                 .subscribe(
                     (city: City) => {
                         this.weatherService.weatherStore.push(city);
-                        this.cWeather[value] = `${city.name}: ${new KelvinToCelsius().transform(city.main.temp)}°C`;
+                        this.weatherService.weatherKey[value] = `${city.name}: ${new KelvinToCelsius().transform(city.main.temp)}°C`;
                     },
                     (error: Response) => {
-                        this.cWeather[value] = error.statusText;
+                        this.weatherService.weatherKey[value] = error.statusText;
                     });
         }
 
-        return this.cWeather[value];
+        return this.weatherService.weatherKey[value];
     }
 }

@@ -1,0 +1,13 @@
+<span [ngSwitch]="main">
+    <img *ngSwitchCase="'Thunderstorm'" [src]="path + weather.icon + '.png'" [alt]="weather.description"/>
+    <img *ngSwitchCase="'Drizzle'" [src]="path + weather.icon + '.png'" [alt]="weather.description"/>
+    <img *ngSwitchCase="'Rain'" [src]="path + weather.icon + '.png'" [alt]="weather.description"/>
+    <img *ngSwitchCase="'Snow'" [src]="path + weather.icon + '.png'" [alt]="weather.description"/>
+    <img *ngSwitchCase="'Clouds'" [src]="path + weather.icon + '.png'" [alt]="weather.description"/>
+    <img *ngSwitchCase="'Extreme'" [src]="path + weather.icon + '.png'" [alt]="weather.description"/>
+    <img *ngSwitchCase="'Clear'" [src]="path + weather.icon + '.png'" [alt]="weather.description"/>
+    <img *ngSwitchCase="'Atmosphere'" [src]="path + weather.icon + '.png'" [alt]="weather.description"/>
+    <img *ngSwitchCase="'Mist'" [src]="path + weather.icon + '.png'" [alt]="weather.description"/>
+    <img *ngSwitchCase="'Haze'" [src]="path + weather.icon + '.png'" [alt]="weather.description"/>
+    <img *ngSwitchDefault [src]="'http://lorempixel.com/35/35/abstract'" alt="Image not found"/>
+</span>

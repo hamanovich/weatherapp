@@ -6,6 +6,12 @@
 </td>
 <td>{{city.main.temp | KelvinToCelsius | number: '1.2-2'}}</td>
 <td class="text-center">
+    <wapi-wind [windWeather]="city.wind"></wapi-wind>
+</td>
+<td class="text-center">
+    <wapi-icon-weather [iconWeather]="city.weather[0]"></wapi-icon-weather>
+</td>
+<td class="text-center">
     <span class="icon-remove"
           (click)="onRemove()">&times;</span>
 </td>

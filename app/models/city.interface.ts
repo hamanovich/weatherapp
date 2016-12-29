@@ -9,7 +9,7 @@ interface City {
         lon: string
     };
     dt?: number;
-    highlight?: boolean;
+    isHighlight?: boolean;
     weather? : {
         description: string;
         main: string;

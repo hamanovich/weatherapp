@@ -2,16 +2,20 @@ import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import 'rxjs/Rx';
 
-import City from "../models/city.interface";
+import City from "../../models/city.interface";
 
 @Injectable()
 export class WeatherService {
     storage: City[];
     weatherStore: City[];
+    weatherKey: {
+        [key: string]: string
+    };
 
     constructor(private http: Http) {
         this.storage = [];
         this.weatherStore = [];
+        this.weatherKey = {};
     }
 
     private getPosError(): void {
@@ -28,11 +32,19 @@ export class WeatherService {
             .map((response: Response) => response.json());
     }
 
-    storeCities(value: City[]): void {
+    setCities(value: City[]): void {
         this.storage = value;
     }
 
     getStore(): City[] {
         return this.storage;
+    }
+
+    getWeatherStore(): City[] {
+        return this.weatherStore;
+    }
+
+    setWeatherStore(store: City[]): void {
+        this.weatherStore = store;
     }
 }

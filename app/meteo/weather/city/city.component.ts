@@ -5,12 +5,12 @@ import {
     Output
 } from '@angular/core';
 
-import City from '../models/city.interface';
+import City from '../../../models/city.interface';
 
 @Component({
     selector: '[wapi-city]',
-    templateUrl: './city.component.html',
-    styleUrls: ['./city.component.scss']
+    templateUrl: 'city.component.html',
+    styleUrls: ['city.component.scss']
 })
 
 export class CityComponent {

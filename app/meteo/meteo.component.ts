@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 
-import {WeatherService} from '../weather/weather.service';
+import {WeatherService} from './weather/weather.service';
 
 import CurrentPosition from '../models/position.interface';
 import City from '../models/city.interface';
@@ -26,7 +26,7 @@ export class MeteoComponent {
 
             newValue.push(...weatherStoreValue);
             this.updated = newValue;
-            this.weatherService.storeCities(this.updated);
+            this.weatherService.setCities(this.updated);
         }
     }
 }

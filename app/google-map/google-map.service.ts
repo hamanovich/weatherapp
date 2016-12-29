@@ -16,7 +16,8 @@ export class GoogleMapService {
 
         this.options = {
             center: pos,
-            zoom: 13
+            zoom: 15,
+            scrollwheel: false
         };
 
         options = Object.assign(this.options, options || {});

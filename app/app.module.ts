@@ -10,14 +10,22 @@ import {NavbarComponent}  from './navbar/navbar.component';
 import {JumbotronComponent}  from './jumbotron/jumbotron.component';
 import {FooterComponent}  from './footer/footer.component';
 import {GoogleMapComponent}  from './google-map/google-map.component';
-import {WeatherComponent}  from './weather/weather.component';
-import {CityComponent}  from './city/city.component';
-import {SearchComponent}  from './search/search.component';
-import {MeteoComponent}  from './meteo/meteo.component';
+import {
+    MeteoComponent,
+    SearchComponent,
+    WeatherComponent,
+    CityComponent,
+    IconWeatherComponent,
+    WindComponent
+} from './meteo';
+
+// Import Directives
+import {ColorWeather} from './directives/color-weather.directive';
+import {WindWeather} from './directives/wind-weather.directive';
 
 // Import Services
 import {GoogleMapService} from './google-map/google-map.service';
-import {WeatherService} from './weather/weather.service';
+import {WeatherService} from './meteo/weather/weather.service';
 import {ZoneService} from './zone.service';
 
 // Import Pipes
@@ -41,9 +49,13 @@ import {Capitalize} from './pipes/capitalize.pipe';
         CityComponent,
         SearchComponent,
         MeteoComponent,
+        WindComponent,
+        IconWeatherComponent,
         KelvinToCelsius,
         CityWeather,
-        Capitalize
+        Capitalize,
+        ColorWeather,
+        WindWeather
     ],
     providers: [
         GoogleMapService,
