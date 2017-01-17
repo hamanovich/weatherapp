@@ -1,7 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-
 import {API_URL_ICON} from '../../../../constants';
-
 import Weather from '../../../../models/weather.interface';
 
 @Component({

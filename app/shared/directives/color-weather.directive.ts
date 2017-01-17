@@ -6,9 +6,9 @@ import {
     OnInit
 } from '@angular/core';
 
-import City from '../models/city.interface';
+import City from '../../models/city.interface';
 
-import {KelvinToCelsius} from '../pipes/celsius.pipe';
+import {Celsius} from '../pipes/celsius.pipe';
 
 @Directive({
     selector: '[colorWeather]'
@@ -22,7 +22,7 @@ export class ColorWeather implements OnInit {
     }
 
     ngOnInit() {
-        const temp: number = new KelvinToCelsius().transform(this.city.main.temp);
+        const temp: number = new Celsius().transform(this.city.main.temp);
 
         this.renderer.setElementStyle(
             this.el.nativeElement,

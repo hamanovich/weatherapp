@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 
-import {WeatherService} from './weather/weather.service';
+import {MeteoService} from './meteo.service';
 
 import CurrentPosition from '../models/position.interface';
 import City from '../models/city.interface';
@@ -14,19 +14,19 @@ export class MeteoComponent {
     @Input() position: CurrentPosition;
     @Input() updated: City[];
 
-    constructor(private weatherService: WeatherService) {
+    constructor(private meteoService: MeteoService) {
     }
 
     onAdd(value: string): void {
-        let newValue: City[] = this.weatherService.getStore().slice(0);
+        let newValue: City[] = this.meteoService.getStore().slice(0);
         let weatherStoreValue: City[];
 
-        if ((newValue.filter((city: City) => city.name === value)).length === 0) {
-            weatherStoreValue = this.weatherService.weatherStore.filter((city: City) => city.name === value);
+        if ((newValue.filter((city: City) => city.name.toLowerCase() === value.toLowerCase())).length === 0) {
+            weatherStoreValue = this.meteoService.weatherStore.filter((city: City) => city.name.toLowerCase() === value.toLowerCase());
 
             newValue.push(...weatherStoreValue);
             this.updated = newValue;
-            this.weatherService.setCities(this.updated);
+            this.meteoService.setCities(this.updated);
         }
     }
 }

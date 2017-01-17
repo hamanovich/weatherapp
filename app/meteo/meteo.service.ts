@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 
-import City from "../../models/city.interface";
+import City from "../models/city.interface";
 
 @Injectable()
-export class WeatherService {
+export class MeteoService {
     storage: City[];
     weatherStore: City[];
     weatherKey: {

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
 
-import {Capitalize} from '../../pipes/capitalize.pipe';
+import {LoggerService} from '../../core/logger.service';
 
 @Component({
     selector: 'wapi-search',
@@ -16,7 +16,8 @@ export class SearchComponent {
 
     @Output() add: EventEmitter<string> = new EventEmitter<string>();
 
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder,
+                private logger: LoggerService) {
         this.cityName = new FormControl();
         this.searchForm = fb.group({
             cityName: this.cityName
@@ -24,11 +25,13 @@ export class SearchComponent {
     }
 
     getWeather() {
-        this.weather = new Capitalize().transform(this.cityName.value);
+        this.weather = this.cityName.value;
         this.searchForm.reset();
     }
 
     onAdd() {
         this.add.emit(this.weather);
+
+        this.logger.info(this.weather);
     }
 }

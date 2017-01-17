@@ -6,7 +6,7 @@ import {
     OnInit
 } from '@angular/core';
 
-import Wind from '../models/wind.interface';
+import Wind from '../../models/wind.interface';
 
 @Directive({
     selector: '[windWeather]'

@@ -8,11 +8,12 @@ import {
 } from '@angular/core';
 import {Response} from '@angular/http';
 
-import {WeatherService} from './weather.service';
+import {MeteoService}  from '../meteo.service';
+import {LoggerService} from '../../core/logger.service';
 
 import CurrentPosition from '../../models/position.interface';
-import City from '../../models/city.interface';
-import Coords from '../../models/coords.interface';
+import City            from '../../models/city.interface';
+import Coords          from '../../models/coords.interface';
 
 import * as constants from '../../constants';
 
@@ -36,7 +37,8 @@ export class WeatherComponent implements OnInit, OnChanges {
     @Input() position: CurrentPosition;
     @Input() updated: City[];
 
-    constructor(private weatherService: WeatherService,
+    constructor(private meteoService: MeteoService,
+                private logger: LoggerService,
                 private cd: ChangeDetectorRef) {
         this.thead = [
             'ID',
@@ -61,12 +63,12 @@ export class WeatherComponent implements OnInit, OnChanges {
     }
 
     clearData(): void {
-        this.weatherService.weatherStore = [];
-        this.weatherService.weatherKey = {};
+        this.meteoService.weatherStore = [];
+        this.meteoService.weatherKey = {};
     }
 
     getData(): void {
-        this.weatherService
+        this.meteoService
             .getCities(`${constants.GEO_URL}find?lat=${this.position.coords.latitude}&lon=${this.position.coords.longitude}&cnt=${constants.NUMBER_OF_CITIES}&appid=${constants.GEO_API_KEY}`)
             .subscribe(
                 (data: {list: City[]}) => {
@@ -75,7 +77,7 @@ export class WeatherComponent implements OnInit, OnChanges {
                     this.isDone = true;
                     this.cd.markForCheck();
 
-                    this.weatherService.setCities(this.cities);
+                    this.meteoService.setCities(this.cities);
                 },
                 (error: Response) => {
                     this.errorText = error.status + ': ' + error.statusText;
@@ -101,16 +103,20 @@ export class WeatherComponent implements OnInit, OnChanges {
 
             return city;
         });
+
+        this.logger.succs(this.highlightCity.name);
     }
 
     onRemove(value: number) {
-        let valueName: string = this.weatherService.getStore()[value].name;
+        let valueName: string = this.meteoService.getStore()[value].name;
+
+        this.logger.warn(valueName);
 
         if (this.highlightCity && valueName === this.highlightCity.name) {
             this.isHighlightCity = false;
         }
 
-        this.updated = this.weatherService.getStore();
+        this.updated = this.meteoService.getStore();
         this.updated.splice(value, 1);
         this.cities = this.updated;
     }

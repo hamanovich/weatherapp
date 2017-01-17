@@ -1,4 +1,3 @@
-export const APP_BRAND: string = 'Weather APP';
 export const APP_TITLE: string = 'Weather Application';
 export const GEO_API_KEY: string = '07544e7bd3442c641181e2b651145b42';
 export const GEO_URL: string = 'http://api.openweathermap.org/data/2.5/';
