@@ -11,9 +11,18 @@ const config = {
     devtool: "inline-source-map",
 
     entry: {
-        'polyfills': path.join(__dirname, '/app/polyfills.ts'),
-        'vendor': path.join(__dirname, 'app/vendor.ts'),
-        'app': path.join(__dirname, 'app/main.ts')
+        vendor: [
+            'core-js/client/shim',
+            'zone.js/dist/zone',
+            'reflect-metadata',
+            '@angular/platform-browser',
+            '@angular/platform-browser-dynamic',
+            '@angular/core',
+            '@angular/common',
+            '@angular/http',
+            '@angular/router'
+        ],
+        app: path.join(__dirname, 'app/main.ts')
     },
 
     output: {
@@ -64,7 +73,7 @@ const config = {
 
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['vendor', 'polyfills']
+            name: 'vendor'
         }),
         HTMLWebpackPluginConfig
     ]
