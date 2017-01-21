@@ -1,0 +1,33 @@
+.table-cities {
+    position: relative;
+    min-height: 7em;
+}
+
+.table-cities:after {
+    position: absolute;
+    z-index: 111;
+    display: block;
+    width: 100%;
+    content: 'Loading… Please wait.';
+    text-align: center;
+    font-size: 2em;
+    color: #000;
+    left: 0;
+    top: 1.625em;
+}
+
+.table-cities.done {
+    min-height: 0;
+}
+
+.table-cities.done:after {
+    display: none;
+}
+
+.table-cities thead > th {
+    vertical-align: middle;
+}
+
+.table-cities .highlight {
+    background-color: lightgreen !important;
+}
