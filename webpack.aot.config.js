@@ -1,11 +1,23 @@
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
+    template: path.join(process.cwd(), 'src/index.html'),
+    filename: 'index.html',
+    inject: 'body'
+});
 
 module.exports = {
     entry: {
         main: './app/main.aot.ts',
+        vendor: [
+            '@angular/platform-browser',
+            '@angular/platform-browser-dynamic',
+            '@angular/core',
+            '@angular/common',
+            '@angular/http'
+        ],
         polyfill: [
             'core-js/client/shim',
             'zone.js/dist/zone',
@@ -17,7 +29,7 @@ module.exports = {
 
     output: {
         path: path.join(process.cwd(), 'dist'),
-        filename: '[name].bundle.js'
+        filename: '[name].js'
     },
 
     module: {
@@ -39,6 +51,7 @@ module.exports = {
     },
 
     plugins: [
+        new webpack.NoEmitOnErrorsPlugin(),
         new webpack.ProgressPlugin(),
         new webpack.ContextReplacementPlugin(
             /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
@@ -46,7 +59,14 @@ module.exports = {
         ),
         new CopyWebpackPlugin([
             {from: 'index.html'}
-        ])
+        ]),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ['polyfill', 'vendor']
+        }),
+        HTMLWebpackPluginConfig,
+        new webpack.DefinePlugin({
+            PRODUCTION: JSON.stringify(true)
+        })
     ],
 
     resolve: {

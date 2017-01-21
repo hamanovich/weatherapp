@@ -6,22 +6,22 @@ export class LoggerService {
     }
 
     log(message: string | number): void {
-        console.log(`%c${message}`, `color : black`);
+        console.log(`%c[DEV] ---> ${message}`, `color : black`);
     }
 
     succs(message: string | number): void {
-        console.log(`%c${message}`, `color : green`);
+        console.log(`%c[DEV] ---> ${message}`, `color : green`);
     }
 
     warn(message: string | number): void {
-        console.warn(`%c${message}`, `color : darkgoldenrod`);
+        console.warn(`%c[DEV] ---> ${message}`, `color : darkgoldenrod`);
     }
 
     info(message: string | number): void {
-        console.info(`%c${message}`, `color : blue`);
+        console.info(`%c[DEV] ---> ${message}`, `color : blue`);
     }
 
     error(message: string | number): void {
-        console.error(`%c${message}`, `color : red`);
+        console.error(`%c[DEV] ---> ${message}`, `color : red`);
     }
 }

@@ -3,6 +3,8 @@ build
 dist
 tmp
 .idea
+npm-debug.log*
+src/**/*.js
 *.ngfactory.ts
 *.ngstyle.ts
 *.shim.ts

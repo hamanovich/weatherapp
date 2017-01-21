@@ -1,7 +1,14 @@
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
+    template: path.join(process.cwd(), 'src/index.html'),
+    filename: 'index.html',
+    inject: 'body'
+});
+
+const appEnvironment = process.env.APP_ENVIRONMENT || 'development';
 
 module.exports = {
     entry: {
@@ -17,7 +24,7 @@ module.exports = {
 
     output: {
         path: path.join(process.cwd(), 'dist'),
-        filename: '[name].bundle.js'
+        filename: '[name].js'
     },
 
     module: {
@@ -46,7 +53,14 @@ module.exports = {
         ),
         new CopyWebpackPlugin([
             {from: 'index.html'}
-        ])
+        ]),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'polyfill'
+        }),
+        HTMLWebpackPluginConfig,
+        new webpack.DefinePlugin({
+            PRODUCTION: JSON.stringify(false)
+        })
     ],
 
     resolve: {
