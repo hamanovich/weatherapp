@@ -1,0 +1,11 @@
+h4{
+  margin-top: 0;
+}
+
+.form-inline{
+  margin-bottom: 1em;
+}
+
+.form-control{
+  text-transform: capitalize;
+}
