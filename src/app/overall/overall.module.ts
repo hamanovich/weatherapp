@@ -1,6 +1,5 @@
 import {NgModule}      from '@angular/core';
 import {CommonModule} from "@angular/common";
-import {MeteoModule} from '../meteo/meteo.module';
 import {
     NavbarComponent,
     JumbotronComponent,
@@ -9,8 +8,7 @@ import {
 
 @NgModule({
     imports: [
-        CommonModule,
-        MeteoModule
+        CommonModule
     ],
     declarations: [
         NavbarComponent,

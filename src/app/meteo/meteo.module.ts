@@ -1,5 +1,4 @@
 import {NgModule}     from '@angular/core';
-import {CommonModule} from "@angular/common";
 import {SharedModule} from "../shared/shared.module";
 
 import {
@@ -15,7 +14,6 @@ import {MeteoService} from './meteo.service';
 
 @NgModule({
     imports: [
-        CommonModule,
         SharedModule
     ],
     declarations: [

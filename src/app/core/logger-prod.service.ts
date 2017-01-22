@@ -1,10 +1,8 @@
 import {Injectable} from "@angular/core";
+import {Logger} from './logger';
 
 @Injectable()
-export class LoggerProdService {
-    constructor() {
-    }
-
+export class LoggerProdService extends Logger{
     log(message: string | number): void {
         console.log(`%c[PROD] ---> ${message}`, `color : black`);
     }
