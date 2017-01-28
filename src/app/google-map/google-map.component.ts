@@ -9,7 +9,7 @@ import {
 
 import {GoogleMapService} from './google-map.service';
 
-import CurrentPosition from '../models/position.interface';
+import CurrentPosition from '../models/position';
 
 @Component({
     selector: 'wapi-google-map',

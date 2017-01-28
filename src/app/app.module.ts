@@ -8,14 +8,25 @@ import {MeteoModule}     from './meteo/meteo.module';
 
 import {AppComponent} from './app.component';
 
+import {StoreModule} from '@ngrx/store';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {EffectsModule} from '@ngrx/effects';
+import {MeteoEffects} from './effects';
+import {MeteoActions} from './actions';
+import {reducer} from './reducers';
+
 @NgModule({
     imports: [
         BrowserModule,
         CoreModule,
         OverallModule,
         MeteoModule,
-        GoogleMapModule
+        GoogleMapModule,
+        StoreModule.provideStore(reducer),
+        EffectsModule.run(MeteoEffects),
+        StoreDevtoolsModule.instrumentOnlyWithExtension()
     ],
+    providers: [MeteoActions],
     declarations: [AppComponent],
     bootstrap: [AppComponent]
 })

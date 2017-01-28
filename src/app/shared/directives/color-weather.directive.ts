@@ -6,7 +6,7 @@ import {
     OnInit
 } from '@angular/core';
 
-import City from '../../models/city.interface';
+import City from '../../models/city';
 
 import {Celsius} from '../pipes/celsius.pipe';
 

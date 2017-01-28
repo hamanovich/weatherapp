@@ -3,19 +3,15 @@
         <h2>Cities table
             <small>Weather stats</small>
         </h2>
-        <p *ngIf="isDone">
+        <p *ngIf="isLoaded">
             Your position is
             <span class="text-success">
-                {{coords.latitude | number: '1.2-2'}},
-                {{coords.longitude | number: '1.2-2'}}
+                {{position.coords.latitude | number: '1.2-2'}},
+                {{position.coords.longitude | number: '1.2-2'}}
             </span>
         </p>
-        <p *ngIf="isHighlightCity">
-            You've just highlighted
-            <strong class="text-warning">{{highlightCity.name}}</strong>
-        </p>
     </header>
-    <div class="table-responsive table-cities" [ngClass]="{'done': isDone}" *ngIf="!errorText">
+    <div class="table-responsive table-cities" [ngClass]="{'done': isLoaded}" *ngIf="!errorText">
         <table class="table table-bordered">
             <thead>
             <tr>

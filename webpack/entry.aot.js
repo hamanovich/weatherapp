@@ -5,7 +5,8 @@ module.exports = {
         '@angular/platform-browser-dynamic',
         '@angular/core',
         '@angular/common',
-        '@angular/http'
+        '@angular/http',
+        'rxjs'
     ],
         polyfill: [
         'core-js/client/shim',

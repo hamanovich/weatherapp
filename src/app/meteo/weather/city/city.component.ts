@@ -5,7 +5,7 @@ import {
     Output
 } from '@angular/core';
 
-import City from '../../../models/city.interface';
+import City from '../../../models/city';
 
 @Component({
     selector: '[wapi-city]',

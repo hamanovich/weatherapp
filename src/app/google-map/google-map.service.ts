@@ -2,7 +2,7 @@
 
 import {Injectable} from '@angular/core';
 
-import MapOptions from '../models/map.options.interface';
+import MapOptions from '../models/map.options';
 
 @Injectable()
 export class GoogleMapService {

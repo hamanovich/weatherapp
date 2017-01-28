@@ -2,37 +2,45 @@ import {
     Component,
     Input,
     OnInit,
-    ChangeDetectionStrategy
+    OnDestroy
 } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Subscription} from "rxjs/Subscription";
 
-import {MeteoService} from '../../meteo/meteo.service';
+import {Store} from '@ngrx/store';
+import {MeteoState} from '../../reducers';
 
-import CurrentPosition from '../../models/position.interface';
-import City            from '../../models/city.interface';
+import Meteo from '../../models/meteo';
+import CurrentPosition from '../../models/position';
 
 import * as constants from '../../constants';
 
 @Component({
     selector: 'wapi-jumbotron',
     templateUrl: 'jumbotron.component.html',
-    styleUrls: ['jumbotron.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['jumbotron.component.css']
 })
 
-export class JumbotronComponent implements OnInit {
+export class JumbotronComponent implements OnInit, OnDestroy {
     APP_TITLE: string;
-    yourWeather: Observable<City>;
+    weather: string;
+    url: string;
+    subscription: Subscription;
 
     @Input() position: CurrentPosition;
 
-    constructor(private meteoService: MeteoService) {
+    constructor(private store: Store<MeteoState>) {
         this.APP_TITLE = constants.APP_TITLE;
     }
 
     ngOnInit() {
-        this.yourWeather = this.meteoService
-            .getCities(`${constants.GEO_URL}weather?lat=${this.position.coords.latitude}&lon=${this.position.coords.longitude}&appid=${constants.GEO_API_KEY}`)
-            .map((n: {weather: [{description: string}]}) => n.weather[0].description);
+        this.subscription = this.store
+            .select((s: MeteoState) => s.meteo)
+            .subscribe((data: Meteo): void => {
+                this.weather = data.weather
+            });
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

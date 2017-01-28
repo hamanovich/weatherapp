@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 
-import Wind from '../../../../models/wind.interface';
+import Wind from '../../../../models/wind';
 
 @Component({
     selector: 'wapi-wind',

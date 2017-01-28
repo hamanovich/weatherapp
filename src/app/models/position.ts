@@ -1,4 +1,4 @@
-import Coords from './coords.interface';
+import Coords from './coords';
 
 interface CurrentPosition {
     coords: Coords;
