@@ -1,33 +1,47 @@
 import {Action} from '@ngrx/store';
-import {MeteoActions} from '../actions';
+import {Response} from "@angular/http";
 
-import City from '../models/city';
-import Meteo from '../models/meteo';
+import * as meteo from '../actions/meteo.actions';
 
-export const initialMeteoState: Meteo = {
+import City from '../../models/city';
+
+export interface State {
+    cities?: City[];
+    citiesCache?: City[];
+    weather?: string;
+    error?: Response;
+}
+
+const initialState: State = {
     cities: [],
-    citiesCache: []
+    citiesCache: [],
+    weather: '',
+    error: null
 };
 
-export function meteoReducer(state: Meteo = initialMeteoState,
-                             action: Action): Meteo {
+export function reducer(state = initialState, action: Action): State {
     switch (action.type) {
-        case MeteoActions.METEO_LOAD_SUCCESS: {
+        case meteo.ActionTypes.LOAD_SUCCESS: {
             return Object.assign({}, state, {cities: action.payload});
         }
-        case MeteoActions.METEO_LOAD_FAILED: {
+
+        case meteo.ActionTypes.LOAD_FAIL: {
             return Object.assign({}, state, {error: action.payload});
         }
-        case MeteoActions.METEO_WEATHER_SUCCESS: {
+
+        case meteo.ActionTypes.WEATHER_SUCCESS: {
+            console.log('success weather')
             return Object.assign({}, state, {weather: action.payload});
         }
-        case MeteoActions.METEO_ADD_CACHE: {
+
+        case meteo.ActionTypes.ADD_CACHE: {
             const citiesCache: City[] = state.citiesCache;
             citiesCache.push(action.payload);
 
             return Object.assign({}, state, {citiesCache});
         }
-        case MeteoActions.METEO_ADD: {
+
+        case meteo.ActionTypes.ADD: {
             const cities: City[] = state.cities;
             const citiesCache: City[] = state.citiesCache;
             let weatherStoreValue: City[];
@@ -42,10 +56,12 @@ export function meteoReducer(state: Meteo = initialMeteoState,
 
             return Object.assign({}, state, {cities});
         }
-        case MeteoActions.METEO_REMOVE: {
+
+        case meteo.ActionTypes.REMOVE: {
             return Object.assign({}, state, state.cities.splice(action.payload, 1));
         }
-        case MeteoActions.METEO_HIGHLIGHT: {
+
+        case meteo.ActionTypes.HIGHLIGHT: {
             const cities: City[] = state.cities;
             const highlight: City[] = cities.map((city: City, index: number) => {
                 city.isHighlight = index === action.payload ? !city.isHighlight : false;
@@ -55,7 +71,11 @@ export function meteoReducer(state: Meteo = initialMeteoState,
 
             return Object.assign({}, state, {cities: highlight});
         }
-        default:
+
+        default: {
             return state;
+        }
     }
 }
+
+export const getCities = (state: State) => state.cities;

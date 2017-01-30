@@ -4,15 +4,15 @@ import {
     OnInit,
     OnDestroy
 } from '@angular/core';
-import {Response} from '@angular/http';
+
 import {Subscription} from "rxjs/Subscription";
 import {Store}        from '@ngrx/store';
-import {MeteoActions} from '../../actions/meteo.actions';
-import {MeteoState} from '../../reducers';
+import * as meteo from '../../dataflow/actions/meteo.actions';
+import * as fromRoot from '../../dataflow/reducers';
 
+import City            from '../../models/city';
 import Meteo           from '../../models/meteo';
 import CurrentPosition from '../../models/position';
-import City            from '../../models/city';
 
 import * as constants from '../../constants';
 
@@ -31,8 +31,7 @@ export class WeatherComponent implements OnInit, OnDestroy {
 
     @Input() position: CurrentPosition;
 
-    constructor(private store: Store<MeteoState>,
-                private meteoActions: MeteoActions) {
+    constructor(private store: Store<fromRoot.State>) {
         this.thead    = ['ID', 'Name', 'Coords; lat,lng',
             'Temp; C', 'Wind', 'Overall', ''];
         this.isLoaded = false;
@@ -42,11 +41,11 @@ export class WeatherComponent implements OnInit, OnDestroy {
         const urlCities: string = `${constants.GEO_URL}find?lat=${this.position.coords.latitude}&lon=${this.position.coords.longitude}&cnt=${constants.NUMBER_OF_CITIES}&appid=${constants.GEO_API_KEY}`;
         const urlCity: string = `${constants.GEO_URL}weather?lat=${this.position.coords.latitude}&lon=${this.position.coords.longitude}&appid=${constants.GEO_API_KEY}`;
 
-        this.store.dispatch(this.meteoActions.Weather(urlCity));
-        this.store.dispatch(this.meteoActions.Load(urlCities));
+        this.store.dispatch(new meteo.WeatherAction(urlCity));
+        this.store.dispatch(new meteo.LoadAction(urlCities));
 
         this.subscription = this.store
-            .select((s: MeteoState) => s.meteo)
+            .select(fromRoot.getMeteoState)
             .subscribe(
                 (data: Meteo): void => {
                     if (data.cities.length) {
@@ -61,11 +60,11 @@ export class WeatherComponent implements OnInit, OnDestroy {
     }
 
     onHighlight(i: number): void {
-        this.store.dispatch(this.meteoActions.Highlight(i));
+        this.store.dispatch(new meteo.HightlightAction(i));
     }
 
     onRemove(index: number) {
-        this.store.dispatch(this.meteoActions.Remove(index));
+        this.store.dispatch(new meteo.RemoveAction(index));
     }
 
     ngOnDestroy(): void {

@@ -11,9 +11,8 @@ import {AppComponent} from './app.component';
 import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
-import {MeteoEffects} from './effects';
-import {MeteoActions} from './actions';
-import {reducer} from './reducers';
+import {MeteoEffects} from './dataflow/effects';
+import {reducer} from './dataflow/reducers';
 
 @NgModule({
     imports: [
@@ -26,7 +25,6 @@ import {reducer} from './reducers';
         EffectsModule.run(MeteoEffects),
         StoreDevtoolsModule.instrumentOnlyWithExtension()
     ],
-    providers: [MeteoActions],
     declarations: [AppComponent],
     bootstrap: [AppComponent]
 })

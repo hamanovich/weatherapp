@@ -2,8 +2,8 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {Response} from '@angular/http';
 
 import {Store}      from '@ngrx/store';
-import {MeteoActions} from '../../actions/meteo.actions';
-import {MeteoState} from '../../reducers';
+import * as meteo from '../../dataflow/actions/meteo.actions';
+import * as fromRoot from '../../dataflow/reducers';
 
 import {MeteoService} from '../../meteo/meteo.service';
 import {Celsius}      from './celsius.pipe';
@@ -19,8 +19,7 @@ import * as constants from '../../constants';
 
 export class CityWeather implements PipeTransform {
     constructor(private meteoService: MeteoService,
-                private meteoActions: MeteoActions,
-                private store: Store<MeteoState>) {
+                private store: Store<fromRoot.State>) {
     }
 
     transform(value: string): string {
@@ -30,7 +29,7 @@ export class CityWeather implements PipeTransform {
                 .getCities(`${constants.GEO_URL}weather?q=${value}&appid=${constants.GEO_API_KEY}`)
                 .subscribe(
                     (city: City) => {
-                        this.store.dispatch(this.meteoActions.AddCache(city));
+                        this.store.dispatch(new meteo.AddCacheAction(city));
                         this.meteoService.weatherKey[value] = `${city.name}: ${new Celsius().transform(city.main.temp)}°C`;
                     },
                     (error: Response) => {
