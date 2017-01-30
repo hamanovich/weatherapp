@@ -27,6 +27,7 @@ export class WeatherComponent implements OnInit, OnDestroy {
     thead: string[];
     isLoaded: boolean;
     errorText: string;
+    highlighted: number;
     subscription: Subscription;
 
     @Input() position: CurrentPosition;
@@ -51,6 +52,8 @@ export class WeatherComponent implements OnInit, OnDestroy {
                     if (data.cities.length) {
                         this.cities   = data.cities;
                         this.isLoaded = true;
+                        this.highlighted = (this.highlighted === data.selectedIndex)
+                            ? null : data.selectedIndex;
                     }
 
                     if (data.error) {

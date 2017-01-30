@@ -6,6 +6,7 @@ interface Meteo {
     citiesCache?: City[];
     weather?: string;
     error?: Response;
+    selectedIndex?: number;
 }
 
 export default Meteo;

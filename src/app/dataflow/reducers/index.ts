@@ -15,7 +15,7 @@ const reducers = {
     meteo: fromMeteo.reducer
 };
 
-const devReducer: ActionReducer<State> = compose(combineReducers)(reducers);
+const devReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
 
 export function reducer(state: any, action: any) {
     return devReducer(state, action);

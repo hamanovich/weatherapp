@@ -10,13 +10,15 @@ export interface State {
     citiesCache?: City[];
     weather?: string;
     error?: Response;
+    selectedIndex?: number;
 }
 
 const initialState: State = {
     cities: [],
     citiesCache: [],
     weather: '',
-    error: null
+    error: null,
+    selectedIndex: null
 };
 
 export function reducer(state = initialState, action: Action): State {
@@ -30,46 +32,37 @@ export function reducer(state = initialState, action: Action): State {
         }
 
         case meteo.ActionTypes.WEATHER_SUCCESS: {
-            console.log('success weather')
             return Object.assign({}, state, {weather: action.payload});
         }
 
         case meteo.ActionTypes.ADD_CACHE: {
-            const citiesCache: City[] = state.citiesCache;
-            citiesCache.push(action.payload);
-
-            return Object.assign({}, state, {citiesCache});
+            return Object.assign({}, state, {
+                citiesCache: state.citiesCache.concat([action.payload])
+            });
         }
 
         case meteo.ActionTypes.ADD: {
-            const cities: City[] = state.cities;
-            const citiesCache: City[] = state.citiesCache;
-            let weatherStoreValue: City[];
+            let fromCache: City[] = state.citiesCache
+                .filter((city: City) => city.name.toLowerCase() === action.payload.toLowerCase());
 
-            if ((cities.filter((city: City) => city.name.toLowerCase() === action.payload.toLowerCase())).length === 0) {
-                weatherStoreValue = citiesCache.filter((city: City) => {
-                    return city.name.toLowerCase() === action.payload.toLowerCase();
-                });
-
-                cities.push(...weatherStoreValue);
-            }
-
-            return Object.assign({}, state, {cities});
+            return Object.assign({}, state, {
+                cities: state.cities.concat(fromCache)
+            });
         }
 
         case meteo.ActionTypes.REMOVE: {
-            return Object.assign({}, state, state.cities.splice(action.payload, 1));
+            return Object.assign({}, state, {
+                cities: [
+                    ...state.cities.slice(0, action.payload),
+                    ...state.cities.slice(action.payload + 1)
+                ]
+            });
         }
 
         case meteo.ActionTypes.HIGHLIGHT: {
-            const cities: City[] = state.cities;
-            const highlight: City[] = cities.map((city: City, index: number) => {
-                city.isHighlight = index === action.payload ? !city.isHighlight : false;
-
-                return city;
+            return Object.assign({}, state, {
+                selectedIndex: action.payload
             });
-
-            return Object.assign({}, state, {cities: highlight});
         }
 
         default: {

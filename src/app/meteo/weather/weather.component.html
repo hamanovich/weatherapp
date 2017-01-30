@@ -25,7 +25,7 @@
                 (click)="onHighlight(i)"
                 [colorWeather]="city"
                 [city]="city"
-                [ngClass]="{highlight: city.isHighlight}"></tr>
+                [ngClass]="{highlight: (i === highlighted)}"></tr>
             </tbody>
         </table>
     </div>

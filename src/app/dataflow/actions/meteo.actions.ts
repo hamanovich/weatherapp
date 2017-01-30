@@ -47,7 +47,6 @@ export class WeatherSuccessAction implements Action {
     type: string = ActionTypes.WEATHER_SUCCESS;
 
     constructor(public payload: string) {
-        console.log(this.type, payload);
     }
 }
 

@@ -17,7 +17,7 @@
     <div *ngIf="!serverError">
         <div class="well" *ngIf="weather">
             <h4>{{weather | CityWeather}}</h4>
-            <button class="btn btn-sm btn-default" (click)="onAdd()">
+            <button class="btn btn-sm btn-default" (click)="onAdd()" [disabled]="isAdded">
                 Add to table
             </button>
         </div>

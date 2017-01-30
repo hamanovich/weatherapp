@@ -16,6 +16,7 @@ export class SearchComponent {
     searchForm: FormGroup;
     weather: string;
     serverError: string;
+    isAdded: boolean;
 
     @Output() add: EventEmitter<string> = new EventEmitter<string>();
 
@@ -32,9 +33,11 @@ export class SearchComponent {
     getWeather() {
         this.weather = this.cityName.value;
         this.searchForm.reset();
+        this.isAdded = false;
     }
 
     onAdd() {
         this.store.dispatch(new meteo.AddAction(this.weather));
+        this.isAdded = true;
     }
 }
