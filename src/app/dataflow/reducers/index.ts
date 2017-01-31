@@ -24,3 +24,4 @@ export function reducer(state: any, action: any) {
 export const getMeteoState = (state: State) => state.meteo;
 
 export const getWeatherCities = createSelector(getMeteoState, fromMeteo.getCities);
+export const getWeatherDescription = createSelector(getMeteoState, fromMeteo.getWeather);

@@ -9,6 +9,7 @@ export const ActionTypes = {
     LOAD_FAIL: '[METEO] LOAD FAIL',
     WEATHER: '[METEO] WEATHER',
     WEATHER_SUCCESS: '[METEO] WEATHER SUCCESS',
+    WEATHER_FAIL: '[METEO] WEATHER FAIL',
     ADD: '[METEO] ADD',
     ADD_CACHE: '[METEO] ADD CACHE',
     REMOVE: '[METEO] REMOVE',
@@ -45,6 +46,13 @@ export class WeatherAction implements Action {
 
 export class WeatherSuccessAction implements Action {
     type: string = ActionTypes.WEATHER_SUCCESS;
+
+    constructor(public payload: string) {
+    }
+}
+
+export class WeatherFailAction implements Action {
+    type: string = ActionTypes.WEATHER_FAIL;
 
     constructor(public payload: string) {
     }

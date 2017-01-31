@@ -39,7 +39,7 @@ export class MeteoEffects {
         .switchMap((url: string) => this.meteoService.getCities(url)
             .map((weather: {weather: [{description: string}]}) => new meteo.WeatherSuccessAction(weather.weather[0].description))
             .catch((error: Response) => Observable.of({
-                type: meteo.ActionTypes.LOAD_FAIL,
+                type: meteo.ActionTypes.WEATHER_FAIL,
                 payload: {
                     status: error.status,
                     statusText: error.statusText

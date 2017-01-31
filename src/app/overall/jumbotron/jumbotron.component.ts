@@ -1,45 +1,32 @@
 import {
     Component,
     Input,
-    OnInit,
-    OnDestroy
+    ChangeDetectionStrategy
 } from '@angular/core';
-import {Subscription} from "rxjs/Subscription";
 
-import {Store} from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as fromRoot from '../../dataflow/reducers';
 
-import Meteo from '../../models/meteo';
 import CurrentPosition from '../../models/position';
 
 import * as constants from '../../constants';
+import { Observable } from "rxjs/Observable";
 
 @Component({
     selector: 'wapi-jumbotron',
     templateUrl: 'jumbotron.component.html',
-    styleUrls: ['jumbotron.component.css']
+    styleUrls: ['jumbotron.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class JumbotronComponent implements OnInit, OnDestroy {
+export class JumbotronComponent {
     APP_TITLE: string;
-    weather: string;
-    subscription: Subscription;
+    weather: Observable<string>;
 
     @Input() position: CurrentPosition;
 
     constructor(private store: Store<fromRoot.State>) {
         this.APP_TITLE = constants.APP_TITLE;
-    }
-
-    ngOnInit() {
-        this.subscription = this.store
-            .select(fromRoot.getMeteoState)
-            .subscribe((data: Meteo): void => {
-                this.weather = data.weather
-            });
-    }
-
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
+        this.weather = this.store.select(fromRoot.getWeatherDescription);
     }
 }

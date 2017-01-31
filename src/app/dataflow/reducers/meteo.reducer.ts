@@ -35,6 +35,10 @@ export function reducer(state = initialState, action: Action): State {
             return Object.assign({}, state, {weather: action.payload});
         }
 
+        case meteo.ActionTypes.WEATHER_FAIL: {
+            return Object.assign({}, state, {weather: action.payload});
+        }
+
         case meteo.ActionTypes.ADD_CACHE: {
             return Object.assign({}, state, {
                 citiesCache: state.citiesCache.concat([action.payload])
@@ -72,3 +76,4 @@ export function reducer(state = initialState, action: Action): State {
 }
 
 export const getCities = (state: State) => state.cities;
+export const getWeather = (state: State) => state.weather;
