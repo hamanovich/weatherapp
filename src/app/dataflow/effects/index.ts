@@ -1,1 +1,1 @@
-export {MeteoEffects} from './meteo.effects';
+export { MeteoEffects } from './meteo.effects';

@@ -1,10 +1,10 @@
 <wapi-navbar></wapi-navbar>
 
-<wapi-jumbotron *ngIf="position" [position]="position"></wapi-jumbotron>
+<wapi-jumbotron *ngIf="position | async"></wapi-jumbotron>
 
-<main class="main" *ngIf="position">
-    <wapi-meteo [position]="position"></wapi-meteo>
-    <wapi-google-map [position]="position"></wapi-google-map>
+<main class="main" *ngIf="position | async">
+    <wapi-meteo [position]="position | async"></wapi-meteo>
+    <wapi-google-map [position]="position | async"></wapi-google-map>
 </main>
 
 <wapi-footer></wapi-footer>

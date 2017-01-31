@@ -1,5 +1,5 @@
-import {Action} from '@ngrx/store';
-import {Response} from "@angular/http";
+import { Action } from '@ngrx/store';
+import { Response } from "@angular/http";
 
 import City from '../../models/city';
 
@@ -30,7 +30,7 @@ export class LoadSuccessAction implements Action {
     }
 }
 
-export class LoadFailedAction implements Action {
+export class LoadFailAction implements Action {
     type: string = ActionTypes.LOAD_FAIL;
 
     constructor(public payload: Response) {
@@ -89,7 +89,7 @@ export class HightlightAction implements Action {
 export type Actions
     = LoadAction
     | LoadSuccessAction
-    | LoadFailedAction
+    | LoadFailAction
     | WeatherAction
     | WeatherSuccessAction
     | AddAction

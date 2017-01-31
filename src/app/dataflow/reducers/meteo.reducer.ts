@@ -46,9 +46,9 @@ export function reducer(state: State = initialState, action: Action): State {
         case meteo.ActionTypes.ADD: {
             let fromCache: City[] = state.citiesCache
                 .filter((city: City) => city.name.toLowerCase() === action.payload.toLowerCase());
-
+            
             return Object.assign({}, state, {
-                cities: state.cities.concat(fromCache)
+                cities: (state.cities) ? state.cities.concat(fromCache) : fromCache
             });
         }
 
@@ -62,8 +62,6 @@ export function reducer(state: State = initialState, action: Action): State {
         }
 
         case meteo.ActionTypes.HIGHLIGHT: {
-
-
             const cities: City[] = state.cities;
             const highlight: City[] = cities.map((city: City, index: number) => {
                 return Object.assign({}, city, {

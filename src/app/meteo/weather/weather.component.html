@@ -6,8 +6,8 @@
         <p *ngIf="cities | async">
             Your position is
             <span class="text-success">
-                {{position.coords.latitude | number: '1.2-2'}},
-                {{position.coords.longitude | number: '1.2-2'}}
+                {{position.latitude | number: '1.2-2'}},
+                {{position.longitude | number: '1.2-2'}}
             </span>
         </p>
     </header>
@@ -31,10 +31,10 @@
             </tbody>
         </table>
     </div>
-
+    
     <div class="alert alert-danger" *ngIf="errorText | async">
         {{(errorText | async)?.status}} : {{(errorText | async)?.statusText}}
     </div>
-
+    
     <hr/>
 </div>

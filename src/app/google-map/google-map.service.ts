@@ -3,6 +3,7 @@
 import {Injectable} from '@angular/core';
 
 import MapOptions from '../models/map.options';
+import Coords from "../models/coords";
 
 @Injectable()
 export class GoogleMapService {
@@ -10,10 +11,10 @@ export class GoogleMapService {
     private marker: google.maps.Marker;
     private options: MapOptions;
 
-    init(position: Position, el: Element, options?: MapOptions) {
+    init(position: Coords, el: Element, options?: MapOptions) {
         const pos: {lat: number, lng: number} = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
+            lat: position.latitude,
+            lng: position.longitude
         };
 
         this.options = {

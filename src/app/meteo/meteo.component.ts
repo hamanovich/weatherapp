@@ -1,6 +1,6 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import CurrentPosition from '../models/position';
+import Coords from '../models/coords';
 
 @Component({
     selector: 'wapi-meteo',
@@ -8,8 +8,8 @@ import CurrentPosition from '../models/position';
 })
 
 export class MeteoComponent {
-    @Input() position: CurrentPosition;
-
+    @Input() position: Coords;
+    
     constructor() {
     }
 }

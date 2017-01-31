@@ -1,18 +1,18 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule}      from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule }      from '@angular/core';
 
-import {CoreModule}      from './core/core.module';
-import {OverallModule}   from './overall/overall.module';
-import {GoogleMapModule} from './google-map/google-map.module';
-import {MeteoModule}     from './meteo/meteo.module';
+import { CoreModule }      from './core/core.module';
+import { OverallModule }   from './overall/overall.module';
+import { GoogleMapModule } from './google-map/google-map.module';
+import { MeteoModule }     from './meteo/meteo.module';
 
-import {AppComponent} from './app.component';
+import { AppComponent } from './app.component';
 
-import {StoreModule} from '@ngrx/store';
-import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {EffectsModule} from '@ngrx/effects';
-import {MeteoEffects} from './dataflow/effects';
-import {reducer} from './dataflow/reducers';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { MeteoEffects } from './dataflow/effects';
+import { reducer } from './dataflow/reducers';
 
 @NgModule({
     imports: [
@@ -25,8 +25,8 @@ import {reducer} from './dataflow/reducers';
         EffectsModule.run(MeteoEffects),
         StoreDevtoolsModule.instrumentOnlyWithExtension()
     ],
-    declarations: [AppComponent],
-    bootstrap: [AppComponent]
+    declarations: [ AppComponent ],
+    bootstrap: [ AppComponent ]
 })
 
 export class AppModule {

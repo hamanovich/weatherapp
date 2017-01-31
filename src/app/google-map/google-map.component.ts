@@ -7,9 +7,9 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 
-import {GoogleMapService} from './google-map.service';
+import { GoogleMapService } from './google-map.service';
 
-import CurrentPosition from '../models/position';
+import Coords from "../models/coords";
 
 @Component({
     selector: 'wapi-google-map',
@@ -22,7 +22,7 @@ export class GoogleMapComponent implements OnInit {
     GOOGLE_MAP_TITLE: string;
     GOOGLE_MAP_TITLE_SUB: string;
 
-    @Input() position: CurrentPosition;
+    @Input() position: Coords;
     @ViewChild('googleMapElement') googleMapElememt: ElementRef;
 
     constructor(private gMapService: GoogleMapService) {

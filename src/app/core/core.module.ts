@@ -1,7 +1,7 @@
-import {NgModule}      from '@angular/core';
-import {CommonModule}  from '@angular/common';
-import {LoggerService} from './logger.service';
-import {LoggerProdService} from './logger-prod.service';
+import { NgModule }      from '@angular/core';
+import { CommonModule }  from '@angular/common';
+import { LoggerService } from './logger.service';
+import { LoggerProdService } from './logger-prod.service';
 
 @NgModule({
     imports: [CommonModule],
@@ -11,11 +11,11 @@ import {LoggerProdService} from './logger-prod.service';
             provide: LoggerService,
             useClass: (
                 PRODUCTION ?
-                LoggerProdService :
-                LoggerService
+                    LoggerProdService :
+                    LoggerService
             )
         }
-
+    
     ]
 })
 
