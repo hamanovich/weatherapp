@@ -2,40 +2,41 @@ import {
     Component,
     Input,
     OnInit,
-    OnDestroy
+    ChangeDetectionStrategy
 } from '@angular/core';
+import { Response } from "@angular/http";
 
-import {Subscription} from "rxjs/Subscription";
-import {Store}        from '@ngrx/store';
+import { Subscription } from "rxjs/Subscription";
+import { Store }        from '@ngrx/store';
 import * as meteo from '../../dataflow/actions/meteo.actions';
 import * as fromRoot from '../../dataflow/reducers';
 
 import City            from '../../models/city';
-import Meteo           from '../../models/meteo';
 import CurrentPosition from '../../models/position';
 
 import * as constants from '../../constants';
+import { Observable } from "rxjs";
 
 @Component({
     selector: 'wapi-weather',
     templateUrl: 'weather.component.html',
-    styleUrls: ['weather.component.css']
+    styleUrls: ['weather.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class WeatherComponent implements OnInit, OnDestroy {
-    cities: City[];
+export class WeatherComponent implements OnInit {
+    cities: Observable<City[]>;
     thead: string[];
-    isLoaded: boolean;
-    errorText: string;
-    highlighted: number;
-    subscription: Subscription;
+    errorText: Observable<Response>;
 
     @Input() position: CurrentPosition;
 
     constructor(private store: Store<fromRoot.State>) {
-        this.thead    = ['ID', 'Name', 'Coords; lat,lng',
+        this.thead = ['ID', 'Name', 'Coords; lat,lng',
             'Temp; C', 'Wind', 'Overall', ''];
-        this.isLoaded = false;
+
+        this.errorText = this.store.select(fromRoot.getWeatherErrors);
+        this.cities = this.store.select(fromRoot.getWeatherCities);
     }
 
     ngOnInit() {
@@ -44,22 +45,6 @@ export class WeatherComponent implements OnInit, OnDestroy {
 
         this.store.dispatch(new meteo.WeatherAction(urlCity));
         this.store.dispatch(new meteo.LoadAction(urlCities));
-
-        this.subscription = this.store
-            .select(fromRoot.getMeteoState)
-            .subscribe(
-                (data: Meteo): void => {
-                    if (data.cities.length) {
-                        this.cities   = data.cities;
-                        this.isLoaded = true;
-                        this.highlighted = (this.highlighted === data.selectedIndex)
-                            ? null : data.selectedIndex;
-                    }
-
-                    if (data.error) {
-                        this.errorText = data.error.status + ': ' + data.error.statusText;
-                    }
-                });
     }
 
     onHighlight(i: number): void {
@@ -68,9 +53,5 @@ export class WeatherComponent implements OnInit, OnDestroy {
 
     onRemove(index: number) {
         this.store.dispatch(new meteo.RemoveAction(index));
-    }
-
-    ngOnDestroy(): void {
-        this.subscription.unsubscribe();
     }
 }

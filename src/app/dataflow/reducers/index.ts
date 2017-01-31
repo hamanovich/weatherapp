@@ -1,9 +1,7 @@
-import {createSelector} from 'reselect';
-import {ActionReducer, combineReducers} from '@ngrx/store';
-import {compose} from '@ngrx/core/compose';
-import {storeFreeze} from 'ngrx-store-freeze';
-
-import City from '../../models/city';
+import { createSelector } from 'reselect';
+import { ActionReducer, combineReducers } from '@ngrx/store';
+import { compose } from '@ngrx/core/compose';
+import { storeFreeze } from 'ngrx-store-freeze';
 
 import * as fromMeteo from './meteo.reducer';
 
@@ -25,3 +23,4 @@ export const getMeteoState = (state: State) => state.meteo;
 
 export const getWeatherCities = createSelector(getMeteoState, fromMeteo.getCities);
 export const getWeatherDescription = createSelector(getMeteoState, fromMeteo.getWeather);
+export const getWeatherErrors = createSelector(getMeteoState, fromMeteo.getErrors);

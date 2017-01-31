@@ -1,5 +1,5 @@
-import {Action} from '@ngrx/store';
-import {Response} from "@angular/http";
+import { Action } from '@ngrx/store';
+import { Response } from "@angular/http";
 
 import * as meteo from '../actions/meteo.actions';
 
@@ -10,18 +10,16 @@ export interface State {
     citiesCache?: City[];
     weather?: string;
     error?: Response;
-    selectedIndex?: number;
 }
 
 const initialState: State = {
-    cities: [],
+    cities: null,
     citiesCache: [],
     weather: '',
-    error: null,
-    selectedIndex: null
+    error: null
 };
 
-export function reducer(state = initialState, action: Action): State {
+export function reducer(state: State = initialState, action: Action): State {
     switch (action.type) {
         case meteo.ActionTypes.LOAD_SUCCESS: {
             return Object.assign({}, state, {cities: action.payload});
@@ -64,9 +62,16 @@ export function reducer(state = initialState, action: Action): State {
         }
 
         case meteo.ActionTypes.HIGHLIGHT: {
-            return Object.assign({}, state, {
-                selectedIndex: action.payload
+
+
+            const cities: City[] = state.cities;
+            const highlight: City[] = cities.map((city: City, index: number) => {
+                return Object.assign({}, city, {
+                   isHighlight: index === action.payload ? !city.isHighlight : false
+                });
             });
+
+            return Object.assign({}, state, {cities: highlight})
         }
 
         default: {
@@ -77,3 +82,4 @@ export function reducer(state = initialState, action: Action): State {
 
 export const getCities = (state: State) => state.cities;
 export const getWeather = (state: State) => state.weather;
+export const getErrors = (state: State) => state.error;

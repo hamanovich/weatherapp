@@ -1,15 +1,15 @@
-import {Injectable} from '@angular/core';
-import {Response} from "@angular/http";
-import {Actions, Effect} from '@ngrx/effects';
-import {Action} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Response } from "@angular/http";
+import { Actions, Effect } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 
 import * as meteo from '../actions/meteo.actions';
 
-import {MeteoService} from '../../meteo/meteo.service'
+import { MeteoService } from '../../meteo/meteo.service'
 
 import City from '../../models/city';
 
