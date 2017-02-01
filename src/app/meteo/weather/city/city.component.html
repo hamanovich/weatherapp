@@ -5,6 +5,8 @@
     {{city.coord.lon | number: '1.2-2'}}
 </td>
 <td>{{city.main.temp | Celsius | number: '1.2-2'}}</td>
+<td>{{city.main.pressure}}</td>
+<td>{{city.main.humidity}}</td>
 <td class="text-center">
     <wapi-wind [windWeather]="city.wind"></wapi-wind>
 </td>

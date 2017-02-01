@@ -8,3 +8,5 @@ export const GOOGLE_URL: string = 'https://developers.google.com/maps/';
 
 export const NUMBER_OF_CITIES: number = 10;
 export const TEMP_DIFFERENCE: number = 273.15;
+
+export const RANGE_REGEXP: RegExp = /^[><=]\s\d+$/g;

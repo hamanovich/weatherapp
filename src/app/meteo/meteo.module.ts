@@ -3,8 +3,8 @@ import { SharedModule } from "../shared/shared.module";
 
 import {
     MeteoComponent,
-    SearchComponent,
     WeatherComponent,
+    FormFilterComponent,
     CityComponent,
     IconWeatherComponent,
     WindComponent
@@ -19,7 +19,7 @@ import { MeteoService } from './meteo.service';
     declarations: [
         WeatherComponent,
         CityComponent,
-        SearchComponent,
+        FormFilterComponent,
         MeteoComponent,
         WindComponent,
         IconWeatherComponent

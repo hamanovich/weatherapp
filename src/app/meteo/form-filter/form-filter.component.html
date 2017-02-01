@@ -1,0 +1,111 @@
+<section class="container">
+    <header class="page-header">
+        <h2>Filter table</h2>
+    </header>
+
+    <div class="row">
+        <form class="form-filter col-md-6 col-sm-9"
+              [formGroup]="filterForm"
+              (submit)="applyFilters(filterForm)">
+
+            <div class="form-group" formGroupName="filters">
+                <label>Filter columns:</label> <br/>
+                <label class="checkbox-inline" *ngFor="let filter of filterList">
+                    <input type="checkbox"
+                           value="filter"
+                           [formControlName]="filter">
+                    {{filter}}
+                </label>
+            </div>
+
+            <div class="form-group row"
+                 [ngClass]="{'has-error': filterForm.controls.temperature.dirty
+                            && filterForm.controls.temperature.errors,
+                             'has-success': filterForm.controls.temperature.dirty
+                             && !filterForm.controls.temperature.errors}">
+                <div class="col-xs-8">
+                    <label for="input-temperature">Temperature range:</label>
+                    <small class="help-block helper">Format: sign &gt;/&lt;/= + number (e.g. '&gt; 273')</small>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Enter temperature"
+                           formControlName="temperature"
+                           id="input-temperature">
+                    <span class="help-block"
+                          *ngIf="filterForm.controls.temperature.dirty
+                      && filterForm.controls.temperature.errors">This field is invalid!</span>
+                    <span class="help-block"
+                          *ngIf="filterForm.controls.temperature.dirty
+                      && !filterForm.controls.temperature.errors">This field is valid</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-xs-8">
+                    <label for="input-row">Row of table:</label>
+                    <select class="form-control"
+                            id="input-row"
+                            formControlName="row">
+                        <option [selected]="filterForm.controls.row.value === null" value="">-- Select --</option>
+                        <option *ngFor="let r of rowList" [value]="r">{{r}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Measure:</label> <br/>
+                <label class="radio-inline" *ngFor="let unit of measureList">
+                    <input type="radio"
+                           [value]="unit"
+                           formControlName="measure">
+                    {{unit}}
+                </label>
+            </div>
+
+            <div class="form-group row"
+                 [ngClass]="{'has-error': filterForm.controls.cityName.dirty
+                            && filterForm.controls.cityName.errors,
+                             'has-success': filterForm.controls.cityName.dirty
+                             && !filterForm.controls.cityName.errors}">
+                <div class="col-xs-8">
+                    <label for="input-city">Get weather:</label>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Enter city"
+                           formControlName="cityName"
+                           id="input-city">
+                    <span class="help-block"
+                          *ngIf="filterForm.controls.cityName.dirty
+                           && filterForm.controls.cityName.errors">City name should consist at least 3 letters!</span>
+                    <span class="help-block"
+                          *ngIf="filterForm.controls.cityName.dirty
+                          && !filterForm.controls.cityName.errors">This field is valid</span>
+                </div>
+                <div class="col-xs-4">
+                    <label>&nbsp;</label>
+                    <button type="button"
+                            class="btn btn-primary btn-block"
+                            [disabled]="!filterForm.controls.cityName.touched || !filterForm.controls.cityName.valid"
+                            (click)="getWeather()">Get
+                    </button>
+                </div>
+            </div>
+
+            <div class="well" *ngIf="weather">
+                <h4><strong>{{weather | CityWeather}}</strong></h4>
+                <button class="btn btn-sm btn-danger"
+                        (click)="onAdd()"
+                        [disabled]="isAdded">
+                    Add to table
+                </button>
+            </div>
+
+            <button type="submit"
+                    [disabled]="filterForm.invalid"
+                    class="btn btn-lg btn-success">Apply filters
+            </button>
+        </form>
+    </div>
+
+    <hr/>
+</section>

@@ -32,7 +32,7 @@ export class WeatherComponent implements OnInit {
     
     constructor(private store: Store<fromRoot.State>) {
         this.thead = [ 'ID', 'Name', 'Coords; lat,lng',
-            'Temp; C', 'Wind', 'Overall', '' ];
+            'Temp; C', 'Pressure', 'Humidity', 'Wind', 'Overall', '' ];
         
         this.errorText = this.store.select(fromRoot.getWeatherErrors);
         this.cities = this.store.select(fromRoot.getWeatherCities);

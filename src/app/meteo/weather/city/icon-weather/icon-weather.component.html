@@ -9,5 +9,6 @@
     <img *ngSwitchCase="'Atmosphere'" [src]="path + weather.icon + '.png'" [alt]="weather.description"/>
     <img *ngSwitchCase="'Mist'" [src]="path + weather.icon + '.png'" [alt]="weather.description"/>
     <img *ngSwitchCase="'Haze'" [src]="path + weather.icon + '.png'" [alt]="weather.description"/>
+    <img *ngSwitchCase="'Fog'" [src]="path + weather.icon + '.png'" [alt]="weather.description"/>
     <img *ngSwitchDefault [src]="'http://lorempixel.com/35/35/abstract'" alt="Image not found"/>
 </span>
