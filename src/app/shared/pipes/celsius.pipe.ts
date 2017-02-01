@@ -1,6 +1,6 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
-import {TEMP_DIFFERENCE} from '../../constants';
+import { TEMP_DIFFERENCE } from '../../constants';
 
 @Pipe({
     name: 'Celsius'

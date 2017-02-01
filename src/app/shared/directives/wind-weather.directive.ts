@@ -6,7 +6,7 @@ import {
     OnInit
 } from '@angular/core';
 
-import Wind from '../../models/wind.interface';
+import Wind from '../../models/wind';
 
 @Directive({
     selector: '[windWeather]'
@@ -14,11 +14,11 @@ import Wind from '../../models/wind.interface';
 
 export class WindWeather implements OnInit {
     @Input('windWeather') wind: Wind;
-
+    
     constructor(private el: ElementRef,
                 private renderer: Renderer) {
     }
-
+    
     ngOnInit() {
         this.renderer.setElementStyle(
             this.el.nativeElement.querySelector('.icon-arrow'),

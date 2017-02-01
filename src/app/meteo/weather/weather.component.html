@@ -3,19 +3,17 @@
         <h2>Cities table
             <small>Weather stats</small>
         </h2>
-        <p *ngIf="isDone">
+        <p *ngIf="cities | async">
             Your position is
             <span class="text-success">
-                {{coords.latitude | number: '1.2-2'}},
-                {{coords.longitude | number: '1.2-2'}}
+                {{position.latitude | number: '1.2-2'}},
+                {{position.longitude | number: '1.2-2'}}
             </span>
         </p>
-        <p *ngIf="isHighlightCity">
-            You've just highlighted
-            <strong class="text-warning">{{highlightCity.name}}</strong>
-        </p>
     </header>
-    <div class="table-responsive table-cities" [ngClass]="{'done': isDone}" *ngIf="!errorText">
+    <div class="table-responsive table-cities"
+         [ngClass]="{'done': (cities | async)}"
+         *ngIf="!(errorText | async)">
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -24,7 +22,7 @@
             </thead>
             <tbody class="cities">
             <tr wapi-city
-                *ngFor="let city of cities; let i = index"
+                *ngFor="let city of (cities | async); let i = index"
                 (remove)="onRemove(i)"
                 (click)="onHighlight(i)"
                 [colorWeather]="city"
@@ -33,10 +31,10 @@
             </tbody>
         </table>
     </div>
-
-    <div class="alert alert-danger" *ngIf="errorText">
-        {{errorText}}
+    
+    <div class="alert alert-danger" *ngIf="errorText | async">
+        {{(errorText | async)?.status}} : {{(errorText | async)?.statusText}}
     </div>
-
+    
     <hr/>
 </div>

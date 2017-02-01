@@ -1,13 +1,13 @@
 :host {
-  white-space: nowrap;
+    white-space: nowrap;
 }
 
-.icon-arrow{
-  font-size: 1.5em;
-  display: inline-block;
-  margin: 0 .5em 0 0;
+.icon-arrow {
+    font-size: 1.5em;
+    display: inline-block;
+    margin: 0 .5em 0 0;
 }
 
-.wind-speed{
-  display: inline-block;
+.wind-speed {
+    display: inline-block;
 }

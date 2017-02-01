@@ -1,38 +1,28 @@
 import {
     Component,
     Input,
-    OnInit,
     ChangeDetectionStrategy
 } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 
-import {MeteoService} from '../../meteo/meteo.service';
-
-import CurrentPosition from '../../models/position.interface';
-import City            from '../../models/city.interface';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../dataflow/reducers';
 
 import * as constants from '../../constants';
+import { Observable } from "rxjs/Observable";
 
 @Component({
     selector: 'wapi-jumbotron',
     templateUrl: 'jumbotron.component.html',
-    styleUrls: ['jumbotron.component.css'],
+    styleUrls: [ 'jumbotron.component.css' ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class JumbotronComponent implements OnInit {
+export class JumbotronComponent {
     APP_TITLE: string;
-    yourWeather: Observable<City>;
-
-    @Input() position: CurrentPosition;
-
-    constructor(private meteoService: MeteoService) {
+    weather: Observable<string>;
+    
+    constructor(private store: Store<fromRoot.State>) {
         this.APP_TITLE = constants.APP_TITLE;
-    }
-
-    ngOnInit() {
-        this.yourWeather = this.meteoService
-            .getCities(`${constants.GEO_URL}weather?lat=${this.position.coords.latitude}&lon=${this.position.coords.longitude}&appid=${constants.GEO_API_KEY}`)
-            .map((n: {weather: [{description: string}]}) => n.weather[0].description);
+        this.weather = this.store.select(fromRoot.getWeatherDescription);
     }
 }

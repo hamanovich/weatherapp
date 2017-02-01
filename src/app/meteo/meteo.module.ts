@@ -1,5 +1,5 @@
-import {NgModule}     from '@angular/core';
-import {SharedModule} from "../shared/shared.module";
+import { NgModule }     from '@angular/core';
+import { SharedModule } from "../shared/shared.module";
 
 import {
     MeteoComponent,
@@ -10,7 +10,7 @@ import {
     WindComponent
 } from './index';
 
-import {MeteoService} from './meteo.service';
+import { MeteoService } from './meteo.service';
 
 @NgModule({
     imports: [
@@ -24,8 +24,8 @@ import {MeteoService} from './meteo.service';
         WindComponent,
         IconWeatherComponent
     ],
-    providers: [MeteoService],
-    exports: [MeteoComponent]
+    providers: [ MeteoService ],
+    exports: [ MeteoComponent ]
 })
 
 export class MeteoModule {
