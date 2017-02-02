@@ -8,7 +8,7 @@
               [formGroup]="filterForm"
               (submit)="applyFilters(filterForm)">
 
-            <div class="form-group" formGroupName="filters">
+            <div class="form-group" formGroupName="columns">
                 <label>Filter columns:</label> <br/>
                 <label class="checkbox-inline" *ngFor="let filter of filterList">
                     <input type="checkbox"
@@ -19,10 +19,8 @@
             </div>
 
             <div class="form-group row"
-                 [ngClass]="{'has-error': filterForm.controls.temperature.dirty
-                            && filterForm.controls.temperature.errors,
-                             'has-success': filterForm.controls.temperature.dirty
-                             && !filterForm.controls.temperature.errors}">
+                 [ngClass]="{'has-error': filterForm.controls.temperature.errors,
+                             'has-success': !filterForm.controls.temperature.errors}">
                 <div class="col-xs-8">
                     <label for="input-temperature">Temperature range:</label>
                     <small class="help-block helper">Format: sign &gt;/&lt;/= + number (e.g. '&gt; 273')</small>
@@ -32,22 +30,20 @@
                            formControlName="temperature"
                            id="input-temperature">
                     <span class="help-block"
-                          *ngIf="filterForm.controls.temperature.dirty
-                      && filterForm.controls.temperature.errors">This field is invalid!</span>
+                          *ngIf="filterForm.controls.temperature.errors">This field is invalid!</span>
                     <span class="help-block"
-                          *ngIf="filterForm.controls.temperature.dirty
-                      && !filterForm.controls.temperature.errors">This field is valid</span>
+                          *ngIf="!filterForm.controls.temperature.errors">This field is valid</span>
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-xs-8">
-                    <label for="input-row">Row of table:</label>
+                    <label for="input-rows">Row of table:</label>
                     <select class="form-control"
-                            id="input-row"
-                            formControlName="row">
-                        <option [selected]="filterForm.controls.row.value === null" value="">-- Select --</option>
-                        <option *ngFor="let r of rowList" [value]="r">{{r}}</option>
+                            id="input-rows"
+                            formControlName="rows">
+                        <option [selected]="filterForm.controls.rows.value === null" value="">-- Select --</option>
+                        <option *ngFor="let row of rowsList" [value]="row">{{row}}</option>
                     </select>
                 </div>
             </div>

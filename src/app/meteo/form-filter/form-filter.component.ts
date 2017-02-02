@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { validateTemperatureRange } from '../../shared/validators/temperature-range.validator';
 
 import { Store } from '@ngrx/store';
 import * as meteo from '../../dataflow/actions/meteo.actions';
 import * as fromRoot from '../../dataflow/reducers';
+
+import * as constants from '../../constants';
 
 @Component({
     selector: 'wapi-form-filter',
@@ -14,48 +16,52 @@ import * as fromRoot from '../../dataflow/reducers';
 })
 
 export class FormFilterComponent {
-    cityName: AbstractControl;
     filterForm: FormGroup;
     weather: string;
     isAdded: boolean;
     filterList: string[];
     measureList: string[];
-    rowList: number[];
+    rowsList: (number | string)[];
+
+    filtersGroup = {
+        coords: true,
+        temp: true,
+        pressure: true,
+        humidity: true,
+        wind: true,
+        overall: true
+    };
 
     @Output() add: EventEmitter<string> = new EventEmitter<string>();
 
     constructor(private fb: FormBuilder,
                 private store: Store<fromRoot.State>) {
-        this.filterList = ['ID', 'Coords', 'Temp', 'Pressure', 'Humidity', 'Wind', 'Overall'];
+        this.filterList = Object.keys(this.filtersGroup);
         this.measureList = ['Celsius', 'Kelvin'];
-        this.rowList = [5, 10, 20, 50];
+        this.rowsList = [
+            Math.floor(constants.NUMBER_OF_CITIES / 5),
+            Math.floor(constants.NUMBER_OF_CITIES / 2),
+            Math.floor(constants.NUMBER_OF_CITIES / 1.3),
+            constants.NUMBER_OF_CITIES,
+            'all'
+        ];
 
         this.filterForm = this.fb.group({
-            cityName: ['', Validators.minLength(3)],
-            filters: this.fb.group({
-                ID: true,
-                Coords: true,
-                Temp: true,
-                Pressure: true,
-                Humidity: true,
-                Wind: true,
-                Overall: true
-            }),
-            temperature: ['', validateTemperatureRange],
-            measure: ['Celsius', Validators.required],
-            row: ['']
+            columns: this.fb.group(this.filtersGroup),
+            temperature: ['> -273', validateTemperatureRange],
+            rows: [null, Validators.required],
+            measure: [this.measureList[0], Validators.required],
+            cityName: ['', Validators.minLength(3)]
         });
-
-        this.cityName = this.filterForm.controls['cityName'];
     }
 
     getWeather() {
-        this.weather = this.cityName.value;
+        this.weather = this.filterForm.controls['cityName'].value;
         this.isAdded = false;
     }
 
     applyFilters(form) {
-        console.log('submit value->', form.value);
+        this.store.dispatch(new meteo.FilterAction(form.value));
     }
 
     onAdd() {

@@ -12,6 +12,7 @@ interface City {
     };
     dt?: number;
     isHighlight?: boolean;
+    hidden?: boolean;
     weather?: {
         description: string;
         main: string;

@@ -6,7 +6,7 @@ export const API_URL: string = 'http://openweathermap.org/api';
 export const API_URL_ICON: string = 'http://openweathermap.org/img/w/';
 export const GOOGLE_URL: string = 'https://developers.google.com/maps/';
 
-export const NUMBER_OF_CITIES: number = 10;
+export const NUMBER_OF_CITIES: number = 25;
 export const TEMP_DIFFERENCE: number = 273.15;
 
-export const RANGE_REGEXP: RegExp = /^[><=]\s\d+$/g;
+export const RANGE_REGEXP: RegExp = /^[><=]\s-?\d+$/g;

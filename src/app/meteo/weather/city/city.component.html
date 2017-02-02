@@ -1,16 +1,24 @@
 <th scope="row">{{city.id}}</th>
 <td>{{city.name}}</td>
-<td>
+<td [hidden]="columns?.coords === false">
     {{city.coord.lat | number: '1.2-2'}},
     {{city.coord.lon | number: '1.2-2'}}
 </td>
-<td>{{city.main.temp | Celsius | number: '1.2-2'}}</td>
-<td>{{city.main.pressure}}</td>
-<td>{{city.main.humidity}}</td>
-<td class="text-center">
+<td [hidden]="columns?.temp === false">
+    {{city.main.temp | Celsius | number: '1.2-2'}}
+</td>
+<td [hidden]="columns?.pressure === false">
+    {{city.main.pressure}}
+</td>
+<td [hidden]="columns?.humidity === false">
+    {{city.main.humidity}}
+</td>
+<td [hidden]="columns?.wind === false"
+    class="text-center">
     <wapi-wind [windWeather]="city.wind"></wapi-wind>
 </td>
-<td class="text-center">
+<td [hidden]="columns?.overall === false"
+    class="text-center">
     <wapi-icon-weather [iconWeather]="city.weather[0]"></wapi-icon-weather>
 </td>
 <td class="text-center">

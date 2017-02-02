@@ -15,7 +15,11 @@ import City from '../../../models/city';
 
 export class CityComponent {
     @Input() city: City;
+    @Input() columns: any;
     @Output() remove: EventEmitter<number> = new EventEmitter<number>();
+
+    constructor(){
+    }
     
     onRemove() {
         this.remove.emit(0);
