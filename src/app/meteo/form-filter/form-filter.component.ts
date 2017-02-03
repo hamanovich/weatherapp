@@ -56,9 +56,9 @@ export class FormFilterComponent implements OnInit {
             cityName: ['', Validators.minLength(3)]
         });
     }
-    
+
     getWeather(): void {
-        this.weather = this.filterForm.controls['cityName'].value;
+        this.weather = this.filterForm.get('cityName').value;
         this.isAdded = false;
     }
 

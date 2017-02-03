@@ -19,8 +19,8 @@
             </div>
 
             <div class="form-group row"
-                 [ngClass]="{'has-error': filterForm.controls.temperature.dirty&& filterForm.controls.temperature.errors,
-                             'has-success': filterForm.controls.temperature.dirty && !filterForm.controls.temperature.errors}">
+                 [ngClass]="{'has-error': filterForm.get('temperature').dirty&& filterForm.get('temperature').errors,
+                             'has-success': filterForm.get('temperature').dirty && !filterForm.get('temperature').errors}">
                 <div class="col-xs-8">
                     <label for="input-temperature">Temperature range* (by Kelvin's):</label>
                     <small class="help-block helper">Format: sign &gt;/&lt;/= + number (e.g. '&gt; -273')</small>
@@ -29,7 +29,7 @@
                            placeholder="Enter temperature"
                            formControlName="temperature"
                            id="input-temperature">
-                    <wapi-input-errors [inputErrors]="filterForm.controls.temperature.dirty && filterForm.controls.temperature.errors"
+                    <wapi-input-errors [inputErrors]="filterForm.get('temperature').dirty && filterForm.get('temperature').errors"
                                        [inputValid]="'Valid. You\'re awesome!'"
                                        [errorsState]="{required: 'Range is required',
                                        invalidTemperatureRange: 'No regexp matched'}"></wapi-input-errors>
@@ -37,17 +37,17 @@
             </div>
 
             <div class="form-group row"
-                 [ngClass]="{'has-error': filterForm.controls.rows.dirty && filterForm.controls.rows.errors,
-                             'has-success': filterForm.controls.rows.dirty && !filterForm.controls.rows.errors}">
+                 [ngClass]="{'has-error': filterForm.get('rows').dirty && filterForm.get('rows').errors,
+                             'has-success': filterForm.get('rows').dirty && !filterForm.get('rows').errors}">
                 <div class="col-xs-8">
                     <label for="input-rows">Row of table*:</label>
                     <select class="form-control"
                             id="input-rows"
                             formControlName="rows">
-                        <option [selected]="filterForm.controls.rows.value === null" value="">-- Select --</option>
+                        <option [selected]="filterForm.get('rows').value === null" value="">-- Select --</option>
                         <option *ngFor="let row of rowsList" [value]="row">{{row}}</option>
                     </select>
-                    <wapi-input-errors [inputErrors]="filterForm.controls.rows.dirty && filterForm.controls.rows.errors"
+                    <wapi-input-errors [inputErrors]="filterForm.get('rows').dirty && filterForm.get('rows').errors"
                                        [inputValid]="'Valid. Nice choice.'"
                                        [errorsState]="{required: 'Choose visible number of rows'}"></wapi-input-errors>
                 </div>
@@ -71,8 +71,8 @@
             <hr/>
 
             <div class="form-group row"
-                 [ngClass]="{'has-error': filterForm.controls.cityName.dirty && filterForm.controls.cityName.errors,
-                             'has-success': filterForm.controls.cityName.dirty && !filterForm.controls.cityName.errors}">
+                 [ngClass]="{'has-error': filterForm.get('cityName').dirty && filterForm.get('cityName').errors,
+                             'has-success': filterForm.get('cityName').dirty && !filterForm.get('cityName').errors}">
                 <div class="col-xs-8">
                     <label for="input-city">Get weather:</label>
                     <input type="text"
@@ -80,7 +80,7 @@
                            placeholder="Enter city"
                            formControlName="cityName"
                            id="input-city">
-                    <wapi-input-errors [inputErrors]="filterForm.controls.cityName.dirty && filterForm.controls.cityName.errors"
+                    <wapi-input-errors [inputErrors]="filterForm.get('cityName').dirty && filterForm.get('cityName').errors"
                                        [inputValid]="'Now it\'s a valid'"
                                        [errorsState]="{minlength: 'City name should consist at least 3 letters!'}"></wapi-input-errors>
                 </div>
@@ -88,8 +88,8 @@
                     <label>&nbsp;</label>
                     <button type="button"
                             class="btn btn-primary btn-block"
-                            [disabled]="!filterForm.controls.cityName.dirty || filterForm.controls.cityName.errors"
-                            (click)="getWeather(); filterForm.controls.cityName.reset()">Get
+                            [disabled]="!filterForm.get('cityName').dirty || filterForm.get('cityName').errors"
+                            (click)="getWeather(); filterForm.get('cityName').reset()">Get
                     </button>
                 </div>
             </div>

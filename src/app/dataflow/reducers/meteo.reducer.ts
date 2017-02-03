@@ -33,7 +33,7 @@ const initialState: State = {
         rows: null,
         measure: 'Kelvin',
         toggle: false,
-        cityName: null
+        cityName: ''
     }
 };
 
