@@ -8,14 +8,14 @@ export const ActionTypes = {
 
 export class GetPositionSuccessAction implements Action {
     type: string = ActionTypes.GET_POSITION_SUCCESS;
-    
+
     constructor(public payload: Position) {
     }
 }
 
 export class GetPositionFailAction implements Action {
     type: string = ActionTypes.GET_POSITION_FAIL;
-    
+
     constructor(public payload: Response) {
     }
 }

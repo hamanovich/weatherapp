@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { Response } from "@angular/http";
 
 import City from '../../models/city';
+import Filters from "../../models/filters";
 
 export const ActionTypes = {
     LOAD: '[METEO] LOAD',
@@ -70,7 +71,7 @@ export class WeatherFailAction implements Action {
 export class FilterAction implements Action {
     type: string = ActionTypes.FILTER;
 
-    constructor(public payload: any) {
+    constructor(public payload: Filters) {
     }
 }
 

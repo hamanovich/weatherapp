@@ -12,7 +12,7 @@ export function kelvinToKelvin(temperature: number): number {
     return temperature;
 }
 
-export const mathMethods = {
-    '>': (a, b) => a > b,
-    '<': (a, b) => a < b
+export const mathMethods: any = {
+    '>': (a: number, b: number): boolean => a > b,
+    '<': (a: number, b: number): boolean => a < b
 };

@@ -14,11 +14,11 @@ import Wind from '../../models/wind';
 
 export class WindWeather implements OnInit {
     @Input('windWeather') wind: Wind;
-    
+
     constructor(private el: ElementRef,
                 private renderer: Renderer) {
     }
-    
+
     ngOnInit() {
         this.renderer.setElementStyle(
             this.el.nativeElement.querySelector('.icon-arrow'),

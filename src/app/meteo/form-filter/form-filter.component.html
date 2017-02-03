@@ -31,7 +31,7 @@
                            id="input-temperature">
                     <wapi-input-errors [inputErrors]="filterForm.controls.temperature.dirty && filterForm.controls.temperature.errors"
                                        [inputValid]="'Valid. You\'re awesome!'"
-                                       [errorsState]="{required: 'A range is required',
+                                       [errorsState]="{required: 'Range is required',
                                        invalidTemperatureRange: 'No regexp matched'}"></wapi-input-errors>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                     <label>&nbsp;</label>
                     <button type="button"
                             class="btn btn-primary btn-block"
-                            [disabled]="!filterForm.controls.cityName.touched || !filterForm.controls.cityName.valid"
+                            [disabled]="!filterForm.controls.cityName.dirty || filterForm.controls.cityName.errors"
                             (click)="getWeather(); filterForm.controls.cityName.reset()">Get
                     </button>
                 </div>

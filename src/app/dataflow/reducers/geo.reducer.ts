@@ -25,11 +25,11 @@ export function reducer(state: State = initialState, action: Action): State {
                 }
             });
         }
-        
+
         case geo.ActionTypes.GET_POSITION_FAIL: {
             return Object.assign({}, state, {error: action.payload});
         }
-        
+
         default: {
             return state;
         }

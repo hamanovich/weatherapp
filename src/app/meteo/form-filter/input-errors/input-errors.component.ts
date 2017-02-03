@@ -6,9 +6,9 @@ import { Component, Input, OnChanges } from '@angular/core';
 })
 
 export class InputErrorsComponent implements OnChanges {
-    @Input() inputErrors: any;
+    @Input() inputErrors: string;
     @Input() inputValid: string;
-    @Input() errorsState: any;
+    @Input() errorsState: string;
 
     errorMessage: string = '';
     validMessage: string = '';
@@ -24,7 +24,7 @@ export class InputErrorsComponent implements OnChanges {
         }
 
         if (errors) {
-            Object.keys(this.errorsState).some(key => {
+            Object.keys(this.errorsState).some((key: string) => {
                 if (errors[key]) {
                     this.errorMessage = this.errorsState[key];
                     return true;

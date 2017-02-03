@@ -15,7 +15,7 @@ import { LoggerProdService } from './logger-prod.service';
                     LoggerService
             )
         }
-    
+
     ]
 })
 

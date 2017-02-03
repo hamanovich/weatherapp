@@ -47,10 +47,6 @@ export class FormFilterComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.initForm();
-    }
-
-    initForm() {
         this.filterForm = this.fb.group({
             columns: this.fb.group(this.filtersGroup),
             temperature: ['', Validators.compose([Validators.required, validateTemperatureRange])],
@@ -60,7 +56,7 @@ export class FormFilterComponent implements OnInit {
             cityName: ['', Validators.minLength(3)]
         });
     }
-
+    
     getWeather(): void {
         this.weather = this.filterForm.controls['cityName'].value;
         this.isAdded = false;

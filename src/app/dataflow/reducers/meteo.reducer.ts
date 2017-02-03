@@ -5,6 +5,7 @@ import * as meteo from '../actions/meteo.actions';
 
 import City from '../../models/city';
 import Filters from '../../models/filters';
+import FilterColumns from '../../models/filter.columns';
 
 export interface State {
     cities?: City[];

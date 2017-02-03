@@ -15,7 +15,7 @@ const CUSTOM_CHECKBOX_VALUE_ACCESSOR = {
 })
 
 export class SwitcherComponent implements ControlValueAccessor {
-    @Input('value') val = false;
+    @Input('value') val: boolean = false;
 
     onChange: any = () => {
     };
@@ -23,7 +23,7 @@ export class SwitcherComponent implements ControlValueAccessor {
     onTouched: any = () => {
     };
 
-    get value() {
+    get value(): boolean {
         return this.val;
     }
 
@@ -31,9 +31,6 @@ export class SwitcherComponent implements ControlValueAccessor {
         this.val = val;
         this.onChange(val);
         this.onTouched();
-    }
-
-    constructor() {
     }
 
     registerOnChange(fn) {
