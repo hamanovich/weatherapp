@@ -22,7 +22,7 @@
                  [ngClass]="{'has-error': filterForm.controls.temperature.dirty&& filterForm.controls.temperature.errors,
                              'has-success': filterForm.controls.temperature.dirty && !filterForm.controls.temperature.errors}">
                 <div class="col-xs-8">
-                    <label for="input-temperature">Temperature range:</label>
+                    <label for="input-temperature">Temperature range* (by Kelvin's):</label>
                     <small class="help-block helper">Format: sign &gt;/&lt;/= + number (e.g. '&gt; -273')</small>
                     <input type="text"
                            class="form-control"
@@ -40,7 +40,7 @@
                  [ngClass]="{'has-error': filterForm.controls.rows.dirty && filterForm.controls.rows.errors,
                              'has-success': filterForm.controls.rows.dirty && !filterForm.controls.rows.errors}">
                 <div class="col-xs-8">
-                    <label for="input-rows">Row of table:</label>
+                    <label for="input-rows">Row of table*:</label>
                     <select class="form-control"
                             id="input-rows"
                             formControlName="rows">
@@ -81,7 +81,7 @@
                            formControlName="cityName"
                            id="input-city">
                     <wapi-input-errors [inputErrors]="filterForm.controls.cityName.dirty && filterForm.controls.cityName.errors"
-                                       [inputValid]="'Valid. Just press \'Get\' button'"
+                                       [inputValid]="'Now it\'s a valid'"
                                        [errorsState]="{minlength: 'City name should consist at least 3 letters!'}"></wapi-input-errors>
                 </div>
                 <div class="col-xs-4">
@@ -89,7 +89,7 @@
                     <button type="button"
                             class="btn btn-primary btn-block"
                             [disabled]="!filterForm.controls.cityName.touched || !filterForm.controls.cityName.valid"
-                            (click)="getWeather()">Get
+                            (click)="getWeather(); filterForm.controls.cityName.reset()">Get
                     </button>
                 </div>
             </div>

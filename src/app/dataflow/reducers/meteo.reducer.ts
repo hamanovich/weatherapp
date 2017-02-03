@@ -21,16 +21,16 @@ const initialState: State = {
     error: null,
     filters: {
         columns: {
-            coords: false,
+            coords: true,
             temp: true,
-            pressure: false,
-            humidity: false,
-            wind: false,
-            overall: false
+            pressure: true,
+            humidity: true,
+            wind: true,
+            overall: true
         },
-        temperature: '> 0',
+        temperature: '',
         rows: null,
-        measure: 'Fahrenheit',
+        measure: 'Kelvin',
         toggle: false,
         cityName: null
     }

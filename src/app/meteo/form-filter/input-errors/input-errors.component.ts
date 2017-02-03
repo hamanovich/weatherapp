@@ -16,8 +16,6 @@ export class InputErrorsComponent implements OnChanges {
     ngOnChanges(changes: any): void {
         const errors: any = changes.inputErrors.currentValue;
 
-        console.log(errors)
-
         this.errorMessage = '';
         this.validMessage = '';
 

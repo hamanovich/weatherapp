@@ -61,22 +61,15 @@ export class MeteoEffects {
         .switchMap((filters: Filters) => this.store.select(fromRoot.getWeatherCities).take(1)
             .map((cities: City[]) => {
                 const rows: string | number = filters.rows === 'all' ? Infinity : filters.rows;
-                const temperature: string = filters.temperature;
-                const temperatureSign: string = temperature.split(' ')[0];
-                const temperatureValue: number = Number(temperature.split(' ')[1]);
-
-                const visibleCities: City[] = cities
-                    .map((city: City) => Object.assign({}, city, {
-                            hidden: mathMethods[temperatureSign](temperatureValue, city.main.temp)
+                const temperatureSign: string = filters.temperature.split(' ')[0];
+                const temperatureValue: number = Number(filters.temperature.split(' ')[1]);
+                const filteredCities: City[] = cities
+                    .map((city: City, index: number) => Object.assign({}, city, {
+                            hidden: !(mathMethods[temperatureSign](city.main.temp, temperatureValue) && index > Number(rows) - 1)
                         })
                     );
 
-                const vvv: City[] = visibleCities.map((city: City, index: number) => Object.assign({}, city, {
-                        hidden: index > Number(rows) - 1
-                    })
-                );
-
-                return new meteo.UpdateAction(vvv);
+                return new meteo.UpdateAction(filteredCities);
             })
         );
 }

@@ -47,11 +47,14 @@ export class FormFilterComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.initForm();
+    }
+
+    initForm() {
         this.filterForm = this.fb.group({
             columns: this.fb.group(this.filtersGroup),
-            temperature: ['', Validators.compose([Validators.required,
-                    validateTemperatureRange])],
-            rows: [null, Validators.required],
+            temperature: ['', Validators.compose([Validators.required, validateTemperatureRange])],
+            rows: ['', Validators.required],
             measure: [this.measureList[0], Validators.required],
             toggle: [false],
             cityName: ['', Validators.minLength(3)]
@@ -70,5 +73,6 @@ export class FormFilterComponent implements OnInit {
     onAdd(): void {
         this.store.dispatch(new meteo.AddAction(this.weather));
         this.isAdded = true;
+        this.weather = null;
     }
 }
