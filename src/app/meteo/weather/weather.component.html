@@ -15,10 +15,10 @@
          [ngClass]="{'done': (cities | async)}"
          *ngIf="!(errorText | async)">
         <table class="table table-bordered">
-            <thead>
+            <thead [hidden]="toggle$ | async">
             <tr>
                 <th>ID</th>
-                <th>name</th>
+                <th>Name</th>
                 <th [hidden]="(thead$ | async)?.coords === false">Coords</th>
                 <th [hidden]="(thead$ | async)?.temp === false">Temp</th>
                 <th [hidden]="(thead$ | async)?.pressure === false">Pressure</th>

@@ -9,7 +9,7 @@
               (submit)="applyFilters(filterForm)">
 
             <div class="form-group" formGroupName="columns">
-                <label>Filter columns:</label> <br/>
+                <label>Show columns:</label> <br/>
                 <label class="checkbox-inline" *ngFor="let filter of filterList">
                     <input type="checkbox"
                            value="filter"
@@ -19,24 +19,26 @@
             </div>
 
             <div class="form-group row"
-                 [ngClass]="{'has-error': filterForm.controls.temperature.errors,
-                             'has-success': !filterForm.controls.temperature.errors}">
+                 [ngClass]="{'has-error': filterForm.controls.temperature.dirty&& filterForm.controls.temperature.errors,
+                             'has-success': filterForm.controls.temperature.dirty && !filterForm.controls.temperature.errors}">
                 <div class="col-xs-8">
                     <label for="input-temperature">Temperature range:</label>
-                    <small class="help-block helper">Format: sign &gt;/&lt;/= + number (e.g. '&gt; 273')</small>
+                    <small class="help-block helper">Format: sign &gt;/&lt;/= + number (e.g. '&gt; -273')</small>
                     <input type="text"
                            class="form-control"
                            placeholder="Enter temperature"
                            formControlName="temperature"
                            id="input-temperature">
-                    <span class="help-block"
-                          *ngIf="filterForm.controls.temperature.errors">This field is invalid!</span>
-                    <span class="help-block"
-                          *ngIf="!filterForm.controls.temperature.errors">This field is valid</span>
+                    <wapi-input-errors [inputErrors]="filterForm.controls.temperature.dirty && filterForm.controls.temperature.errors"
+                                       [inputValid]="'Valid. You\'re awesome!'"
+                                       [errorsState]="{required: 'A range is required',
+                                       invalidTemperatureRange: 'No regexp matched'}"></wapi-input-errors>
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row"
+                 [ngClass]="{'has-error': filterForm.controls.rows.dirty && filterForm.controls.rows.errors,
+                             'has-success': filterForm.controls.rows.dirty && !filterForm.controls.rows.errors}">
                 <div class="col-xs-8">
                     <label for="input-rows">Row of table:</label>
                     <select class="form-control"
@@ -45,6 +47,9 @@
                         <option [selected]="filterForm.controls.rows.value === null" value="">-- Select --</option>
                         <option *ngFor="let row of rowsList" [value]="row">{{row}}</option>
                     </select>
+                    <wapi-input-errors [inputErrors]="filterForm.controls.rows.dirty && filterForm.controls.rows.errors"
+                                       [inputValid]="'Valid. Nice choice.'"
+                                       [errorsState]="{required: 'Choose visible number of rows'}"></wapi-input-errors>
                 </div>
             </div>
 
@@ -58,11 +63,16 @@
                 </label>
             </div>
 
+            <div class="form-group">
+                <label>Hide table head:</label> <br/>
+                <wapi-checkbox formControlName="toggle"></wapi-checkbox>
+            </div>
+
+            <hr/>
+
             <div class="form-group row"
-                 [ngClass]="{'has-error': filterForm.controls.cityName.dirty
-                            && filterForm.controls.cityName.errors,
-                             'has-success': filterForm.controls.cityName.dirty
-                             && !filterForm.controls.cityName.errors}">
+                 [ngClass]="{'has-error': filterForm.controls.cityName.dirty && filterForm.controls.cityName.errors,
+                             'has-success': filterForm.controls.cityName.dirty && !filterForm.controls.cityName.errors}">
                 <div class="col-xs-8">
                     <label for="input-city">Get weather:</label>
                     <input type="text"
@@ -70,12 +80,9 @@
                            placeholder="Enter city"
                            formControlName="cityName"
                            id="input-city">
-                    <span class="help-block"
-                          *ngIf="filterForm.controls.cityName.dirty
-                           && filterForm.controls.cityName.errors">City name should consist at least 3 letters!</span>
-                    <span class="help-block"
-                          *ngIf="filterForm.controls.cityName.dirty
-                          && !filterForm.controls.cityName.errors">This field is valid</span>
+                    <wapi-input-errors [inputErrors]="filterForm.controls.cityName.dirty && filterForm.controls.cityName.errors"
+                                       [inputValid]="'Valid. Just press \'Get\' button'"
+                                       [errorsState]="{minlength: 'City name should consist at least 3 letters!'}"></wapi-input-errors>
                 </div>
                 <div class="col-xs-4">
                     <label>&nbsp;</label>

@@ -14,6 +14,7 @@ import * as fromRoot from '../../dataflow/reducers';
 
 import City from '../../models/city';
 import Coords from "../../models/coords";
+import FilterColumns from '../../models/filter.columns';
 
 import * as constants from '../../constants';
 
@@ -26,13 +27,15 @@ import * as constants from '../../constants';
 
 export class WeatherComponent implements OnInit {
     cities: Observable<City[]>;
-    thead$: Observable<Array<any>>;
+    thead$: Observable<FilterColumns>;
+    toggle$: Observable<boolean>;
     errorText: Observable<Response>;
 
     @Input() position: Coords;
 
     constructor(private store: Store<fromRoot.State>) {
         this.thead$ = this.store.select(fromRoot.getWeatherFiltersColumns);
+        this.toggle$ = this.store.select(fromRoot.getWeatherFilterToggle);
 
         this.errorText = this.store.select(fromRoot.getWeatherErrors);
         this.cities = this.store.select(fromRoot.getWeatherCities);

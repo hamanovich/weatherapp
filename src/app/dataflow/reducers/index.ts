@@ -30,6 +30,8 @@ export const getWeatherDescription = createSelector(getMeteoState, fromMeteo.get
 export const getWeatherErrors = createSelector(getMeteoState, fromMeteo.getErrors);
 export const getWeatherFilters = createSelector(getMeteoState, fromMeteo.getFilters);
 export const getWeatherFiltersColumns = createSelector(getMeteoState, fromMeteo.getFiltersColumns);
+export const getWeatherFiltersMeasure = createSelector(getMeteoState, fromMeteo.getFiltersMeasure);
+export const getWeatherFilterToggle = createSelector(getMeteoState, fromMeteo.getFiltersToggle);
 
 export const getGeoState = (state: State) => state.geo;
 export const getGeoCoords = createSelector(getGeoState, fromGeo.getCoords);

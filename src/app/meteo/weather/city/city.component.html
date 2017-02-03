@@ -5,7 +5,7 @@
     {{city.coord.lon | number: '1.2-2'}}
 </td>
 <td [hidden]="columns?.temp === false">
-    {{city.main.temp | Celsius | number: '1.2-2'}}
+    {{city.main.temp | Measure | number: '1.2-2'}}
 </td>
 <td [hidden]="columns?.pressure === false">
     {{city.main.pressure}}

@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 import { validateTemperatureRange } from '../../shared/validators/temperature-range.validator';
 
@@ -8,6 +8,7 @@ import * as meteo from '../../dataflow/actions/meteo.actions';
 import * as fromRoot from '../../dataflow/reducers';
 
 import * as constants from '../../constants';
+import FilterColumns from "../../models/filter.columns";
 
 @Component({
     selector: 'wapi-form-filter',
@@ -15,7 +16,7 @@ import * as constants from '../../constants';
     styleUrls: ['form-filter.component.css']
 })
 
-export class FormFilterComponent {
+export class FormFilterComponent implements OnInit {
     filterForm: FormGroup;
     weather: string;
     isAdded: boolean;
@@ -23,7 +24,7 @@ export class FormFilterComponent {
     measureList: string[];
     rowsList: (number | string)[];
 
-    filtersGroup = {
+    filtersGroup: FilterColumns = {
         coords: true,
         temp: true,
         pressure: true,
@@ -32,12 +33,10 @@ export class FormFilterComponent {
         overall: true
     };
 
-    @Output() add: EventEmitter<string> = new EventEmitter<string>();
-
     constructor(private fb: FormBuilder,
                 private store: Store<fromRoot.State>) {
         this.filterList = Object.keys(this.filtersGroup);
-        this.measureList = ['Celsius', 'Kelvin'];
+        this.measureList = ['Kelvin', 'Celsius', 'Fahrenheit'];
         this.rowsList = [
             Math.floor(constants.NUMBER_OF_CITIES / 5),
             Math.floor(constants.NUMBER_OF_CITIES / 2),
@@ -45,26 +44,30 @@ export class FormFilterComponent {
             constants.NUMBER_OF_CITIES,
             'all'
         ];
+    }
 
+    ngOnInit() {
         this.filterForm = this.fb.group({
             columns: this.fb.group(this.filtersGroup),
-            temperature: ['> -273', validateTemperatureRange],
+            temperature: ['', Validators.compose([Validators.required,
+                    validateTemperatureRange])],
             rows: [null, Validators.required],
             measure: [this.measureList[0], Validators.required],
+            toggle: [false],
             cityName: ['', Validators.minLength(3)]
         });
     }
 
-    getWeather() {
+    getWeather(): void {
         this.weather = this.filterForm.controls['cityName'].value;
         this.isAdded = false;
     }
 
-    applyFilters(form) {
+    applyFilters(form: AbstractControl): void {
         this.store.dispatch(new meteo.FilterAction(form.value));
     }
 
-    onAdd() {
+    onAdd(): void {
         this.store.dispatch(new meteo.AddAction(this.weather));
         this.isAdded = true;
     }

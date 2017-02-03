@@ -16,6 +16,9 @@ import * as fromRoot from '../reducers';
 import { MeteoService } from '../../meteo/meteo.service'
 
 import City from '../../models/city';
+import Filters from "../../models/filters";
+
+import { mathMethods } from '../../shared/utils';
 
 @Injectable()
 export class MeteoEffects {
@@ -52,18 +55,28 @@ export class MeteoEffects {
             }))
         );
 
-    @Effect() getFilters$: Observable<{type: string}> = this.actions$
+    @Effect() setFilters$: Observable<{type: string}> = this.actions$
         .ofType(meteo.ActionTypes.FILTER)
         .map((action: Action) => action.payload)
-        .switchMap((filters: any) => this.store.select(fromRoot.getWeatherCities).take(1)
+        .switchMap((filters: Filters) => this.store.select(fromRoot.getWeatherCities).take(1)
             .map((cities: City[]) => {
-                const rows: number = filters.rows === 'all' ? Infinity : filters.rows;
-                const hiddenCities: City[] = cities.map((city: City, index: number) => Object.assign({}, city, {
-                        hidden: index > rows - 1
+                const rows: string | number = filters.rows === 'all' ? Infinity : filters.rows;
+                const temperature: string = filters.temperature;
+                const temperatureSign: string = temperature.split(' ')[0];
+                const temperatureValue: number = Number(temperature.split(' ')[1]);
+
+                const visibleCities: City[] = cities
+                    .map((city: City) => Object.assign({}, city, {
+                            hidden: mathMethods[temperatureSign](temperatureValue, city.main.temp)
+                        })
+                    );
+
+                const vvv: City[] = visibleCities.map((city: City, index: number) => Object.assign({}, city, {
+                        hidden: index > Number(rows) - 1
                     })
                 );
 
-                return new meteo.UpdateAction(hiddenCities);
+                return new meteo.UpdateAction(vvv);
             })
         );
 }

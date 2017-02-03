@@ -1,6 +1,10 @@
 export { MeteoComponent }      from './meteo.component';
 export { WeatherComponent }    from './weather/weather.component';
-export { FormFilterComponent } from './form-filter/form-filter.component';
+export {
+    FormFilterComponent,
+    SwitcherComponent,
+    InputErrorsComponent
+} from './form-filter';
 export {
     CityComponent,
     IconWeatherComponent,

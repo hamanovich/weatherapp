@@ -5,6 +5,8 @@ import {
     MeteoComponent,
     WeatherComponent,
     FormFilterComponent,
+    SwitcherComponent,
+    InputErrorsComponent,
     CityComponent,
     IconWeatherComponent,
     WindComponent
@@ -20,6 +22,8 @@ import { MeteoService } from './meteo.service';
         WeatherComponent,
         CityComponent,
         FormFilterComponent,
+        SwitcherComponent,
+        InputErrorsComponent,
         MeteoComponent,
         WindComponent,
         IconWeatherComponent

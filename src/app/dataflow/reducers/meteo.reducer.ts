@@ -4,13 +4,14 @@ import { Response } from "@angular/http";
 import * as meteo from '../actions/meteo.actions';
 
 import City from '../../models/city';
+import Filters from '../../models/filters';
 
 export interface State {
     cities?: City[];
     citiesCache?: City[];
     weather?: string;
     error?: Response;
-    filters: any;
+    filters: Filters;
 }
 
 const initialState: State = {
@@ -18,7 +19,21 @@ const initialState: State = {
     citiesCache: [],
     weather: '',
     error: null,
-    filters: []
+    filters: {
+        columns: {
+            coords: false,
+            temp: true,
+            pressure: false,
+            humidity: false,
+            wind: false,
+            overall: false
+        },
+        temperature: '> 0',
+        rows: null,
+        measure: 'Fahrenheit',
+        toggle: false,
+        cityName: null
+    }
 };
 
 export function reducer(state: State = initialState, action: Action): State {
@@ -38,7 +53,7 @@ export function reducer(state: State = initialState, action: Action): State {
         }
 
         case meteo.ActionTypes.UPDATE: {
-            return Object.assign({}, state, {cities : action.payload});
+            return Object.assign({}, state, {cities: action.payload});
         }
 
         case meteo.ActionTypes.WEATHER_SUCCESS: {
@@ -57,8 +72,8 @@ export function reducer(state: State = initialState, action: Action): State {
 
         case meteo.ActionTypes.ADD_CACHE: {
             const payload: City = Object.assign({}, action.payload, {
-                    hidden: false
-                });
+                hidden: false
+            });
 
             return Object.assign({}, state, {
                 citiesCache: state.citiesCache.concat([payload])
@@ -105,3 +120,5 @@ export const getWeather = (state: State) => state.weather;
 export const getErrors = (state: State) => state.error;
 export const getFilters = (state: State) => state.filters;
 export const getFiltersColumns = (state: State) => state.filters['columns'];
+export const getFiltersMeasure = (state: State) => state.filters['measure'];
+export const getFiltersToggle = (state: State) => state.filters['toggle'];

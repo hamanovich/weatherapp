@@ -7,6 +7,8 @@ export const API_URL_ICON: string = 'http://openweathermap.org/img/w/';
 export const GOOGLE_URL: string = 'https://developers.google.com/maps/';
 
 export const NUMBER_OF_CITIES: number = 25;
-export const TEMP_DIFFERENCE: number = 273.15;
 
-export const RANGE_REGEXP: RegExp = /^[><=]\s-?\d+$/g;
+export const CELSIUS_KELVIN_DIFFERENCE: number = 273.15;
+export const KELVIN_FAHRENHEIT_DIFFERENCE: number = 459.67;
+
+export const RANGE_REGEXP: RegExp = /^[><]\s-?\d+$/g;
