@@ -23,3 +23,11 @@ h4{
 .help-block.helper{
     color: #444;
 }
+
+.form-control.ng-dirty.ng-invalid{
+    border: 1px solid #ff0039;
+}
+
+.form-control.ng-dirty.ng-valid{
+    border: 1px solid #3fb618;
+}

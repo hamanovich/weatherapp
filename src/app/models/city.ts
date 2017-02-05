@@ -7,7 +7,7 @@ interface City {
         humidity: number;
     };
     coord?: {
-        lat: string,
+        lat: string;
         lon: string;
     };
     dt?: number;

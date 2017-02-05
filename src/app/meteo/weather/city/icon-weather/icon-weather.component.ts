@@ -1,21 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { API_URL_ICON } from '../../../../constants';
 import Weather from '../../../../models/weather';
 
 @Component({
     selector: 'wapi-icon-weather',
-    templateUrl: 'icon-weather.component.html'
+    templateUrl: 'icon-weather.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class IconWeatherComponent implements OnInit {
-    path: string;
+    path: string = API_URL_ICON;
     main: string;
 
     @Input('iconWeather') weather: Weather;
-
-    constructor() {
-        this.path = API_URL_ICON;
-    }
 
     ngOnInit() {
         this.main = this.weather.main;

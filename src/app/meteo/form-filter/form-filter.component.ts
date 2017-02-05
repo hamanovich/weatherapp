@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 import { validateTemperatureRange } from '../../shared/validators/temperature-range.validator';
@@ -8,12 +8,15 @@ import * as meteo from '../../dataflow/actions/meteo.actions';
 import * as fromRoot from '../../dataflow/reducers';
 
 import * as constants from '../../constants';
-import FilterColumns from "../../models/filter.columns";
+import FilterColumns from '../../models/filter.columns';
+
+import * as messages from './messages';
 
 @Component({
     selector: 'wapi-form-filter',
     templateUrl: 'form-filter.component.html',
-    styleUrls: ['form-filter.component.css']
+    styleUrls: ['form-filter.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class FormFilterComponent implements OnInit {
@@ -33,10 +36,16 @@ export class FormFilterComponent implements OnInit {
         overall: true
     };
 
+    messages: any = {
+        temperature: messages.temperatureMessages,
+        rows: messages.rowsMessages,
+        city: messages.cityMessages
+    };
+
     constructor(private fb: FormBuilder,
                 private store: Store<fromRoot.State>) {
         this.filterList = Object.keys(this.filtersGroup);
-        this.measureList = ['Kelvin', 'Celsius', 'Fahrenheit'];
+        this.measureList = constants.MEASURE_ARRAY;
         this.rowsList = [
             Math.floor(constants.NUMBER_OF_CITIES / 5),
             Math.floor(constants.NUMBER_OF_CITIES / 2),
@@ -53,12 +62,12 @@ export class FormFilterComponent implements OnInit {
             rows: ['', Validators.required],
             measure: [this.measureList[0], Validators.required],
             toggle: [false],
-            cityName: ['', Validators.minLength(3)]
+            city: ['', Validators.minLength(3)]
         });
     }
 
     getWeather(): void {
-        this.weather = this.filterForm.get('cityName').value;
+        this.weather = this.filterForm.get('city').value;
         this.isAdded = false;
     }
 
@@ -68,6 +77,7 @@ export class FormFilterComponent implements OnInit {
 
     onAdd(): void {
         this.store.dispatch(new meteo.AddAction(this.weather));
+        this.filterForm.get('city').reset();
         this.isAdded = true;
         this.weather = null;
     }

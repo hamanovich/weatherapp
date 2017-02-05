@@ -1,23 +1,23 @@
 <th scope="row">{{city.id}}</th>
 <td>{{city.name}}</td>
-<td [hidden]="columns?.coords === false">
+<td [hidden]="!columns?.coords">
     {{city.coord.lat | number: '1.2-2'}},
     {{city.coord.lon | number: '1.2-2'}}
 </td>
-<td [hidden]="columns?.temp === false">
+<td [hidden]="!columns?.temp">
     {{city.main.temp | Measure | number: '1.2-2'}}
 </td>
-<td [hidden]="columns?.pressure === false">
+<td [hidden]="!columns?.pressure">
     {{city.main.pressure}}
 </td>
-<td [hidden]="columns?.humidity === false">
+<td [hidden]="!columns?.humidity">
     {{city.main.humidity}}
 </td>
-<td [hidden]="columns?.wind === false"
+<td [hidden]="!columns?.wind"
     class="text-center">
     <wapi-wind [windWeather]="city.wind"></wapi-wind>
 </td>
-<td [hidden]="columns?.overall === false"
+<td [hidden]="!columns?.overall"
     class="text-center">
     <wapi-icon-weather [iconWeather]="city.weather[0]"></wapi-icon-weather>
 </td>

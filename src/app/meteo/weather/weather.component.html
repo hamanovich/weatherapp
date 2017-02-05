@@ -19,18 +19,18 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th [hidden]="(thead$ | async)?.coords === false">Coords</th>
-                <th [hidden]="(thead$ | async)?.temp === false">Temp</th>
-                <th [hidden]="(thead$ | async)?.pressure === false">Pressure</th>
-                <th [hidden]="(thead$ | async)?.humidity === false">Humidity</th>
-                <th [hidden]="(thead$ | async)?.wind === false">Wind</th>
-                <th [hidden]="(thead$ | async)?.overall === false">Overall</th>
+                <th [hidden]="!(thead$ | async)?.coords">Coords</th>
+                <th [hidden]="!(thead$ | async)?.temp">Temp</th>
+                <th [hidden]="!(thead$ | async)?.pressure">Pressure</th>
+                <th [hidden]="!(thead$ | async)?.humidity">Humidity</th>
+                <th [hidden]="!(thead$ | async)?.wind">Wind</th>
+                <th [hidden]="!(thead$ | async)?.overall">Overall</th>
                 <th>Remove</th>
             </tr>
             </thead>
             <tbody class="cities">
             <ng-container *ngFor="let city of (cities | async); let i = index">
-                <tr wapi-city *ngIf="city.hidden === false"
+                <tr wapi-city *ngIf="!city.hidden"
                     (remove)="onRemove(i)"
                     (click)="onHighlight(i)"
                     [colorWeather]="city"

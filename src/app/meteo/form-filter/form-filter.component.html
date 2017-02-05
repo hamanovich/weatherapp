@@ -18,9 +18,7 @@
                 </label>
             </div>
 
-            <div class="form-group row"
-                 [ngClass]="{'has-error': filterForm.get('temperature').dirty&& filterForm.get('temperature').errors,
-                             'has-success': filterForm.get('temperature').dirty && !filterForm.get('temperature').errors}">
+            <div class="form-group row">
                 <div class="col-xs-8">
                     <label for="input-temperature">Temperature range* (by Kelvin's):</label>
                     <small class="help-block helper">Format: sign &gt;/&lt;/= + number (e.g. '&gt; -273')</small>
@@ -29,16 +27,12 @@
                            placeholder="Enter temperature"
                            formControlName="temperature"
                            id="input-temperature">
-                    <wapi-input-errors [inputErrors]="filterForm.get('temperature').dirty && filterForm.get('temperature').errors"
-                                       [inputValid]="'Valid. You\'re awesome!'"
-                                       [errorsState]="{required: 'Range is required',
-                                       invalidTemperatureRange: 'No regexp matched'}"></wapi-input-errors>
+                    <wapi-input-errors [control]="filterForm.get('temperature')"
+                                       [messages]="messages.temperature"></wapi-input-errors>
                 </div>
             </div>
 
-            <div class="form-group row"
-                 [ngClass]="{'has-error': filterForm.get('rows').dirty && filterForm.get('rows').errors,
-                             'has-success': filterForm.get('rows').dirty && !filterForm.get('rows').errors}">
+            <div class="form-group row">
                 <div class="col-xs-8">
                     <label for="input-rows">Row of table*:</label>
                     <select class="form-control"
@@ -47,9 +41,8 @@
                         <option [selected]="filterForm.get('rows').value === null" value="">-- Select --</option>
                         <option *ngFor="let row of rowsList" [value]="row">{{row}}</option>
                     </select>
-                    <wapi-input-errors [inputErrors]="filterForm.get('rows').dirty && filterForm.get('rows').errors"
-                                       [inputValid]="'Valid. Nice choice.'"
-                                       [errorsState]="{required: 'Choose visible number of rows'}"></wapi-input-errors>
+                    <wapi-input-errors [control]="filterForm.get('rows')"
+                                       [messages]="messages.rows"></wapi-input-errors>
                 </div>
             </div>
 
@@ -70,26 +63,24 @@
 
             <hr/>
 
-            <div class="form-group row"
-                 [ngClass]="{'has-error': filterForm.get('cityName').dirty && filterForm.get('cityName').errors,
-                             'has-success': filterForm.get('cityName').dirty && !filterForm.get('cityName').errors}">
+            <div class="form-group row">
                 <div class="col-xs-8">
                     <label for="input-city">Get weather:</label>
                     <input type="text"
                            class="form-control"
                            placeholder="Enter city"
-                           formControlName="cityName"
+                           formControlName="city"
                            id="input-city">
-                    <wapi-input-errors [inputErrors]="filterForm.get('cityName').dirty && filterForm.get('cityName').errors"
-                                       [inputValid]="'Now it\'s a valid'"
-                                       [errorsState]="{minlength: 'City name should consist at least 3 letters!'}"></wapi-input-errors>
+                    <wapi-input-errors [control]="filterForm.get('city')"
+                                       [messages]="messages.city"></wapi-input-errors>
                 </div>
                 <div class="col-xs-4">
                     <label>&nbsp;</label>
                     <button type="button"
                             class="btn btn-primary btn-block"
-                            [disabled]="!filterForm.get('cityName').dirty || filterForm.get('cityName').errors"
-                            (click)="getWeather(); filterForm.get('cityName').reset()">Get
+                            [disabled]="!filterForm.get('city').dirty || filterForm.get('city').errors"
+                            (click)="getWeather()">
+                        Get
                     </button>
                 </div>
             </div>
@@ -97,15 +88,15 @@
             <div class="well" *ngIf="weather">
                 <h4><strong>{{weather | CityWeather}}</strong></h4>
                 <button class="btn btn-sm btn-danger"
-                        (click)="onAdd()"
-                        [disabled]="isAdded">
+                        (click)="onAdd()">
                     Add to table
                 </button>
             </div>
 
             <button type="submit"
                     [disabled]="filterForm.invalid"
-                    class="btn btn-lg btn-success">Apply filters
+                    class="btn btn-lg btn-success">
+                Apply filters
             </button>
         </form>
     </div>

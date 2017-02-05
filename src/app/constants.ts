@@ -10,5 +10,7 @@ export const NUMBER_OF_CITIES: number = 25;
 
 export const CELSIUS_KELVIN_DIFFERENCE: number = 273.15;
 export const KELVIN_FAHRENHEIT_DIFFERENCE: number = 459.67;
+export const KELVIN_FAHRENHEIT_FACTOR: number = 9 / 5;
+export const MEASURE_ARRAY: string[] = ['Kelvin', 'Celsius', 'Fahrenheit'];
 
 export const RANGE_REGEXP: RegExp = /^[><]\s-?\d+$/g;

@@ -60,16 +60,39 @@ export class MeteoEffects {
         .map((action: Action) => action.payload)
         .switchMap((filters: Filters) => this.store.select(fromRoot.getWeatherCities).take(1)
             .map((cities: City[]) => {
-                const rows: string | number = filters.rows === 'all' ? Infinity : filters.rows;
-                const temperatureSign: string = filters.temperature.split(' ')[0];
-                const temperatureValue: number = Number(filters.temperature.split(' ')[1]);
-                const filteredCities: City[] = cities
-                    .map((city: City, index: number) => Object.assign({}, city, {
-                            hidden: !(mathMethods[temperatureSign](city.main.temp, temperatureValue) && index > Number(rows) - 1)
-                        })
-                    );
+                const citiesLength: number = cities.length;
+                const rows: string | number =
+                    filters.rows === 'all' || Number(filters.rows) > citiesLength
+                        ? citiesLength
+                        : filters.rows;
+                const temperatureSplit: string[] = filters.temperature.split(' ');
+                const temperatureSign: string = temperatureSplit[0];
+                const temperatureValue: number = Number(temperatureSplit[1]);
 
-                return new meteo.UpdateAction(filteredCities);
+                let citiesVisible: City[] = [];
+                let citiesHidden: City[] = [];
+
+                cities.map((city: City) => {
+                    const temperatureRange: boolean = mathMethods[temperatureSign](city.main.temp, temperatureValue);
+
+                    if (temperatureRange) {
+                        citiesVisible.push(city);
+                    } else {
+                        citiesHidden.push(city);
+                    }
+
+                    return city;
+                });
+
+                citiesHidden = citiesHidden.concat(citiesVisible.slice(Number(rows)))
+                    .map((city: City) => Object.assign({}, city, {hidden: true}));
+                citiesVisible = citiesVisible.slice(0, Number(rows))
+                    .map((city: City) => Object.assign({}, city, {hidden: false}));
+
+                return new meteo.UpdateAction([
+                    ...citiesVisible,
+                    ...citiesHidden
+                ]);
             })
         );
 }

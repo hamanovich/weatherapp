@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const CUSTOM_CHECKBOX_VALUE_ACCESSOR = {
@@ -15,7 +15,7 @@ const CUSTOM_CHECKBOX_VALUE_ACCESSOR = {
 })
 
 export class SwitcherComponent implements ControlValueAccessor {
-    @Input('value') val: boolean = false;
+    private val: boolean = false;
 
     onChange: any = () => {
     };

@@ -1,9 +1,4 @@
-import {
-    Component,
-    EventEmitter,
-    Input,
-    Output
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 
 import City from '../../../models/city';
 import FilterColumns from '../../../models/filter.columns';
@@ -11,7 +6,8 @@ import FilterColumns from '../../../models/filter.columns';
 @Component({
     selector: '[wapi-city]',
     templateUrl: 'city.component.html',
-    styleUrls: ['city.component.css']
+    styleUrls: ['city.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class CityComponent {

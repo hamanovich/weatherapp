@@ -5,7 +5,7 @@ export function kelvinToCelsius(temperature: number): number {
 }
 
 export function kelvinToFahrenheit(temperature: number): number {
-    return 9 / 5 * temperature - constants.KELVIN_FAHRENHEIT_DIFFERENCE;
+    return constants.KELVIN_FAHRENHEIT_FACTOR * temperature - constants.KELVIN_FAHRENHEIT_DIFFERENCE;
 }
 
 export function kelvinToKelvin(temperature: number): number {

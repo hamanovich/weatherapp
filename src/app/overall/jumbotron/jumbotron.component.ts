@@ -1,8 +1,4 @@
-import {
-    Component,
-    Input,
-    ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../dataflow/reducers';

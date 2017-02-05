@@ -1,37 +1,35 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, DoCheck } from '@angular/core';
 
 @Component({
     selector: 'wapi-input-errors',
     templateUrl: 'input-errors.component.html'
 })
 
-export class InputErrorsComponent implements OnChanges {
-    @Input() inputErrors: string;
-    @Input() inputValid: string;
-    @Input() errorsState: string;
+export class InputErrorsComponent implements DoCheck {
+    @Input() control: any;
+    @Input() messages: any;
 
     errorMessage: string = '';
     validMessage: string = '';
 
-    ngOnChanges(changes: any): void {
-        const errors: any = changes.inputErrors.currentValue;
+    ngDoCheck(): void {
+        const errors: boolean = this.control.dirty && this.control.errors;
+        const valid: boolean = this.control.dirty && !this.control.errors;
 
         this.errorMessage = '';
         this.validMessage = '';
 
-        if (changes.errorsState) {
-            return;
-        }
-
         if (errors) {
-            Object.keys(this.errorsState).some((key: string) => {
+            Object.keys(this.messages.errors).some((key: string) => {
                 if (errors[key]) {
-                    this.errorMessage = this.errorsState[key];
+                    this.errorMessage = this.messages.errors[key];
                     return true;
                 }
             });
-        } else {
-            this.validMessage = this.inputValid;
+        }
+
+        if (valid) {
+            this.validMessage = this.messages.valid;
         }
     }
 }

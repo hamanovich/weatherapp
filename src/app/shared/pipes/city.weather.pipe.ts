@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, ChangeDetectorRef } from '@angular/core';
 import { Response } from '@angular/http';
 
 import { Store } from '@ngrx/store';
@@ -19,7 +19,8 @@ import * as constants from '../../constants';
 
 export class CityWeather implements PipeTransform {
     constructor(private meteoService: MeteoService,
-                private store: Store<fromRoot.State>) {
+                private store: Store<fromRoot.State>,
+                private cd: ChangeDetectorRef) {
     }
 
     transform(value: string): string {
@@ -31,6 +32,7 @@ export class CityWeather implements PipeTransform {
                     (city: City) => {
                         this.store.dispatch(new meteo.AddCacheAction(city));
                         this.meteoService.weatherKey[value] = `${city.name}: ${new Celsius().transform(city.main.temp)}°C`;
+                        this.cd.markForCheck();
                     },
                     (error: Response) => {
                         this.meteoService.weatherKey[value] = error.statusText;
