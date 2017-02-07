@@ -24,7 +24,7 @@
     display: none;
 }
 
-.table-cities thead > th {
+.table-cities thead > tr > th {
     vertical-align: middle;
 }
 

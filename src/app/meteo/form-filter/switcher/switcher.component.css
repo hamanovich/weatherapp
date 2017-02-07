@@ -1,0 +1,74 @@
+.switcher {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    width: 80px;
+    height: 30px;
+    padding: 3px;
+    cursor: pointer;
+    overflow: visible;
+}
+
+.switcher-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.switcher-label {
+    position: relative;
+    display: block;
+    height: inherit;
+    font-size: 1em;
+    font-weight: normal;
+    background: #ccc;
+    color: #2d2d2d;
+}
+
+.switcher-label:before,
+.switcher-label:after {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5em;
+    line-height: 1;
+    color: #fff;
+    right: 11px;
+}
+
+.switcher-label:before {
+    content: attr(data-off);
+}
+
+.switcher-label:after {
+    content: attr(data-on);
+    opacity: 0;
+}
+
+.switcher-handle {
+    position: absolute;
+    top: 9px;
+    left: 12px;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border: 1px solid #666
+}
+.checked .switcher-handle:after{
+    display: block;
+    text-align: center;
+    line-height: 18px;
+    content: '⚫';
+}
+
+.checked .switcher-label {
+    background: #3fb618;
+}
+
+.checked .switcher-label:before {
+    opacity: 0;
+}
+
+.checked .switcher-label:after {
+    opacity: 1;
+}

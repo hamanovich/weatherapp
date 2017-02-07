@@ -9,7 +9,4 @@ import Coords from '../models/coords';
 
 export class MeteoComponent {
     @Input() position: Coords;
-    
-    constructor() {
-    }
 }

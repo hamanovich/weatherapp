@@ -2,14 +2,17 @@ interface City {
     id?: number;
     name?: string;
     main?: {
-        temp: number
+        temp: number;
+        pressure: number;
+        humidity: number;
     };
     coord?: {
-        lat: string,
-        lon: string
+        lat: string;
+        lon: string;
     };
     dt?: number;
     isHighlight?: boolean;
+    hidden?: boolean;
     weather?: {
         description: string;
         main: string;

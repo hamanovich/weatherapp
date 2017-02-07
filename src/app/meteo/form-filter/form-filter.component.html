@@ -1,0 +1,105 @@
+<section class="container">
+    <header class="page-header">
+        <h2>Filter table</h2>
+    </header>
+
+    <div class="row">
+        <form class="form-filter col-md-6 col-sm-9"
+              [formGroup]="filterForm"
+              (submit)="applyFilters(filterForm)">
+
+            <div class="form-group" formGroupName="columns">
+                <label>Show columns:</label> <br/>
+                <label class="checkbox-inline" *ngFor="let filter of filterList">
+                    <input type="checkbox"
+                           value="filter"
+                           [formControlName]="filter">
+                    {{filter}}
+                </label>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-xs-8">
+                    <label for="input-temperature">Temperature range* (by Kelvin's):</label>
+                    <small class="help-block helper">Format: sign &gt;/&lt;/= + number (e.g. '&gt; -273')</small>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Enter temperature"
+                           formControlName="temperature"
+                           id="input-temperature">
+                    <wapi-input-errors [control]="filterForm.get('temperature')"
+                                       [messages]="messages.temperature"></wapi-input-errors>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-xs-8">
+                    <label for="input-rows">Row of table*:</label>
+                    <select class="form-control"
+                            id="input-rows"
+                            formControlName="rows">
+                        <option [selected]="filterForm.get('rows').value === null" value="">-- Select --</option>
+                        <option *ngFor="let row of rowsList" [value]="row">{{row}}</option>
+                    </select>
+                    <wapi-input-errors [control]="filterForm.get('rows')"
+                                       [messages]="messages.rows"></wapi-input-errors>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Measure:</label> <br/>
+                <label class="radio-inline" *ngFor="let unit of measureList">
+                    <input type="radio"
+                           [value]="unit"
+                           formControlName="measure">
+                    {{unit}}
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>Hide table head:</label> <br/>
+                <wapi-checkbox formControlName="toggle"></wapi-checkbox>
+            </div>
+
+            <hr/>
+
+            <div class="form-group row">
+                <div class="col-xs-8">
+                    <label for="input-city">Get weather:</label>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Enter city"
+                           formControlName="city"
+                           id="input-city">
+                    <wapi-input-errors [control]="filterForm.get('city')"
+                                       [messages]="messages.city"></wapi-input-errors>
+                </div>
+                <div class="col-xs-4">
+                    <label>&nbsp;</label>
+                    <button type="button"
+                            class="btn btn-primary btn-block"
+                            [disabled]="!filterForm.get('city').dirty || filterForm.get('city').errors"
+                            (click)="getWeather()">
+                        Get
+                    </button>
+                </div>
+            </div>
+
+            <div class="well" *ngIf="weather">
+                <h4><strong>{{weather | CityWeather}}</strong></h4>
+                <button class="btn btn-sm btn-danger"
+                        (click)="onAdd()">
+                    Add to table
+                </button>
+            </div>
+
+            <button type="submit"
+                    [disabled]="filterForm.invalid"
+                    class="btn btn-lg btn-success">
+                Apply filters
+            </button>
+        </form>
+    </div>
+
+    <hr/>
+</section>

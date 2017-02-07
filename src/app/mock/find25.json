@@ -1,0 +1,863 @@
+{
+    "message": "accurate",
+    "cod": "200",
+    "count": 25,
+    "list": [
+        {
+            "id": 623869,
+            "name": "Ozerishche",
+            "coord": {
+                "lon": 27.700001,
+                "lat": 53.933334
+            },
+            "main": {
+                "temp": 290.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 629962,
+            "name": "Slepnya",
+            "coord": {
+                "lon": 27.65,
+                "lat": 53.933334
+            },
+            "main": {
+                "temp": 287.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 620553,
+            "name": "Uruch’ye",
+            "coord": {
+                "lon": 27.683332,
+                "lat": 53.950001
+            },
+            "main": {
+                "temp": 277.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 8019660,
+            "name": "Vostok",
+            "coord": {
+                "lon": 27.6457,
+                "lat": 53.937801
+            },
+            "main": {
+                "temp": 297.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 620453,
+            "name": "Valer’yanovo",
+            "coord": {
+                "lon": 27.666668,
+                "lat": 53.966667
+            },
+            "main": {
+                "temp": 307.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 625504,
+            "name": "Malyavshchina",
+            "coord": {
+                "lon": 27.6,
+                "lat": 53.916668
+            },
+            "main": {
+                "temp": 287.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 627083,
+            "name": "Kalodzishchy",
+            "coord": {
+                "lon": 27.782301,
+                "lat": 53.944
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1026,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 170,
+                "var_beg": 140,
+                "var_end": 200
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 619955,
+            "name": "Vostochnyy",
+            "coord": {
+                "lon": 27.583332,
+                "lat": 53.916668
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 623184,
+            "name": "Posëlok Imeni Kalinina",
+            "coord": {
+                "lon": 27.783331,
+                "lat": 53.950001
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1026,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 170,
+                "var_beg": 140,
+                "var_end": 200
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 8247183,
+            "name": "Borovlyany",
+            "coord": {
+                "lon": 27.6754,
+                "lat": 54.002201
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 625144,
+            "name": "Minsk",
+            "coord": {
+                "lon": 27.566668,
+                "lat": 53.900002
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 625143,
+            "name": "Horad Minsk",
+            "coord": {
+                "lon": 27.566668,
+                "lat": 53.900002
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 8247406,
+            "name": "Lyeskawka",
+            "coord": {
+                "lon": 27.7108,
+                "lat": 54.002399
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 629829,
+            "name": "Vyaliki Trastsyanets",
+            "coord": {
+                "lon": 27.7139,
+                "lat": 53.851002
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 8247407,
+            "name": "Lyasny",
+            "coord": {
+                "lon": 27.696301,
+                "lat": 54.007198
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 627318,
+            "name": "Navinki",
+            "coord": {
+                "lon": 27.549999,
+                "lat": 53.933334
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 621667,
+            "name": "Sokolyanka",
+            "coord": {
+                "lon": 27.583332,
+                "lat": 53.866669
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 622069,
+            "name": "Sheypichi",
+            "coord": {
+                "lon": 27.583332,
+                "lat": 53.866669
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 626895,
+            "name": "Korolev Stan",
+            "coord": {
+                "lon": 27.799999,
+                "lat": 53.983334
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1026,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 170,
+                "var_beg": 140,
+                "var_end": 200
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 8019783,
+            "name": "Serebryanka",
+            "coord": {
+                "lon": 27.6024,
+                "lat": 53.856098
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 627332,
+            "name": "Khutor Apolinarovo",
+            "coord": {
+                "lon": 27.533333,
+                "lat": 53.950001
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 628684,
+            "name": "Dvorishche",
+            "coord": {
+                "lon": 27.6,
+                "lat": 53.849998
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 621275,
+            "name": "Stolovaya",
+            "coord": {
+                "lon": 27.566668,
+                "lat": 53.866669
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 624147,
+            "name": "Ol’shëvo",
+            "coord": {
+                "lon": 27.516666,
+                "lat": 53.916668
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        },
+        {
+            "id": 8247409,
+            "name": "Balshavik",
+            "coord": {
+                "lon": 27.5669,
+                "lat": 54.003601
+            },
+            "main": {
+                "temp": 267.15,
+                "pressure": 1025,
+                "humidity": 100,
+                "temp_min": 267.15,
+                "temp_max": 267.15
+            },
+            "dt": 1486018800,
+            "wind": {
+                "speed": 2,
+                "deg": 120
+            },
+            "sys": {
+                "country": ""
+            },
+            "clouds": {
+                "all": 90
+            },
+            "weather": [
+                {
+                    "id": 701,
+                    "main": "Mist",
+                    "description": "mist",
+                    "icon": "50d"
+                }
+            ]
+        }
+    ]
+}

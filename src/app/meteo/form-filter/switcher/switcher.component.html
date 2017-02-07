@@ -1,0 +1,13 @@
+<div (click)="toggle()"
+     class="switcher"
+     [ngClass]="{'checked': value}">
+
+    <input type="checkbox"
+           class="switcher-input"
+           [value]="value"
+           [attr.checked]="value">
+
+    <span class="switcher-label" data-on="Yes" data-off="No"></span>
+
+    <span class="switcher-handle"></span>
+</div>

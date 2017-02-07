@@ -1,5 +1,5 @@
-import {Component, ViewEncapsulation, OnInit} from '@angular/core';
-import {MeteoService} from './meteo/meteo.service';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { MeteoService } from './meteo/meteo.service';
 
 import { Store } from '@ngrx/store';
 import * as geo from './dataflow/actions/geo.actions';
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
             console.error('Geolocation is not supported by your browser');
             return;
         }
-    
+
         this.position = this.store.select(fromRoot.getGeoCoords);
     }
 

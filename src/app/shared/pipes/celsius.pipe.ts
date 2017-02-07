@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { TEMP_DIFFERENCE } from '../../constants';
+import { CELSIUS_KELVIN_DIFFERENCE } from '../../constants';
 
 @Pipe({
     name: 'Celsius'
@@ -8,6 +8,6 @@ import { TEMP_DIFFERENCE } from '../../constants';
 
 export class Celsius implements PipeTransform {
     transform(value: number): number {
-        return Number((value - TEMP_DIFFERENCE).toFixed(2));
+        return Number((value - CELSIUS_KELVIN_DIFFERENCE).toFixed(2));
     }
 }

@@ -1,0 +1,33 @@
+.form-filter{
+    margin-bottom: 1em;
+}
+
+.form-inline {
+    margin-bottom: 1em;
+}
+
+.form-control {
+    text-transform: capitalize;
+}
+
+h4{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 .5em 0 0;
+}
+
+.help-block{
+    margin-bottom: 0;
+}
+
+.help-block.helper{
+    color: #444;
+}
+
+.form-control.ng-dirty.ng-invalid{
+    border: 1px solid #ff0039;
+}
+
+.form-control.ng-dirty.ng-valid{
+    border: 1px solid #3fb618;
+}

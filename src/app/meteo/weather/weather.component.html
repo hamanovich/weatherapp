@@ -1,4 +1,4 @@
-<div class="container">
+<section class="container">
     <header class="page-header">
         <h2>Cities table
             <small>Weather stats</small>
@@ -15,26 +15,37 @@
          [ngClass]="{'done': (cities | async)}"
          *ngIf="!(errorText | async)">
         <table class="table table-bordered">
-            <thead>
+            <thead [hidden]="toggle$ | async">
             <tr>
-                <th *ngFor="let th of thead">{{th | uppercase}}</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th [hidden]="!(thead$ | async)?.coords">Coords</th>
+                <th [hidden]="!(thead$ | async)?.temp">Temp</th>
+                <th [hidden]="!(thead$ | async)?.pressure">Pressure</th>
+                <th [hidden]="!(thead$ | async)?.humidity">Humidity</th>
+                <th [hidden]="!(thead$ | async)?.wind">Wind</th>
+                <th [hidden]="!(thead$ | async)?.overall">Overall</th>
+                <th>Remove</th>
             </tr>
             </thead>
             <tbody class="cities">
-            <tr wapi-city
-                *ngFor="let city of (cities | async); let i = index"
-                (remove)="onRemove(i)"
-                (click)="onHighlight(i)"
-                [colorWeather]="city"
-                [city]="city"
-                [ngClass]="{highlight: city.isHighlight}"></tr>
+            <ng-container *ngFor="let city of (cities | async); let i = index">
+                <tr wapi-city *ngIf="!city.hidden"
+                    (remove)="onRemove(i)"
+                    (click)="onHighlight(i)"
+                    [colorWeather]="city"
+                    [city]="city"
+                    [ngClass]="{highlight: city.isHighlight}"
+                    [columns]="thead$ | async">
+                </tr>
+            </ng-container>
             </tbody>
         </table>
     </div>
-    
+
     <div class="alert alert-danger" *ngIf="errorText | async">
         {{(errorText | async)?.status}} : {{(errorText | async)?.statusText}}
     </div>
-    
+
     <hr/>
-</div>
+</section>

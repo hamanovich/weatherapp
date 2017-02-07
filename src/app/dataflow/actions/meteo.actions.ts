@@ -2,14 +2,17 @@ import { Action } from '@ngrx/store';
 import { Response } from "@angular/http";
 
 import City from '../../models/city';
+import Filters from "../../models/filters";
 
 export const ActionTypes = {
     LOAD: '[METEO] LOAD',
     LOAD_SUCCESS: '[METEO] LOAD SUCCESS',
     LOAD_FAIL: '[METEO] LOAD FAIL',
+    UPDATE: '[METEO] UPDATE',
     WEATHER: '[METEO] WEATHER',
     WEATHER_SUCCESS: '[METEO] WEATHER SUCCESS',
     WEATHER_FAIL: '[METEO] WEATHER FAIL',
+    FILTER: '[METEO] FILTER',
     ADD: '[METEO] ADD',
     ADD_CACHE: '[METEO] ADD CACHE',
     REMOVE: '[METEO] REMOVE',
@@ -37,6 +40,13 @@ export class LoadFailAction implements Action {
     }
 }
 
+export class UpdateAction implements Action {
+    type: string = ActionTypes.UPDATE;
+
+    constructor(public payload: City[]) {
+    }
+}
+
 export class WeatherAction implements Action {
     type: string = ActionTypes.WEATHER;
 
@@ -55,6 +65,13 @@ export class WeatherFailAction implements Action {
     type: string = ActionTypes.WEATHER_FAIL;
 
     constructor(public payload: string) {
+    }
+}
+
+export class FilterAction implements Action {
+    type: string = ActionTypes.FILTER;
+
+    constructor(public payload: Filters) {
     }
 }
 
@@ -90,8 +107,10 @@ export type Actions
     = LoadAction
     | LoadSuccessAction
     | LoadFailAction
+    | UpdateAction
     | WeatherAction
     | WeatherSuccessAction
+    | FilterAction
     | AddAction
     | AddCacheAction
     | RemoveAction

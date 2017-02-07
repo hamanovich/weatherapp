@@ -7,7 +7,7 @@ module.exports = {
     historyApiFallback: true,
     stats: 'errors-only',
     watchOptions: {
-        aggregateTimeout: 300,
+        aggregateTimeout: 500,
         poll: 500
     }
 };

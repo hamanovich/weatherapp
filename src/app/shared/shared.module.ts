@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { CityWeather } from './pipes/city.weather.pipe';
 import { Celsius }     from './pipes/celsius.pipe';
+import { Measure }     from './pipes/measure.pipe';
 
 import { ColorWeather } from './directives/color-weather.directive';
 import { WindWeather }  from './directives/wind-weather.directive';
@@ -18,6 +19,7 @@ import { WindWeather }  from './directives/wind-weather.directive';
     declarations: [
         CityWeather,
         Celsius,
+        Measure,
         ColorWeather,
         WindWeather
     ],
@@ -27,6 +29,7 @@ import { WindWeather }  from './directives/wind-weather.directive';
         HttpModule,
         CityWeather,
         Celsius,
+        Measure,
         ColorWeather,
         WindWeather
     ]
