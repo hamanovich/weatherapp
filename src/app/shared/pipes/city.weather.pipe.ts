@@ -27,7 +27,7 @@ export class CityWeather implements PipeTransform {
         if (this.meteoService.weatherKey[value] === undefined) {
             this.meteoService.weatherKey[value] = '';
             this.meteoService
-                .getCities(`${constants.GEO_URL}weather?q=${value}&appid=${constants.GEO_API_KEY}`)
+                .getCitiesByUrl(`${constants.GEO_URL}weather?q=${value}&appid=${constants.GEO_API_KEY}`)
                 .subscribe(
                     (city: City) => {
                         this.store.dispatch(new meteo.AddCacheAction(city));

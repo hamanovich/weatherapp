@@ -6,8 +6,8 @@
         <p *ngIf="cities | async">
             Your position is
             <span class="text-success">
-                {{position.latitude | number: '1.2-2'}},
-                {{position.longitude | number: '1.2-2'}}
+                {{(position | async)?.latitude | number: '1.2-2'}},
+                {{(position | async)?.longitude | number: '1.2-2'}}
             </span>
         </p>
     </header>
@@ -32,7 +32,8 @@
             <ng-container *ngFor="let city of (cities | async); let i = index">
                 <tr wapi-city *ngIf="!city.hidden"
                     (remove)="onRemove(i)"
-                    (click)="onHighlight(i)"
+                    (contextmenu)="onHighlight(i)"
+                    (click)="onSelect(city.id)"
                     [colorWeather]="city"
                     [city]="city"
                     [ngClass]="{highlight: city.isHighlight}"
@@ -46,6 +47,4 @@
     <div class="alert alert-danger" *ngIf="errorText | async">
         {{(errorText | async)?.status}} : {{(errorText | async)?.statusText}}
     </div>
-
-    <hr/>
 </section>

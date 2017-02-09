@@ -3,6 +3,10 @@
 }
 
 @media screen and (max-width: 768px) {
+    .navbar-header{
+        float: left;
+    }
+
     .btn-group {
         display: none;
     }

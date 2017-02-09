@@ -6,6 +6,8 @@ import { OverallModule }   from './overall/overall.module';
 import { GoogleMapModule } from './google-map/google-map.module';
 import { MeteoModule }     from './meteo/meteo.module';
 
+import { AppRoutingModule } from "./app-routing.module";
+
 import { AppComponent } from './app.component';
 
 import { StoreModule } from '@ngrx/store';
@@ -18,15 +20,16 @@ import { reducer } from './dataflow/reducers';
     imports: [
         BrowserModule,
         CoreModule,
-        OverallModule,
         MeteoModule,
+        OverallModule,
         GoogleMapModule,
+        AppRoutingModule,
         StoreModule.provideStore(reducer),
         EffectsModule.run(MeteoEffects),
         StoreDevtoolsModule.instrumentOnlyWithExtension()
     ],
-    declarations: [ AppComponent ],
-    bootstrap: [ AppComponent ]
+    declarations: [AppComponent],
+    bootstrap: [AppComponent]
 })
 
 export class AppModule {

@@ -30,7 +30,7 @@ export class MeteoEffects {
     @Effect() getCities$: Observable<{type: string}> = this.actions$
         .ofType(meteo.ActionTypes.LOAD)
         .map((action: Action) => action.payload)
-        .switchMap((url: string) => this.meteoService.getCities(url)
+        .switchMap((url: string) => this.meteoService.getCitiesByUrl(url)
             .map((cities: {list: City[]}) => new meteo.LoadSuccessAction(cities.list))
             .catch((error: Response) => Observable.of({
                 type: meteo.ActionTypes.LOAD_FAIL,
@@ -44,7 +44,7 @@ export class MeteoEffects {
     @Effect() getWeather$: Observable<{type: string}> = this.actions$
         .ofType(meteo.ActionTypes.WEATHER)
         .map((action: Action) => action.payload)
-        .switchMap((url: string) => this.meteoService.getCities(url)
+        .switchMap((url: string) => this.meteoService.getCitiesByUrl(url)
             .map((weather: {weather: [{description: string}]}) => new meteo.WeatherSuccessAction(weather.weather[0].description))
             .catch((error: Response) => Observable.of({
                 type: meteo.ActionTypes.WEATHER_FAIL,
