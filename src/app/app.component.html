@@ -1,8 +1,9 @@
 <wapi-navbar></wapi-navbar>
 
-<wapi-jumbotron *ngIf="position"></wapi-jumbotron>
+<wapi-jumbotron></wapi-jumbotron>
 
 <main class="main">
+    <router-outlet name="widget"></router-outlet>
     <router-outlet></router-outlet>
 </main>
 

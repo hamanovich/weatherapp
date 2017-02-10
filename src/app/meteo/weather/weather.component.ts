@@ -23,10 +23,10 @@ import FilterColumns from '../../models/filter.columns';
 })
 
 export class WeatherComponent implements OnInit {
-    cities: Observable<City[]>;
+    cities$: Observable<City[]>;
     thead$: Observable<FilterColumns>;
     toggle$: Observable<boolean>;
-    errorText: Observable<Response>;
+    errorText$: Observable<Response>;
 
     @Input() position: Coords;
 
@@ -47,8 +47,8 @@ export class WeatherComponent implements OnInit {
         this.thead$ = this.store.select(fromRoot.getWeatherFiltersColumns);
         this.toggle$ = this.store.select(fromRoot.getWeatherFilterToggle);
 
-        this.errorText = this.store.select(fromRoot.getWeatherErrors);
-        this.cities = this.store.select(fromRoot.getWeatherCities);
+        this.errorText$ = this.store.select(fromRoot.getWeatherErrors);
+        this.cities$ = this.store.select(fromRoot.getWeatherCities);
     }
 
     onHighlight(i: number): boolean {

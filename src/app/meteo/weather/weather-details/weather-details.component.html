@@ -1,7 +1,9 @@
 <section class="container" *ngIf="city">
-    <h2>Weather in <strong>{{city.name}}</strong>
-        (<img [src]="path + city.weather[0].icon + '.png'" alt=""/>)
-    </h2>
+    <header class="page-header">
+        <h2>Weather in <strong>{{city.name}}</strong>:</h2>
+        <h3><img [src]="path + city.weather[0].icon + '.png'" alt="{{city.weather[0].description}}"/>
+            {{city.main.temp | Celsius}} &deg;C</h3>
+    </header>
     
     <table class="table table-striped table-bordered table-hover">
         <tbody>

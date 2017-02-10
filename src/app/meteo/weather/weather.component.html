@@ -3,7 +3,7 @@
         <h2>Cities table
             <small>Weather stats</small>
         </h2>
-        <p *ngIf="cities | async">
+        <p *ngIf="cities$ | async">
             Your position is
             <span class="text-success">
                 {{(position | async)?.latitude | number: '1.2-2'}},
@@ -12,8 +12,8 @@
         </p>
     </header>
     <div class="table-responsive table-cities"
-         [ngClass]="{'done': (cities | async)}"
-         *ngIf="!(errorText | async)">
+         [ngClass]="{'done': (cities$ | async)}"
+         *ngIf="!(errorText$ | async)">
         <table class="table table-bordered">
             <thead [hidden]="toggle$ | async">
             <tr>
@@ -29,7 +29,7 @@
             </tr>
             </thead>
             <tbody class="cities">
-            <ng-container *ngFor="let city of (cities | async); let i = index">
+            <ng-container *ngFor="let city of (cities$ | async); let i = index">
                 <tr wapi-city *ngIf="!city.hidden"
                     (remove)="onRemove(i)"
                     (contextmenu)="onHighlight(i)"
@@ -44,7 +44,7 @@
         </table>
     </div>
 
-    <div class="alert alert-danger" *ngIf="errorText | async">
-        {{(errorText | async)?.status}} : {{(errorText | async)?.statusText}}
+    <div class="alert alert-danger" *ngIf="errorText$ | async">
+        {{(errorText$ | async)?.status}} : {{(errorText$ | async)?.statusText}}
     </div>
 </section>

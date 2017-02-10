@@ -1,6 +1,10 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+
 import { Page404Component } from "./overall/page404/page404.component";
+import { WidgetComponent } from './widget/widget.component';
+
+import { CustomPreloadingStrategy } from "./custom-preloading.strategy";
 
 const appRoutes: Routes = [
     {
@@ -10,7 +14,18 @@ const appRoutes: Routes = [
     },
     {
         path: 'map',
-        loadChildren: './google-map/google-map.module#GoogleMapModule'
+        loadChildren: './google-map/google-map.module#GoogleMapModule',
+        data: {
+            preload: true
+        }
+    },
+    {
+        path: 'show',
+        component: WidgetComponent,
+        outlet: 'widget',
+        data: {
+            preload: true
+        }
     },
     {
         path: '**',
@@ -20,11 +35,14 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(appRoutes)
+        RouterModule.forRoot(
+            appRoutes, {
+                preloadingStrategy: CustomPreloadingStrategy
+            }
+        )
     ],
-    exports: [
-        RouterModule
-    ]
+    providers: [CustomPreloadingStrategy],
+    exports: [RouterModule]
 })
 
 export class AppRoutingModule {

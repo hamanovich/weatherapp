@@ -1,12 +1,12 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../dataflow/reducers';
 
+import City from '../../models/city';
+
 import * as constants from '../../constants';
 import { Observable } from "rxjs/Observable";
-
-import Coords from "../../models/coords";
 
 @Component({
     selector: 'wapi-jumbotron',
@@ -17,11 +17,14 @@ import Coords from "../../models/coords";
 
 export class JumbotronComponent {
     APP_TITLE: string = constants.APP_TITLE;
-    weather: Observable<string>;
+    city: City;
 
-    @Input() position: Coords;
-
-    constructor(private store: Store<fromRoot.State>) {
-        this.weather = this.store.select(fromRoot.getWeatherDescription);
+    constructor(private store: Store<fromRoot.State>,
+        private cd: ChangeDetectorRef) {
+        this.store.select(fromRoot.getWeatherYourCity)
+            .subscribe((city: City) => {
+                this.city = city;
+                this.cd.markForCheck();
+            });
     }
 }

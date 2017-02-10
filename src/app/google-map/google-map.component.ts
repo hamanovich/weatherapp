@@ -13,12 +13,11 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../dataflow/reducers';
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Observable';
 
-import Coords from "../models/coords";
+import Coords from '../models/coords';
 
 @Component({
-    selector: 'wapi-google-map',
     templateUrl: './google-map.component.html',
     styleUrls: ['google-map.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
