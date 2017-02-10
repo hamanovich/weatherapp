@@ -56,20 +56,6 @@ export class MeteoEffects {
             }))
         );
 
-    @Effect() getWeather$: Observable<{type: string}> = this.actions$
-        .ofType(meteo.ActionTypes.WEATHER)
-        .map((action: Action) => action.payload)
-        .switchMap((url: string) => this.meteoService.getCitiesByUrl(url)
-            .map((weather: {weather: [{description: string}]}) => new meteo.WeatherSuccessAction(weather.weather[0].description))
-            .catch((error: Response) => Observable.of({
-                type: meteo.ActionTypes.WEATHER_FAIL,
-                payload: {
-                    status: error.status,
-                    statusText: error.statusText
-                }
-            }))
-        );
-
     @Effect() setFilters$: Observable<{type: string}> = this.actions$
         .ofType(meteo.ActionTypes.FILTER)
         .map((action: Action) => action.payload)
