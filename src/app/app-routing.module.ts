@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { Page404Component } from "./overall/page404/page404.component";
-import { GoogleMapComponent } from './google-map/google-map.component';
 
 const appRoutes: Routes = [
     {
@@ -11,7 +10,7 @@ const appRoutes: Routes = [
     },
     {
         path: 'map',
-        component: GoogleMapComponent
+        loadChildren: './google-map/google-map.module#GoogleMapModule'
     },
     {
         path: '**',

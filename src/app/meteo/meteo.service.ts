@@ -3,8 +3,6 @@ import { Http, Response } from '@angular/http';
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 
-import { Router } from '@angular/router';
-
 import Position from '../models/position';
 
 import * as constants from '../constants';
@@ -15,8 +13,7 @@ export class MeteoService {
         [key: string]: string
     };
 
-    constructor(private http: Http,
-        private router: Router) {
+    constructor(private http: Http) {
         this.weatherKey = {};
     }
 
@@ -40,10 +37,6 @@ export class MeteoService {
                 + id + '&appid='
                 + constants.GEO_API_KEY)
             .map((response: Response) => response.json())
-            .catch((): Observable<boolean> => {
-                this.router.navigate(['meteo']);
-
-                return Observable.of(false);
-            });
+            .catch(() => Observable.of(false));
     }
 }
