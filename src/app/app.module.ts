@@ -5,6 +5,9 @@ import { CoreModule }      from './core/core.module';
 import { OverallModule }   from './overall/overall.module';
 import { GoogleMapModule } from './google-map/google-map.module';
 import { MeteoModule }     from './meteo/meteo.module';
+import { WidgetModule }     from './widget/widget.module';
+
+import { AppRoutingModule } from "./app-routing.module";
 
 import { AppComponent } from './app.component';
 
@@ -18,15 +21,17 @@ import { reducer } from './dataflow/reducers';
     imports: [
         BrowserModule,
         CoreModule,
-        OverallModule,
         MeteoModule,
+        OverallModule,
         GoogleMapModule,
+        WidgetModule,
+        AppRoutingModule,
         StoreModule.provideStore(reducer),
         EffectsModule.run(MeteoEffects),
         StoreDevtoolsModule.instrumentOnlyWithExtension()
     ],
-    declarations: [ AppComponent ],
-    bootstrap: [ AppComponent ]
+    declarations: [AppComponent],
+    bootstrap: [AppComponent]
 })
 
 export class AppModule {

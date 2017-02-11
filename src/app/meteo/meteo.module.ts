@@ -1,9 +1,12 @@
 import { NgModule }     from '@angular/core';
 import { SharedModule } from "../shared/shared.module";
 
+import { MeteoRoutingModule } from './meteo-routing.module';
+
 import {
     MeteoComponent,
     WeatherComponent,
+    WeatherDetailsComponent,
     FormFilterComponent,
     SwitcherComponent,
     InputErrorsComponent,
@@ -13,13 +16,16 @@ import {
 } from './index';
 
 import { MeteoService } from './meteo.service';
+import { WeatherDetailsResolve } from './weather/weather-details.resolve';
 
 @NgModule({
     imports: [
-        SharedModule
+        SharedModule,
+        MeteoRoutingModule
     ],
     declarations: [
         WeatherComponent,
+        WeatherDetailsComponent,
         CityComponent,
         FormFilterComponent,
         SwitcherComponent,
@@ -28,8 +34,11 @@ import { MeteoService } from './meteo.service';
         WindComponent,
         IconWeatherComponent
     ],
-    providers: [ MeteoService ],
-    exports: [ MeteoComponent ]
+    providers: [
+        MeteoService,
+        WeatherDetailsResolve
+    ],
+    exports: [MeteoComponent]
 })
 
 export class MeteoModule {

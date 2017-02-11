@@ -1,7 +1,7 @@
 import {
     Component,
-    Input,
     OnInit,
+    OnDestroy,
     ViewChild,
     ElementRef,
     ChangeDetectionStrategy
@@ -9,28 +9,44 @@ import {
 
 import { GoogleMapService } from './google-map.service';
 
-import Coords from "../models/coords";
+import { Subscription } from 'rxjs/Subscription';
+
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../dataflow/reducers';
+import { Observable } from 'rxjs/Observable';
+
+import Coords from '../models/coords';
 
 @Component({
-    selector: 'wapi-google-map',
     templateUrl: './google-map.component.html',
     styleUrls: ['google-map.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class GoogleMapComponent implements OnInit {
+export class GoogleMapComponent implements OnInit, OnDestroy {
     GOOGLE_MAP_TITLE: string;
     GOOGLE_MAP_TITLE_SUB: string;
 
-    @Input() position: Coords;
+    subscription: Subscription;
+    position: Observable<Coords>;
+
     @ViewChild('googleMapElement') googleMapElememt: ElementRef;
 
-    constructor(private gMapService: GoogleMapService) {
+    constructor(private gMapService: GoogleMapService,
+                private store: Store<fromRoot.State>) {
         this.GOOGLE_MAP_TITLE = 'Google Map';
         this.GOOGLE_MAP_TITLE_SUB = 'Maps JavaScript API';
     }
 
     ngOnInit() {
-        this.gMapService.init(this.position, this.googleMapElememt.nativeElement);
+        this.subscription = this.store.select(fromRoot.getGeoCoords).subscribe((position: Coords) => {
+            if (position) {
+                this.gMapService.init(position, this.googleMapElememt.nativeElement);
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

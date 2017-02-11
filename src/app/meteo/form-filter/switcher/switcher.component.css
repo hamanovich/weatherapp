@@ -58,7 +58,7 @@
     display: block;
     text-align: center;
     line-height: 18px;
-    content: '⚫';
+    content: '×';
 }
 
 .checked .switcher-label {

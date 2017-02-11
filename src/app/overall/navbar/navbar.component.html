@@ -1,8 +1,21 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">{{APP_TITLE}}</a>
+            <a class="navbar-brand" routerLink="/">{{APP_TITLE}}</a>
         </div>
+        
+        <ul class="nav nav-pills pull-left">
+            <li routerLinkActive="active" class="navbar-btn">
+                <a routerLink="/meteo">Meteo</a>
+            </li>
+            <li routerLinkActive="active" class="navbar-btn">
+                <a routerLink="/map">Map</a>
+            </li>
+            <li class="navbar-btn">
+                <a [routerLink]="[{outlets: {widget: ['show']}}]">Widget</a>
+            </li>
+        </ul>
+        
         <nav class="btn-group pull-right">
             <a href="{{API_URL}}" target="_blank" class="btn btn-success navbar-btn">Weather API</a>
             <a href="{{GOOGLE_URL}}" target="_blank" class="btn btn-info navbar-btn">Google Maps API</a>

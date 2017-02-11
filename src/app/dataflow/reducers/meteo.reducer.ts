@@ -8,6 +8,7 @@ import Filters from '../../models/filters';
 import FilterColumns from '../../models/filter.columns';
 
 export interface State {
+    yourCity?: City;
     cities?: City[];
     citiesCache?: City[];
     weather?: string;
@@ -16,6 +17,7 @@ export interface State {
 }
 
 const initialState: State = {
+    yourCity: [],
     cities: [],
     citiesCache: [],
     weather: '',
@@ -47,6 +49,10 @@ export function reducer(state: State = initialState, action: Action): State {
             );
 
             return Object.assign({}, state, {cities});
+        }
+
+        case meteo.ActionTypes.LOAD_ONE_SUCCESS: {
+            return Object.assign({}, state, {yourCity: action.payload});
         }
 
         case meteo.ActionTypes.LOAD_FAIL: {
@@ -116,10 +122,10 @@ export function reducer(state: State = initialState, action: Action): State {
     }
 }
 
+export const getYourCity = (state: State) => state.yourCity;
 export const getCities = (state: State) => state.cities;
 export const getWeather = (state: State) => state.weather;
 export const getErrors = (state: State) => state.error;
-export const getFilters = (state: State) => state.filters;
 export const getFiltersColumns = (state: State) => state.filters['columns'];
 export const getFiltersMeasure = (state: State) => state.filters['measure'];
 export const getFiltersToggle = (state: State) => state.filters['toggle'];

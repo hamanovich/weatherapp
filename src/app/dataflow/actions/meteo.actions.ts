@@ -3,11 +3,15 @@ import { Response } from "@angular/http";
 
 import City from '../../models/city';
 import Filters from "../../models/filters";
+import Coords from '../../models/city';
 
 export const ActionTypes = {
     LOAD: '[METEO] LOAD',
     LOAD_SUCCESS: '[METEO] LOAD SUCCESS',
     LOAD_FAIL: '[METEO] LOAD FAIL',
+    LOAD_ONE: '[METEO] LOAD ONE',
+    LOAD_ONE_SUCCESS: '[METEO] LOAD ONE SUCCESS',
+    LOAD_ONE_FAIL: '[METEO] LOAD ONE FAIL',
     UPDATE: '[METEO] UPDATE',
     WEATHER: '[METEO] WEATHER',
     WEATHER_SUCCESS: '[METEO] WEATHER SUCCESS',
@@ -35,6 +39,27 @@ export class LoadSuccessAction implements Action {
 
 export class LoadFailAction implements Action {
     type: string = ActionTypes.LOAD_FAIL;
+
+    constructor(public payload: Response) {
+    }
+}
+
+export class LoadOneAction implements Action {
+    type: string = ActionTypes.LOAD_ONE;
+
+    constructor(public payload: Coords) {
+    }
+}
+
+export class LoadOneSuccessAction implements Action {
+    type: string = ActionTypes.LOAD_ONE_SUCCESS;
+
+    constructor(public payload: City) {
+    }
+}
+
+export class LoadOneFailAction implements Action {
+    type: string = ActionTypes.LOAD_ONE_FAIL;
 
     constructor(public payload: Response) {
     }

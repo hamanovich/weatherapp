@@ -1,0 +1,32 @@
+<section class="container" *ngIf="city">
+    <header class="page-header">
+        <h2>Weather in <strong>{{city.name}}</strong>:</h2>
+        <h3><img [src]="path + city.weather[0].icon + '.png'" alt="{{city.weather[0].description}}"/>
+            {{city.main.temp | Celsius}} &deg;C</h3>
+    </header>
+    
+    <table class="table table-striped table-bordered table-hover">
+        <tbody>
+        <tr>
+            <th>Wind</th>
+            <td id="weather-widget-wind">{{city.wind.speed}} m/s ({{city.wind.deg}})</td>
+        </tr>
+        <tr>
+            <th>Cloudiness</th>
+            <td id="weather-widget-cloudiness">{{city.weather[0].main}}</td>
+        </tr>
+        <tr>
+            <th>Pressure</th>
+            <td id="weather-widget-pressure">{{city.main.pressure}} hpa</td>
+        </tr>
+        <tr>
+            <th>Humidity</th>
+            <td id="weather-widget-humidity">{{city.main.humidity}} %</td>
+        </tr>
+        <tr>
+            <th>Geo coords</th>
+            <td>[{{city.coord.lat}}, {{city.coord.lon}}]</td>
+        </tr>
+        </tbody>
+    </table>
+</section>

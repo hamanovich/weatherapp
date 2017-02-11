@@ -17,6 +17,7 @@ import { MeteoService } from '../../meteo/meteo.service'
 
 import City from '../../models/city';
 import Filters from "../../models/filters";
+import Coords from '../../models/coords';
 
 import { mathMethods } from '../../shared/utils';
 
@@ -30,7 +31,7 @@ export class MeteoEffects {
     @Effect() getCities$: Observable<{type: string}> = this.actions$
         .ofType(meteo.ActionTypes.LOAD)
         .map((action: Action) => action.payload)
-        .switchMap((url: string) => this.meteoService.getCities(url)
+        .switchMap((url: string) => this.meteoService.getCitiesByUrl(url)
             .map((cities: {list: City[]}) => new meteo.LoadSuccessAction(cities.list))
             .catch((error: Response) => Observable.of({
                 type: meteo.ActionTypes.LOAD_FAIL,
@@ -41,13 +42,13 @@ export class MeteoEffects {
             }))
         );
 
-    @Effect() getWeather$: Observable<{type: string}> = this.actions$
-        .ofType(meteo.ActionTypes.WEATHER)
+    @Effect() getYourCity$: Observable<{type: string}> = this.actions$
+        .ofType(meteo.ActionTypes.LOAD_ONE)
         .map((action: Action) => action.payload)
-        .switchMap((url: string) => this.meteoService.getCities(url)
-            .map((weather: {weather: [{description: string}]}) => new meteo.WeatherSuccessAction(weather.weather[0].description))
+        .switchMap((coords: Coords) => this.meteoService.getCityByLocation(coords)
+            .map((city: City) => new meteo.LoadOneSuccessAction(city))
             .catch((error: Response) => Observable.of({
-                type: meteo.ActionTypes.WEATHER_FAIL,
+                type: meteo.ActionTypes.LOAD_FAIL,
                 payload: {
                     status: error.status,
                     statusText: error.statusText
