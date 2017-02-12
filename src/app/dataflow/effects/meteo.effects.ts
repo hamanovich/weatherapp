@@ -5,6 +5,7 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 
@@ -32,7 +33,15 @@ export class MeteoEffects {
         .ofType(meteo.ActionTypes.LOAD)
         .map((action: Action) => action.payload)
         .switchMap((url: string) => this.meteoService.getCitiesByUrl(url)
-            .map((cities: {list: City[]}) => new meteo.LoadSuccessAction(cities.list))
+            .map((cities: {list: City[]}) => {
+                if (!cities) {
+                    return new meteo.LoadFailAction({
+                        statusText: 'Something goes wrong. Try again!'
+                    });
+                }
+
+                return new meteo.LoadSuccessAction(cities.list);
+            })
             .catch((error: Response) => Observable.of({
                 type: meteo.ActionTypes.LOAD_FAIL,
                 payload: {
@@ -40,6 +49,7 @@ export class MeteoEffects {
                     statusText: error.statusText
                 }
             }))
+            .retry(2)
         );
 
     @Effect() getYourCity$: Observable<{type: string}> = this.actions$
@@ -59,7 +69,8 @@ export class MeteoEffects {
     @Effect() setFilters$: Observable<{type: string}> = this.actions$
         .ofType(meteo.ActionTypes.FILTER)
         .map((action: Action) => action.payload)
-        .switchMap((filters: Filters) => this.store.select(fromRoot.getWeatherCities).take(1)
+        .switchMap((filters: Filters) => this.store.select(fromRoot.getWeatherCities)
+            .take(1)
             .map((cities: City[]) => {
                 const citiesLength: number = cities.length;
                 const rows: string | number =
@@ -95,5 +106,12 @@ export class MeteoEffects {
                     ...citiesHidden
                 ]);
             })
+            .catch((error: Response) => Observable.of({
+                type: meteo.ActionTypes.LOAD_FAIL,
+                payload: {
+                    status: error.status,
+                    statusText: error.statusText
+                }
+            }))
         );
 }

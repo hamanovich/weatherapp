@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+
 import { Observable } from "rxjs/Observable";
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/combineLatest';
 
 import Position from '../models/position';
 import Coords from '../models/coords';
@@ -10,12 +13,10 @@ import * as constants from '../constants';
 
 @Injectable()
 export class MeteoService {
-    weatherKey: {
-        [key: string]: string
-    };
+    weatherKey: {[key: string]: string} = {};
+    currentPosition: BehaviorSubject<Coords> = new BehaviorSubject<Coords>(null);
 
     constructor(private http: Http) {
-        this.weatherKey = {};
     }
 
     static getPosError(): void {
@@ -25,6 +26,14 @@ export class MeteoService {
     getPosition(callback: (p: Position) => void): void {
         navigator.geolocation
             .getCurrentPosition(callback.bind(this), MeteoService.getPosError);
+    }
+
+    setCurrentPosition(newPosition: Coords): void {
+        this.currentPosition.next(newPosition);
+    }
+
+    getCurrentPosition(): Observable<Coords> {
+        return this.currentPosition.asObservable();
     }
 
     getCitiesByUrl(url: string): Observable<any> {

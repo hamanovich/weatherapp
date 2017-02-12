@@ -3,13 +3,6 @@
         <h2>Cities table
             <small>Weather stats</small>
         </h2>
-        <p *ngIf="cities$ | async">
-            Your position is
-            <span class="text-success">
-                {{(position | async)?.latitude | number: '1.2-2'}},
-                {{(position | async)?.longitude | number: '1.2-2'}}
-            </span>
-        </p>
     </header>
     <div class="table-responsive table-cities"
          [ngClass]="{'done': (cities$ | async)}"
@@ -43,8 +36,9 @@
             </tbody>
         </table>
     </div>
-
+    
     <div class="alert alert-danger" *ngIf="errorText$ | async">
-        {{(errorText$ | async)?.status}} : {{(errorText$ | async)?.statusText}}
+        <span *ngIf="(errorText$ | async)?.status">{{(errorText$ | async)?.status}} :</span>
+        {{(errorText$ | async)?.statusText}}
     </div>
 </section>

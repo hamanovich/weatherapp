@@ -4,6 +4,7 @@ import { Response } from "@angular/http";
 import City from '../../models/city';
 import Filters from "../../models/filters";
 import Coords from '../../models/city';
+import ResponseError from '../../models/response.error';
 
 export const ActionTypes = {
     LOAD: '[METEO] LOAD',
@@ -40,7 +41,7 @@ export class LoadSuccessAction implements Action {
 export class LoadFailAction implements Action {
     type: string = ActionTypes.LOAD_FAIL;
 
-    constructor(public payload: Response) {
+    constructor(public payload: Response | ResponseError) {
     }
 }
 

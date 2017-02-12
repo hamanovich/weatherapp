@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { MeteoService } from './meteo/meteo.service';
+import { MeteoEffects } from './dataflow/effects';
 
 import { Store } from '@ngrx/store';
 import * as geo from './dataflow/actions/geo.actions';
@@ -30,9 +31,10 @@ export class AppComponent implements OnInit {
             this.store.dispatch(new geo.GetPositionSuccessAction(position));
         });
 
-       this.store.select(fromRoot.getGeoCoords).subscribe((position: Coords) => {
+        this.store.select(fromRoot.getGeoCoords).subscribe((position: Coords) => {
             if (position) {
                 this.store.dispatch(new meteo.LoadOneAction(position));
+                this.meteoService.setCurrentPosition(position);
             }
         });
     }
