@@ -4,7 +4,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/combineLatest';
+import 'rxjs/add/operator/share';
 
 import Position from '../models/position';
 import Coords from '../models/coords';
@@ -39,6 +39,7 @@ export class MeteoService {
     getCitiesByUrl(url: string): Observable<any> {
         return this.http.get(url)
             .map((response: Response) => response.json())
+            .share()
             .catch(() => Observable.of(false));
     }
 
@@ -49,6 +50,7 @@ export class MeteoService {
                 + '&lon=' + coords.longitude
                 + '&appid=' + constants.GEO_API_KEY)
                 .map((response: Response) => response.json())
+                .share()
                 .catch(() => Observable.of(false));
         } else {
             return Observable.of(false);

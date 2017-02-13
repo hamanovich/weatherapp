@@ -5,7 +5,7 @@
         </h2>
     </header>
     <div class="table-responsive table-cities"
-         [ngClass]="{'done': (cities$ | async)}"
+         [ngClass]="{'done': (cities$ | async)[0]}"
          *ngIf="!(errorText$ | async)">
         <table class="table table-bordered">
             <thead [hidden]="toggle$ | async">

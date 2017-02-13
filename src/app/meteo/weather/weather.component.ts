@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Response } from "@angular/http";
 
 import { Router } from '@angular/router';
@@ -10,10 +10,7 @@ import * as meteo from '../../dataflow/actions/meteo.actions';
 import * as fromRoot from '../../dataflow/reducers';
 
 import City from '../../models/city';
-import Coords from "../../models/coords";
 import FilterColumns from '../../models/filter.columns';
-
-import * as constants from '../../constants';
 
 @Component({
     selector: 'wapi-weather',
@@ -28,29 +25,13 @@ export class WeatherComponent implements OnInit {
     toggle$: Observable<boolean>;
     errorText$: Observable<Response>;
 
-    @Input() position: Observable<Coords>;
-
     constructor(private store: Store<fromRoot.State>,
         private router: Router) {
     }
 
     ngOnInit() {
-        this.position.subscribe((position: Coords) => {
-            if (!position) return;
-
-            // const urlCities: string = '/app/mock/find25.json';
-            const urlCities: string = constants.GEO_URL
-                + 'find?lat=' + position.latitude
-                + '&lon=' + position.longitude
-                + '&cnt=' + constants.NUMBER_OF_CITIES
-                + '&appid=' + constants.GEO_API_KEY;
-
-            this.store.dispatch(new meteo.LoadAction(urlCities));
-        });
-
         this.thead$ = this.store.select(fromRoot.getWeatherFiltersColumns);
         this.toggle$ = this.store.select(fromRoot.getWeatherFilterToggle);
-
         this.errorText$ = this.store.select(fromRoot.getWeatherErrors);
         this.cities$ = this.store.select(fromRoot.getWeatherCities);
     }
