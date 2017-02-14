@@ -5,9 +5,8 @@ import { Store } from '@ngrx/store';
 import * as geo from './dataflow/actions/geo.actions';
 import * as fromRoot from './dataflow/reducers';
 
-import * as meteo from './dataflow/actions/meteo.actions';
-
-import Coords from './models/coords';
+import City from './models/city';
+import Position from './models/position';
 
 @Component({
     selector: 'wapi',
@@ -17,8 +16,11 @@ import Coords from './models/coords';
 })
 
 export class AppComponent implements OnInit {
+    position: Position;
+    city: City;
+
     constructor(private meteoService: MeteoService,
-                private store: Store<fromRoot.State>) {
+        private store: Store<fromRoot.State>) {
         if (!navigator.geolocation) {
             console.error('Geolocation is not supported by your browser');
             return;
@@ -27,22 +29,10 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.meteoService.getPosition((position: Position) => {
-            this.store.dispatch(new geo.GetPositionSuccessAction(position));
+            this.store.dispatch(new geo.GetPositionAction(position));
+            this.position = position;
         });
 
-        this.store.select(fromRoot.getGeoCoords).subscribe((position: Coords) => {
-            if (position) {
-                const urlCities: string = '/app/mock/find25.json';
-                // const urlCities: string = constants.GEO_URL
-                //     + 'find?lat=' + position.latitude
-                //     + '&lon=' + position.longitude
-                //     + '&cnt=' + constants.NUMBER_OF_CITIES
-                //     + '&appid=' + constants.GEO_API_KEY;
-
-                this.store.dispatch(new meteo.LoadAction(urlCities));
-                this.store.dispatch(new meteo.LoadOneAction(position));
-                this.meteoService.setCurrentPosition(position);
-            }
-        });
+        this.city = this.store.select(fromRoot.getWeatherYourCity);
     }
 }

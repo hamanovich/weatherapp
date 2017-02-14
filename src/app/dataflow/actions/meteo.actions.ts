@@ -3,7 +3,7 @@ import { Response } from "@angular/http";
 
 import City from '../../models/city';
 import Filters from "../../models/filters";
-import Coords from '../../models/city';
+import Coords from '../../models/coords';
 import ResponseError from '../../models/response.error';
 
 export const ActionTypes = {
@@ -34,7 +34,7 @@ export class LoadAction implements Action {
 export class LoadSuccessAction implements Action {
     type: string = ActionTypes.LOAD_SUCCESS;
 
-    constructor(public payload: City[]) {
+    constructor(public payload: any) {
     }
 }
 
@@ -49,6 +49,7 @@ export class LoadOneAction implements Action {
     type: string = ActionTypes.LOAD_ONE;
 
     constructor(public payload: Coords) {
+        console.log('pay', payload);
     }
 }
 

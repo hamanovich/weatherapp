@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
 import { Observable } from "rxjs/Observable";
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/share';
 
 import Position from '../models/position';
 import Coords from '../models/coords';
@@ -14,7 +12,6 @@ import * as constants from '../constants';
 @Injectable()
 export class MeteoService {
     weatherKey: {[key: string]: string} = {};
-    currentPosition: BehaviorSubject<Coords> = new BehaviorSubject<Coords>(null);
 
     constructor(private http: Http) {
     }
@@ -28,18 +25,25 @@ export class MeteoService {
             .getCurrentPosition(callback.bind(this), MeteoService.getPosError);
     }
 
-    setCurrentPosition(newPosition: Coords): void {
-        this.currentPosition.next(newPosition);
-    }
+    getCityByName(name: string): Observable<any> {
+        const url: string = constants.GEO_URL
+        + 'weather?q=' + name
+        + '&appid=' + constants.GEO_API_KEY;
 
-    getCurrentPosition(): Observable<Coords> {
-        return this.currentPosition.asObservable();
-    }
-
-    getCitiesByUrl(url: string): Observable<any> {
         return this.http.get(url)
             .map((response: Response) => response.json())
-            .share()
+            .catch(() => Observable.of(false));
+    }
+
+    getCitiesByLocation(coords: Coords): Observable<any> {
+        const url: string = constants.GEO_URL
+            + 'find?lat=' + coords.latitude
+            + '&lon=' + coords.longitude
+            + '&cnt=' + constants.NUMBER_OF_CITIES
+            + '&appid=' + constants.GEO_API_KEY;
+
+        return this.http.get(url)
+            .map((response: Response) => response.json())
             .catch(() => Observable.of(false));
     }
 
@@ -50,7 +54,6 @@ export class MeteoService {
                 + '&lon=' + coords.longitude
                 + '&appid=' + constants.GEO_API_KEY)
                 .map((response: Response) => response.json())
-                .share()
                 .catch(() => Observable.of(false));
         } else {
             return Observable.of(false);

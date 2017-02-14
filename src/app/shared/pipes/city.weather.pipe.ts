@@ -10,8 +10,6 @@ import { Celsius }      from './celsius.pipe';
 
 import City from '../../models/city';
 
-import * as constants from '../../constants';
-
 @Pipe({
     name: 'CityWeather',
     pure: false
@@ -27,7 +25,7 @@ export class CityWeather implements PipeTransform {
         if (this.meteoService.weatherKey[value] === undefined) {
             this.meteoService.weatherKey[value] = '';
             this.meteoService
-                .getCitiesByUrl(`${constants.GEO_URL}weather?q=${value}&appid=${constants.GEO_API_KEY}`)
+                .getCityByName(value)
                 .subscribe(
                     (city: City) => {
                         this.store.dispatch(new meteo.AddCacheAction(city));

@@ -17,6 +17,10 @@ const initialState: State = {
 
 export function reducer(state: State = initialState, action: Action): State {
     switch (action.type) {
+        // case geo.ActionTypes.GET_POSITION: {
+        //     return action.payload;
+        // }
+
         case geo.ActionTypes.GET_POSITION_SUCCESS: {
             return Object.assign({}, state, {
                 coords: {

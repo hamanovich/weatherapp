@@ -42,13 +42,16 @@ const initialState: State = {
 export function reducer(state: State = initialState, action: Action): State {
     switch (action.type) {
         case meteo.ActionTypes.LOAD_SUCCESS: {
-            const cities: City[] = action.payload.map((city: City) =>
+            const payload = action.payload;
+            const allCities: City[] = payload[0].list;
+            const yourCity: City = payload[1];
+            const cities: City[] = allCities.map((city: City) =>
                 Object.assign({}, city, {
                     hidden: false
                 })
             );
 
-            return Object.assign({}, state, {cities});
+            return Object.assign({}, state, {yourCity, cities});
         }
 
         case meteo.ActionTypes.LOAD_ONE_SUCCESS: {
