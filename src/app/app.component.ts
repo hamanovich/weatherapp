@@ -20,11 +20,7 @@ export class AppComponent implements OnInit {
     city: City;
 
     constructor(private meteoService: MeteoService,
-        private store: Store<fromRoot.State>) {
-        if (!navigator.geolocation) {
-            console.error('Geolocation is not supported by your browser');
-            return;
-        }
+                private store: Store<fromRoot.State>) {
     }
 
     ngOnInit() {

@@ -1,4 +1,4 @@
-<span [ngSwitch]="main">
+<span [ngSwitch]="weatherMain">
     <img *ngSwitchCase="'Thunderstorm'" [src]="path + weather.icon + '.png'" [alt]="weather.description"/>
     <img *ngSwitchCase="'Drizzle'" [src]="path + weather.icon + '.png'" [alt]="weather.description"/>
     <img *ngSwitchCase="'Rain'" [src]="path + weather.icon + '.png'" [alt]="weather.description"/>

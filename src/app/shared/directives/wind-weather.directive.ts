@@ -9,11 +9,11 @@ import {
 import Wind from '../../models/wind';
 
 @Directive({
-    selector: '[windWeather]'
+    selector: '[wind]'
 })
 
 export class WindWeather implements OnInit {
-    @Input('windWeather') wind: Wind;
+    @Input() wind: Wind;
 
     constructor(private el: ElementRef,
                 private renderer: Renderer) {

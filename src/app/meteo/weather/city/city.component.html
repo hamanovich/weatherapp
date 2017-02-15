@@ -15,11 +15,11 @@
 </td>
 <td [hidden]="!columns?.wind"
     class="text-center">
-    <wapi-wind [windWeather]="city.wind"></wapi-wind>
+    <wapi-wind [wind]="city.wind"></wapi-wind>
 </td>
 <td [hidden]="!columns?.overall"
     class="text-center">
-    <wapi-icon-weather [iconWeather]="city.weather[0]"></wapi-icon-weather>
+    <wapi-icon-weather [weather]="city.weather[0]" [weatherMain]="city.weather[0].main"></wapi-icon-weather>
 </td>
 <td class="text-center">
     <span class="icon-remove"
