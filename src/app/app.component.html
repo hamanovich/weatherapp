@@ -1,8 +1,6 @@
 <wapi-navbar></wapi-navbar>
-
 <wapi-jumbotron
-    *ngIf="position && city"
-    [position]="position"
+    *ngIf="city"
     [city]="city | async"></wapi-jumbotron>
 
 <main class="main">

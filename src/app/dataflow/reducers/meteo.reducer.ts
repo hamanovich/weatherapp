@@ -54,24 +54,12 @@ export function reducer(state: State = initialState, action: Action): State {
             return Object.assign({}, state, {yourCity, cities});
         }
 
-        case meteo.ActionTypes.LOAD_ONE_SUCCESS: {
-            return Object.assign({}, state, {yourCity: action.payload});
-        }
-
         case meteo.ActionTypes.LOAD_FAIL: {
             return Object.assign({}, state, {error: action.payload});
         }
 
         case meteo.ActionTypes.UPDATE: {
             return Object.assign({}, state, {cities: action.payload});
-        }
-
-        case meteo.ActionTypes.WEATHER_SUCCESS: {
-            return Object.assign({}, state, {weather: action.payload});
-        }
-
-        case meteo.ActionTypes.WEATHER_FAIL: {
-            return Object.assign({}, state, {weather: action.payload});
         }
 
         case meteo.ActionTypes.FILTER: {
@@ -127,7 +115,6 @@ export function reducer(state: State = initialState, action: Action): State {
 
 export const getYourCity = (state: State) => state.yourCity;
 export const getCities = (state: State) => state.cities;
-export const getWeather = (state: State) => state.weather;
 export const getErrors = (state: State) => state.error;
 export const getFiltersColumns = (state: State) => state.filters['columns'];
 export const getFiltersMeasure = (state: State) => state.filters['measure'];

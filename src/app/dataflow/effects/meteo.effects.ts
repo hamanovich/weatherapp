@@ -2,17 +2,19 @@ import { Injectable } from '@angular/core';
 import { Response } from "@angular/http";
 import { Actions, Effect, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/concat';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/of';
 
 import * as meteo from '../actions/meteo.actions';
 import * as geo from '../actions/geo.actions';
 
-import { Store } from '@ngrx/store';
+import { Store, Action } from '@ngrx/store';
 import * as fromRoot from '../reducers';
 
 import { MeteoService } from '../../meteo/meteo.service'
@@ -27,28 +29,37 @@ import { mathMethods } from '../../shared/utils';
 @Injectable()
 export class MeteoEffects {
     constructor(private actions$: Actions,
-        private store: Store<fromRoot.State>,
-        private meteoService: MeteoService) {
+                private store: Store<fromRoot.State>,
+                private meteoService: MeteoService) {
     }
 
-    @Effect() getAllCities$: Observable<{type: string}> = this.actions$
+    @Effect() getPosition$ = this.actions$
         .ofType(geo.ActionTypes.GET_POSITION)
+        .switchMap(() => new Observable((observer: Observer<Action>) => {
+                navigator.geolocation.getCurrentPosition(
+                    (position: Position) => {
+                        observer.next(new geo.GetPositionSuccessAction(position));
+                        observer.complete();
+                    },
+                    (error: PositionError) => observer.error(new geo.GetPositionFailAction(error))
+                );
+            })
+        );
+
+    @Effect() getAllCities$: Observable<{type: string}> = this.actions$
+        .ofType(meteo.ActionTypes.LOAD)
         .map(toPayload)
-        .switchMap((position: Position) => {
-            const coords: Coords = position.coords;
-
-            this.store.dispatch(new geo.GetPositionSuccessAction(position));
-
+        .switchMap((position: Coords) => {
             return Observable.forkJoin(
-                this.meteoService.getCitiesByLocation(coords),
-                this.meteoService.getCityByLocation(coords)
+                this.meteoService.getCitiesByLocation(position),
+                this.meteoService.getCityByLocation(position)
             )
                 .map((data: any) => {
-                    if (!data) {
-                        return new meteo.LoadFailAction({
-                            statusText: 'Something goes wrong. Try again!'
-                        });
-                    }
+                   if (!data[0]) {
+                       return new meteo.LoadFailAction({
+                           statusText: 'Something goes wrong. Try again!'
+                       });
+                   }
 
                     return new meteo.LoadSuccessAction(data);
                 })

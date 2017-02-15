@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 
 import City from '../../models/city';
-import Coords from '../../models/coords';
 
 import * as constants from '../../constants';
+import { Observable } from "rxjs";
 
 @Component({
     selector: 'wapi-jumbotron',
@@ -11,9 +11,8 @@ import * as constants from '../../constants';
     styleUrls: ['jumbotron.component.css']
 })
 
-export class JumbotronComponent{
+export class JumbotronComponent {
     APP_TITLE: string = constants.APP_TITLE;
 
-    @Input() city: City;
-    @Input() position: Coords;
+    @Input() city: Observable<City>;
 }
