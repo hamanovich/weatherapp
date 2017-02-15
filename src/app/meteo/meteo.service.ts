@@ -1,33 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 
-import Position from '../models/position';
 import Coords from '../models/coords';
 
 import * as constants from '../constants';
 
 @Injectable()
 export class MeteoService {
-    weatherKey: {
-        [key: string]: string
-    };
+    weatherKey: {[key: string]: string} = {};
 
     constructor(private http: Http) {
-        this.weatherKey = {};
     }
 
-    static getPosError(): void {
-        console.error('Unable to retrieve your location');
+    getCityByName(name: string): Observable<any> {
+        const url: string = constants.GEO_URL
+        + 'weather?q=' + name
+        + '&appid=' + constants.GEO_API_KEY;
+
+        return this.http.get(url)
+            .map((response: Response) => response.json())
+            .catch(() => Observable.of(false));
     }
 
-    getPosition(callback: (p: Position) => void): void {
-        navigator.geolocation
-            .getCurrentPosition(callback.bind(this), MeteoService.getPosError);
-    }
+    getCitiesByLocation(coords: Coords): Observable<any> {
+        const url: string = constants.GEO_URL
+            + 'find?lat=' + coords.latitude
+            + '&lon=' + coords.longitude
+            + '&cnt=' + constants.NUMBER_OF_CITIES
+            + '&appid=' + constants.GEO_API_KEY;
 
-    getCitiesByUrl(url: string): Observable<any> {
         return this.http.get(url)
             .map((response: Response) => response.json())
             .catch(() => Observable.of(false));

@@ -1,6 +1,11 @@
 <section class="jumbotron">
     <div class="container">
         <h1>{{APP_TITLE}}</h1>
+        <h3 *ngIf="city && city.coord">
+            Your position is
+            <strong class="text-warning">{{city.coord.lat | number: '1.2-2'}}</strong>,
+            <strong class="text-warning">{{city.coord.lon | number: '1.2-2'}}</strong>
+        </h3>
         <h4 *ngIf="city && city.weather">Look out of the window, now is
             <b>{{city.weather[0].description | uppercase}}.</b></h4>
     </div>

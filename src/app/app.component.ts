@@ -1,12 +1,12 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { MeteoService } from './meteo/meteo.service';
+import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 
+import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import * as geo from './dataflow/actions/geo.actions';
+import * as meteo from './dataflow/actions/meteo.actions';
 import * as fromRoot from './dataflow/reducers';
 
-import * as meteo from './dataflow/actions/meteo.actions';
-
+import City from './models/city';
 import Coords from './models/coords';
 
 @Component({
@@ -16,24 +16,26 @@ import Coords from './models/coords';
     encapsulation: ViewEncapsulation.None
 })
 
-export class AppComponent implements OnInit {
-    constructor(private meteoService: MeteoService,
-                private store: Store<fromRoot.State>) {
-        if (!navigator.geolocation) {
-            console.error('Geolocation is not supported by your browser');
-            return;
-        }
+export class AppComponent implements OnInit, OnDestroy {
+    city: City;
+    subscription: Subscription;
+
+    constructor(private store: Store<fromRoot.State>) {
     }
 
     ngOnInit() {
-        this.meteoService.getPosition((position: Position) => {
-            this.store.dispatch(new geo.GetPositionSuccessAction(position));
-        });
+        this.store.dispatch(new geo.GetPositionAction());
 
-       this.store.select(fromRoot.getGeoCoords).subscribe((position: Coords) => {
+        this.subscription = this.store.select(fromRoot.getGeoCoords).subscribe((position: Coords) => {
             if (position) {
-                this.store.dispatch(new meteo.LoadOneAction(position));
+                this.store.dispatch(new meteo.LoadAction(position));
+
+                this.city = this.store.select(fromRoot.getWeatherYourCity);
             }
         });
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

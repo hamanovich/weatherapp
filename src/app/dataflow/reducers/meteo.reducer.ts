@@ -42,17 +42,16 @@ const initialState: State = {
 export function reducer(state: State = initialState, action: Action): State {
     switch (action.type) {
         case meteo.ActionTypes.LOAD_SUCCESS: {
-            const cities: City[] = action.payload.map((city: City) =>
+            const payload = action.payload;
+            const allCities: City[] = payload[0].list;
+            const yourCity: City = payload[1];
+            const cities: City[] = allCities.map((city: City) =>
                 Object.assign({}, city, {
                     hidden: false
                 })
             );
 
-            return Object.assign({}, state, {cities});
-        }
-
-        case meteo.ActionTypes.LOAD_ONE_SUCCESS: {
-            return Object.assign({}, state, {yourCity: action.payload});
+            return Object.assign({}, state, {yourCity, cities});
         }
 
         case meteo.ActionTypes.LOAD_FAIL: {
@@ -61,14 +60,6 @@ export function reducer(state: State = initialState, action: Action): State {
 
         case meteo.ActionTypes.UPDATE: {
             return Object.assign({}, state, {cities: action.payload});
-        }
-
-        case meteo.ActionTypes.WEATHER_SUCCESS: {
-            return Object.assign({}, state, {weather: action.payload});
-        }
-
-        case meteo.ActionTypes.WEATHER_FAIL: {
-            return Object.assign({}, state, {weather: action.payload});
         }
 
         case meteo.ActionTypes.FILTER: {
@@ -124,7 +115,6 @@ export function reducer(state: State = initialState, action: Action): State {
 
 export const getYourCity = (state: State) => state.yourCity;
 export const getCities = (state: State) => state.cities;
-export const getWeather = (state: State) => state.weather;
 export const getErrors = (state: State) => state.error;
 export const getFiltersColumns = (state: State) => state.filters['columns'];
 export const getFiltersMeasure = (state: State) => state.filters['measure'];

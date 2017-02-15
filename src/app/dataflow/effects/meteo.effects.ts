@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Response } from "@angular/http";
-import { Actions, Effect } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
+import { Actions, Effect, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
+import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/concat';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/of';
 
 import * as meteo from '../actions/meteo.actions';
+import * as geo from '../actions/geo.actions';
 
-import { Store } from '@ngrx/store';
+import { Store, Action } from '@ngrx/store';
 import * as fromRoot from '../reducers';
 
 import { MeteoService } from '../../meteo/meteo.service'
@@ -18,6 +22,7 @@ import { MeteoService } from '../../meteo/meteo.service'
 import City from '../../models/city';
 import Filters from "../../models/filters";
 import Coords from '../../models/coords';
+import Position from '../../models/position';
 
 import { mathMethods } from '../../shared/utils';
 
@@ -28,38 +33,51 @@ export class MeteoEffects {
                 private meteoService: MeteoService) {
     }
 
-    @Effect() getCities$: Observable<{type: string}> = this.actions$
-        .ofType(meteo.ActionTypes.LOAD)
-        .map((action: Action) => action.payload)
-        .switchMap((url: string) => this.meteoService.getCitiesByUrl(url)
-            .map((cities: {list: City[]}) => new meteo.LoadSuccessAction(cities.list))
-            .catch((error: Response) => Observable.of({
-                type: meteo.ActionTypes.LOAD_FAIL,
-                payload: {
-                    status: error.status,
-                    statusText: error.statusText
-                }
-            }))
+    @Effect() getPosition$ = this.actions$
+        .ofType(geo.ActionTypes.GET_POSITION)
+        .switchMap(() => new Observable((observer: Observer<Action>) => {
+                navigator.geolocation.getCurrentPosition(
+                    (position: Position) => {
+                        observer.next(new geo.GetPositionSuccessAction(position));
+                        observer.complete();
+                    },
+                    (error: PositionError) => observer.error(new geo.GetPositionFailAction(error))
+                );
+            })
         );
 
-    @Effect() getYourCity$: Observable<{type: string}> = this.actions$
-        .ofType(meteo.ActionTypes.LOAD_ONE)
-        .map((action: Action) => action.payload)
-        .switchMap((coords: Coords) => this.meteoService.getCityByLocation(coords)
-            .map((city: City) => new meteo.LoadOneSuccessAction(city))
-            .catch((error: Response) => Observable.of({
+    @Effect() getAllCities$: Observable<{type: string}> = this.actions$
+        .ofType(meteo.ActionTypes.LOAD)
+        .map(toPayload)
+        .switchMap((position: Coords) => {
+            return Observable.forkJoin(
+                this.meteoService.getCitiesByLocation(position),
+                this.meteoService.getCityByLocation(position)
+            )
+                .map((data: any) => {
+                   if (!data[0]) {
+                       return new meteo.LoadFailAction({
+                           statusText: 'Something goes wrong. Try again!'
+                       });
+                   }
+
+                    return new meteo.LoadSuccessAction(data);
+                })
+        })
+        .catch((error: Response) => Observable.of({
                 type: meteo.ActionTypes.LOAD_FAIL,
                 payload: {
                     status: error.status,
                     statusText: error.statusText
                 }
-            }))
+            })
         );
 
     @Effect() setFilters$: Observable<{type: string}> = this.actions$
         .ofType(meteo.ActionTypes.FILTER)
-        .map((action: Action) => action.payload)
-        .switchMap((filters: Filters) => this.store.select(fromRoot.getWeatherCities).take(1)
+        .map(toPayload)
+        .switchMap((filters: Filters) => this.store.select(fromRoot.getWeatherCities)
+            .take(1)
             .map((cities: City[]) => {
                 const citiesLength: number = cities.length;
                 const rows: string | number =
@@ -95,5 +113,12 @@ export class MeteoEffects {
                     ...citiesHidden
                 ]);
             })
+            .catch((error: Response) => Observable.of({
+                type: meteo.ActionTypes.LOAD_FAIL,
+                payload: {
+                    status: error.status,
+                    statusText: error.statusText
+                }
+            }))
         );
 }

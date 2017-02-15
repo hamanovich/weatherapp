@@ -3,19 +3,13 @@ import { Response } from "@angular/http";
 
 import City from '../../models/city';
 import Filters from "../../models/filters";
-import Coords from '../../models/city';
+import ResponseError from '../../models/response.error';
 
 export const ActionTypes = {
     LOAD: '[METEO] LOAD',
     LOAD_SUCCESS: '[METEO] LOAD SUCCESS',
     LOAD_FAIL: '[METEO] LOAD FAIL',
-    LOAD_ONE: '[METEO] LOAD ONE',
-    LOAD_ONE_SUCCESS: '[METEO] LOAD ONE SUCCESS',
-    LOAD_ONE_FAIL: '[METEO] LOAD ONE FAIL',
     UPDATE: '[METEO] UPDATE',
-    WEATHER: '[METEO] WEATHER',
-    WEATHER_SUCCESS: '[METEO] WEATHER SUCCESS',
-    WEATHER_FAIL: '[METEO] WEATHER FAIL',
     FILTER: '[METEO] FILTER',
     ADD: '[METEO] ADD',
     ADD_CACHE: '[METEO] ADD CACHE',
@@ -26,42 +20,21 @@ export const ActionTypes = {
 export class LoadAction implements Action {
     type: string = ActionTypes.LOAD;
 
-    constructor(public payload: string) {
+    constructor(public payload?: string | any) {
     }
 }
 
 export class LoadSuccessAction implements Action {
     type: string = ActionTypes.LOAD_SUCCESS;
 
-    constructor(public payload: City[]) {
+    constructor(public payload: any) {
     }
 }
 
 export class LoadFailAction implements Action {
     type: string = ActionTypes.LOAD_FAIL;
 
-    constructor(public payload: Response) {
-    }
-}
-
-export class LoadOneAction implements Action {
-    type: string = ActionTypes.LOAD_ONE;
-
-    constructor(public payload: Coords) {
-    }
-}
-
-export class LoadOneSuccessAction implements Action {
-    type: string = ActionTypes.LOAD_ONE_SUCCESS;
-
-    constructor(public payload: City) {
-    }
-}
-
-export class LoadOneFailAction implements Action {
-    type: string = ActionTypes.LOAD_ONE_FAIL;
-
-    constructor(public payload: Response) {
+    constructor(public payload: Response | ResponseError) {
     }
 }
 
@@ -69,27 +42,6 @@ export class UpdateAction implements Action {
     type: string = ActionTypes.UPDATE;
 
     constructor(public payload: City[]) {
-    }
-}
-
-export class WeatherAction implements Action {
-    type: string = ActionTypes.WEATHER;
-
-    constructor(public payload: string) {
-    }
-}
-
-export class WeatherSuccessAction implements Action {
-    type: string = ActionTypes.WEATHER_SUCCESS;
-
-    constructor(public payload: string) {
-    }
-}
-
-export class WeatherFailAction implements Action {
-    type: string = ActionTypes.WEATHER_FAIL;
-
-    constructor(public payload: string) {
     }
 }
 
@@ -133,8 +85,6 @@ export type Actions
     | LoadSuccessAction
     | LoadFailAction
     | UpdateAction
-    | WeatherAction
-    | WeatherSuccessAction
     | FilterAction
     | AddAction
     | AddCacheAction

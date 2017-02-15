@@ -1,6 +1,7 @@
 <wapi-navbar></wapi-navbar>
-
-<wapi-jumbotron></wapi-jumbotron>
+<wapi-jumbotron
+    *ngIf="city"
+    [city]="city | async"></wapi-jumbotron>
 
 <main class="main">
     <router-outlet name="widget"></router-outlet>

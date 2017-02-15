@@ -1,11 +1,4 @@
-import {
-    Component,
-    OnInit,
-    OnDestroy,
-    ViewChild,
-    ElementRef,
-    ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 
 import { GoogleMapService } from './google-map.service';
 
