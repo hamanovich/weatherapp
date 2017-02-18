@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import * as meteo from '../../dataflow/actions/meteo.actions';
 import * as fromRoot from '../../dataflow/reducers';
 
-import * as constants from '../../constants';
+import { NUMBER_OF_CITIES, MEASURES } from '../../constants';
 import FilterColumns from '../../models/filter.columns';
 
 import * as messages from './messages';
@@ -45,12 +45,12 @@ export class FormFilterComponent implements OnInit {
     constructor(private fb: FormBuilder,
                 private store: Store<fromRoot.State>) {
         this.filterList = Object.keys(this.filtersGroup);
-        this.measureList = constants.MEASURE_ARRAY;
+        this.measureList = MEASURES;
         this.rowsList = [
-            Math.floor(constants.NUMBER_OF_CITIES / 5),
-            Math.floor(constants.NUMBER_OF_CITIES / 2),
-            Math.floor(constants.NUMBER_OF_CITIES / 1.3),
-            constants.NUMBER_OF_CITIES,
+            Math.floor(NUMBER_OF_CITIES / 5),
+            Math.floor(NUMBER_OF_CITIES / 2),
+            Math.floor(NUMBER_OF_CITIES / 1.3),
+            NUMBER_OF_CITIES,
             'all'
         ];
     }
