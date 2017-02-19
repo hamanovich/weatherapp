@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import * as constants from "../../constants";
+import { APP_TITLE, GOOGLE_URL, API_URL } from "../../constants";
 
 @Component({
     selector: 'wapi-navbar',
@@ -8,7 +8,7 @@ import * as constants from "../../constants";
     styleUrls: ['navbar.component.css']
 })
 export class NavbarComponent {
-    APP_TITLE: string = constants.APP_TITLE;
-    GOOGLE_URL: string = constants.GOOGLE_URL;
-    API_URL: string = constants.API_URL;
+    APP_TITLE: string = APP_TITLE;
+    GOOGLE_URL: string = GOOGLE_URL;
+    API_URL: string = API_URL;
 }

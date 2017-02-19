@@ -14,10 +14,7 @@ const appRoutes: Routes = [
     },
     {
         path: 'map',
-        loadChildren: './google-map/google-map.module#GoogleMapModule',
-        data: {
-            preload: true
-        }
+        loadChildren: './google-map/google-map.module#GoogleMapModule'
     },
     {
         path: 'show',

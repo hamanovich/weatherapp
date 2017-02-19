@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestMethod, RequestOptions, URLSearchParams } from '@angular/http';
 
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 
 import Coords from '../models/coords';
 
-import * as constants from '../constants';
+import { GEO_API_KEY, NUMBER_OF_CITIES } from '../constants';
 
 @Injectable()
 export class MeteoService {
@@ -16,44 +16,67 @@ export class MeteoService {
     }
 
     getCityByName(name: string): Observable<any> {
-        const url: string = constants.GEO_URL
-        + 'weather?q=' + name
-        + '&appid=' + constants.GEO_API_KEY;
+        const search: URLSearchParams = new URLSearchParams();
 
-        return this.http.get(url)
-            .map((response: Response) => response.json())
-            .catch(() => Observable.of(false));
+        search.append('q', name);
+        search.append('appid', GEO_API_KEY);
+
+        const options: RequestOptions = new RequestOptions({
+            method: RequestMethod.Get,
+            search
+        });
+
+        return this.httpRequest('/weather', options);
     }
 
     getCitiesByLocation(coords: Coords): Observable<any> {
-        const url: string = constants.GEO_URL
-            + 'find?lat=' + coords.latitude
-            + '&lon=' + coords.longitude
-            + '&cnt=' + constants.NUMBER_OF_CITIES
-            + '&appid=' + constants.GEO_API_KEY;
+        const search: URLSearchParams = new URLSearchParams();
+        search.append('lat', String(coords.latitude));
+        search.append('lon', String(coords.longitude));
+        search.append('cnt', String(NUMBER_OF_CITIES));
+        search.append('appid', GEO_API_KEY);
 
-        return this.http.get(url)
-            .map((response: Response) => response.json())
-            .catch(() => Observable.of(false));
+        const options: RequestOptions = new RequestOptions({
+            method: RequestMethod.Get,
+            search
+        });
+
+        return this.httpRequest('/find', options);
     }
 
     getCityByLocation(coords: Coords): Observable<any> {
-        if (coords) {
-            return this.http.get(constants.GEO_URL
-                + 'weather?lat=' + coords.latitude
-                + '&lon=' + coords.longitude
-                + '&appid=' + constants.GEO_API_KEY)
-                .map((response: Response) => response.json())
-                .catch(() => Observable.of(false));
-        } else {
-            return Observable.of(false);
-        }
+        if (!coords) return Observable.of(false);
+
+        const search: URLSearchParams = new URLSearchParams();
+
+        search.append('lat', String(coords.latitude));
+        search.append('lon', String(coords.longitude));
+        search.append('appid', GEO_API_KEY);
+
+        const options: RequestOptions = new RequestOptions({
+            method: RequestMethod.Get,
+            search
+        });
+
+        return this.httpRequest('/weather', options);
     }
 
     getCityById(id: number): Observable<any> {
-        return this.http.get(constants.GEO_URL
-            + 'weather?id=' + id
-            + '&appid=' + constants.GEO_API_KEY)
+        const search: URLSearchParams = new URLSearchParams();
+
+        search.append('id', String(id));
+        search.append('appid', GEO_API_KEY);
+
+        const options: RequestOptions = new RequestOptions({
+            method: RequestMethod.Get,
+            search
+        });
+
+        return this.httpRequest('/weather', options);
+    }
+
+    httpRequest(url: string, options: RequestOptions): Observable<any> {
+        return this.http.request(url, options)
             .map((response: Response) => response.json())
             .catch(() => Observable.of(false));
     }

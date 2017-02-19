@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 import City from '../../models/city';
 
-import * as constants from '../../constants';
+import { APP_TITLE } from '../../constants';
 import { Observable } from "rxjs";
 
 @Component({
@@ -12,7 +12,7 @@ import { Observable } from "rxjs";
 })
 
 export class JumbotronComponent {
-    APP_TITLE: string = constants.APP_TITLE;
+    APP_TITLE: string = APP_TITLE;
 
     @Input() city: Observable<City>;
 }
