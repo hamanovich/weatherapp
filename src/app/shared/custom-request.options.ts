@@ -6,12 +6,12 @@ import { GEO_URL } from '../constants';
 
 @Injectable()
 export class CustomRequestOptions extends BaseRequestOptions {
-    constructor(private datePipe: DatePipe) {
+    constructor() {
         super();
     }
 
     merge(options?: RequestOptionsArgs): RequestOptions {
-        const date: string = this.datePipe.transform(new Date(), 'medium');
+        const date: any = new DatePipe('en').transform(new Date(), 'medium');
 
         options.url = GEO_URL + options.url;
 

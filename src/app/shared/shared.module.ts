@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { HttpModule, RequestOptions } from '@angular/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -36,7 +36,6 @@ import { WindWeather }  from './directives/wind-weather.directive';
         WindWeather
     ],
     providers: [
-        DatePipe,
         {
             provide: RequestOptions,
             useClass: CustomRequestOptions
