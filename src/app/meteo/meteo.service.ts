@@ -8,9 +8,13 @@ import Coords from '../models/coords';
 
 import { GEO_API_KEY, NUMBER_OF_CITIES } from '../constants';
 
+export type WeatherKey = {
+    [key: string]: string
+};
+
 @Injectable()
 export class MeteoService {
-    weatherKey: {[key: string]: string} = {};
+    weatherKey: WeatherKey = {};
 
     constructor(private http: Http) {
     }

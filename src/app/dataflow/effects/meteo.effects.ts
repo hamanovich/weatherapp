@@ -22,7 +22,7 @@ import { MeteoService } from '../../meteo/meteo.service'
 import City from '../../models/city';
 import Filters from "../../models/filters";
 import Coords from '../../models/coords';
-import Position from '../../models/position';
+import CurrentPosition from '../../models/position';
 
 import { mathMethods } from '../../shared/utils';
 
@@ -33,11 +33,11 @@ export class MeteoEffects {
                 private meteoService: MeteoService) {
     }
 
-    @Effect() getPosition$ = this.actions$
+    @Effect() getPosition$: Observable<{type: string}> = this.actions$
         .ofType(geo.ActionTypes.GET_POSITION)
         .switchMap(() => new Observable((observer: Observer<Action>) => {
                 navigator.geolocation.getCurrentPosition(
-                    (position: Position) => {
+                    (position: CurrentPosition) => {
                         observer.next(new geo.GetPositionSuccessAction(position));
                         observer.complete();
                     },

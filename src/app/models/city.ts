@@ -3,8 +3,8 @@ interface City {
     name?: string;
     main?: {
         temp: number;
-        pressure: number;
-        humidity: number;
+        pressure?: number;
+        humidity?: number;
     };
     coord?: {
         lat: string;

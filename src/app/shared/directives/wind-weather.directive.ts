@@ -1,10 +1,4 @@
-import {
-    Directive,
-    Input,
-    ElementRef,
-    Renderer,
-    OnInit
-} from '@angular/core';
+import { Directive, Input, ElementRef, Renderer, OnInit } from '@angular/core';
 
 import Wind from '../../models/wind';
 
@@ -16,7 +10,7 @@ export class WindWeather implements OnInit {
     @Input() wind: Wind;
 
     constructor(private el: ElementRef,
-                private renderer: Renderer) {
+        private renderer: Renderer) {
     }
 
     ngOnInit() {
