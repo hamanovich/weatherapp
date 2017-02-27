@@ -39,4 +39,8 @@ describe('Component: GoogleMapComponent', () => {
         expect(component).toBeDefined();
     });
 
+    it('should have a title and subtitle', () => {
+        expect(!!component.GOOGLE_MAP_TITLE && !!component.GOOGLE_MAP_TITLE_SUB).toEqual(true);
+    });
+
 });

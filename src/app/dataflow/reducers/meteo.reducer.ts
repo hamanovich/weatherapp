@@ -16,7 +16,7 @@ export interface State {
     filters: Filters;
 }
 
-export const initialState: State = {
+const initialState: State = {
     yourCity: [],
     cities: [],
     citiesCache: [],

@@ -1,6 +1,8 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { inject, async, TestBed, ComponentFixture } from '@angular/core/testing';
 
+import { reducer } from './dataflow/reducers';
+
 import { AppComponent } from './app.component';
 
 import { Store, StoreModule } from '@ngrx/store';
@@ -11,29 +13,22 @@ describe(`App`, () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [StoreModule.provideStore({})],
+            imports: [StoreModule.provideStore(reducer)],
             schemas: [NO_ERRORS_SCHEMA],
             declarations: [AppComponent]
         })
-            .compileComponents()
-            .then(() => {
-                fixture = TestBed.createComponent(AppComponent);
-                component = fixture.componentInstance;
-
-                fixture.detectChanges();
-            })
+            .compileComponents();
     }));
 
-    // it(`should be readly initialized`, () => {
-        // expect(fixture).toBeDefined();
-        // expect(component).toBeDefined();
-    // });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(AppComponent);
+        component = fixture.componentInstance;
 
-    // it('should log ngOnInit', () => {
-    //     spyOn(console, 'log');
-    //     expect(console.log).not.toHaveBeenCalled();
+        fixture.detectChanges();
+    });
 
-    //     component.ngOnInit();
-    //     expect(console.log).toHaveBeenCalled();
-    // });
+    it(`should be readly initialized`, () => {
+        expect(fixture).toBeDefined();
+        expect(component).toBeDefined();
+    });
 });

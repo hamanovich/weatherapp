@@ -5,6 +5,8 @@ interface City {
         temp: number;
         pressure?: number;
         humidity?: number;
+        temp_min?: number;
+        temp_max?: number;
     };
     coord?: {
         lat: number;
@@ -19,6 +21,12 @@ interface City {
         main: string;
         icon?: string;
     }];
+    sys?: {
+        country?: string;
+    };
+    clouds?: {
+        all?: number;
+    };
     wind?: {
         speed: number;
         deg: number;

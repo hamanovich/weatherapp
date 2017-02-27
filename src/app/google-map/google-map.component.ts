@@ -17,8 +17,8 @@ import Coords from '../models/coords';
 })
 
 export class GoogleMapComponent implements OnInit {
-    GOOGLE_MAP_TITLE: string;
-    GOOGLE_MAP_TITLE_SUB: string;
+    GOOGLE_MAP_TITLE: string = 'Google Map';
+    GOOGLE_MAP_TITLE_SUB: string = 'Maps JavaScript API';
 
     subscription: Subscription;
     position: Observable<Coords>;
@@ -27,8 +27,6 @@ export class GoogleMapComponent implements OnInit {
 
     constructor(private gMapService: GoogleMapService,
                 private store: Store<fromRoot.State>) {
-        this.GOOGLE_MAP_TITLE = 'Google Map';
-        this.GOOGLE_MAP_TITLE_SUB = 'Maps JavaScript API';
     }
 
     ngOnInit() {

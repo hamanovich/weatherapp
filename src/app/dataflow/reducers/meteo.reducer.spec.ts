@@ -1,4 +1,4 @@
-import { reducer, State, initialState } from './meteo.reducer'
+import { reducer, State } from './meteo.reducer'
 import * as meteo from '../actions/meteo.actions';
 
 import City from '../../models/city';
@@ -28,6 +28,29 @@ const testPayload: City = {
     dt: 1488178119,
     id: 621754,
     name: "Slonim"
+};
+
+let initialState: State = {
+    yourCity: [],
+    cities: [],
+    citiesCache: [],
+    weather: '',
+    error: null,
+    filters: {
+        columns: {
+            coords: true,
+            temp: true,
+            pressure: true,
+            humidity: true,
+            wind: true,
+            overall: true
+        },
+        temperature: '',
+        rows: null,
+        measure: 'Kelvin',
+        toggle: false,
+        cityName: ''
+    }
 };
 
 describe('Meteo reducer', () => {

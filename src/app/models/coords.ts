@@ -1,11 +1,11 @@
 interface Coords {
-    accuracy: number;
-    altitude: number;
-    altitudeAccuracy: number;
-    heading: number;
+    accuracy?: number;
+    altitude?: number;
+    altitudeAccuracy?: number;
+    heading?: number;
     latitude: number;
     longitude: number;
-    speed: number;
+    speed?: number;
 }
 
 export default Coords;
