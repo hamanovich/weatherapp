@@ -36,7 +36,6 @@ describe('Component: GoogleMapComponent', () => {
 
     it('should have a defined component', () => {
         expect(fixture).toBeDefined();
-        console.log('google fix', fixture);
         expect(component).toBeDefined();
     });
 

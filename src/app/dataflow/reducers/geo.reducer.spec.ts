@@ -10,22 +10,21 @@ const testPayload = {
     coords: {
         latitude: 10,
         longitude: 10
-    }
-}
+    },
+    error: null
+};
 
 describe('Geo reducer', () => {
     it('should return the initial state', () => {
-        expect(
-            reducer(undefined, { type: 'test' })
-        ).toEqual(initialState)
-    })
+        expect(reducer(undefined, { type: 'test' })
+        ).toEqual(initialState);
+    });
 
     it('should handle GET_POSITION_SUCCESS', () => {
-        expect(
-            reducer([], {
-                type: geo.ActionTypes.GET_POSITION_SUCCESS,
-                payload: testPayload
-            })
-        ).toEqual(testPayload)
-    })
+        expect(reducer(initialState, {
+            type: geo.ActionTypes.GET_POSITION_SUCCESS,
+            payload: testPayload
+        })
+        ).toEqual(testPayload);
+    });
 })

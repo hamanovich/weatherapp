@@ -16,7 +16,7 @@ export interface State {
     filters: Filters;
 }
 
-const initialState: State = {
+export const initialState: State = {
     yourCity: [],
     cities: [],
     citiesCache: [],
@@ -51,15 +51,15 @@ export function reducer(state: State = initialState, action: Action): State {
                 })
             );
 
-            return Object.assign({}, state, {yourCity, cities});
+            return Object.assign({}, state, { yourCity, cities });
         }
 
         case meteo.ActionTypes.LOAD_FAIL: {
-            return Object.assign({}, state, {error: action.payload});
+            return Object.assign({}, state, { error: action.payload });
         }
 
         case meteo.ActionTypes.UPDATE: {
-            return Object.assign({}, state, {cities: action.payload});
+            return Object.assign({}, state, { cities: action.payload });
         }
 
         case meteo.ActionTypes.FILTER: {
@@ -79,7 +79,7 @@ export function reducer(state: State = initialState, action: Action): State {
         }
 
         case meteo.ActionTypes.ADD: {
-            let fromCache: City[] = state.citiesCache
+            const fromCache: City[] = state.citiesCache
                 .filter((city: City) => city.name.toLowerCase() === action.payload.toLowerCase());
 
             return Object.assign({}, state, {
@@ -104,7 +104,7 @@ export function reducer(state: State = initialState, action: Action): State {
                 })
             );
 
-            return Object.assign({}, state, {cities: highlight});
+            return Object.assign({}, state, { cities: highlight });
         }
 
         default: {

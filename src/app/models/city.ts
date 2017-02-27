@@ -7,16 +7,18 @@ interface City {
         humidity?: number;
     };
     coord?: {
-        lat: string;
-        lon: string;
+        lat: number;
+        lon: number;
     };
     dt?: number;
     isHighlight?: boolean;
     hidden?: boolean;
-    weather?: {
+    weather?: [{
+        id?: number;
         description: string;
         main: string;
-    };
+        icon?: string;
+    }];
     wind?: {
         speed: number;
         deg: number;
