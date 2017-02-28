@@ -6,7 +6,7 @@ const initialState: State = {
     error: null
 };
 
-const testPayload = {
+const testPayload: any = {
     coords: {
         latitude: 10,
         longitude: 10
@@ -26,5 +26,15 @@ describe('Geo reducer', () => {
             payload: testPayload
         })
         ).toEqual(testPayload);
+    });
+
+    it('should handle GET_POSITION_FAIL', () => {
+        expect(reducer(initialState, {
+            type: geo.ActionTypes.GET_POSITION_FAIL,
+            payload: 'ERROR'
+        })
+        ).toEqual(Object.assign({}, initialState, {
+            error: 'ERROR'
+        }));
     });
 })

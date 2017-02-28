@@ -42,11 +42,11 @@ export class WeatherComponent implements OnInit {
         return false;
     }
 
-    onRemove(index: number) {
+    onRemove(index: number): void {
         this.store.dispatch(new meteo.RemoveAction(index));
     }
 
-    onSelect(id: number) {
+    onSelect(id: number): void {
         this.router.navigate(['/weatherDetails', id]);
     }
 }

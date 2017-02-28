@@ -134,13 +134,13 @@ describe('MeteoService (mockBackend)', () => {
     }));
 
     it('can instantiate service when inject service', inject([MeteoService], (service: MeteoService) => {
-        expect(service instanceof MeteoService).toBe(true);
+        expect(service instanceof MeteoService).toBeTruthy();
     }));
 
     it('can instantiate service with "new"', inject([Http], (http: Http) => {
         expect(http).not.toBeNull('http should be provided');
         const service: MeteoService = new MeteoService(http);
-        expect(service instanceof MeteoService).toBe(true, 'new service should be ok');
+        expect(service instanceof MeteoService).toBeTruthy();
     }));
 
 
@@ -244,7 +244,7 @@ describe('MeteoService (mockBackend)', () => {
             const fakeCityByPosition: City = fakeCities.filter((city: City) =>
                 city.coord.lat === fakePosition.latitude && city.coord.lon === fakePosition.longitude);
 
-            service.getCitiesByLocation(fakePosition)
+            service.getCityByLocation(fakePosition)
                 .do((cities: any) => {
                     expect(cities.data).toEqual(fakeCityByPosition[0]);
                 })
@@ -276,6 +276,21 @@ describe('MeteoService (mockBackend)', () => {
             service.getCityById(fakeCities[2].id)
                 .do((city: any) => {
                     expect(city.data).toEqual(fakeCityById[0]);
+                })
+                .toPromise();
+        })));
+
+        it('should treat 404 as an Observable error', async(inject([], () => {
+            const response: Response = new Response(new ResponseOptions({ status: 404 }));
+            backend.connections.subscribe((c: MockConnection) => c.mockRespond(response));
+
+            service.getCityById(1)
+                .do((city: any) => {
+                    fail('should not respond with city');
+                })
+                .catch((err: any) => {
+                    expect(err).toMatch(/Bad response status/, 'should catch bad response status code');
+                    return Observable.of(null);
                 })
                 .toPromise();
         })));

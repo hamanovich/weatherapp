@@ -2,6 +2,7 @@ import { reducer, State } from './meteo.reducer'
 import * as meteo from '../actions/meteo.actions';
 
 import City from '../../models/city';
+import Filters from '../../models/filters';
 
 const testPayload: City = {
     coord: {
@@ -30,27 +31,39 @@ const testPayload: City = {
     name: "Slonim"
 };
 
-let initialState: State = {
+const testLoadPayload: any = [
+    {
+        message: 'accurate',
+        cod: 200,
+        count: 25,
+        list: [testPayload, testPayload, testPayload]
+    },
+    testPayload
+];
+
+const testFilters: Filters = {
+    columns: {
+        coords: true,
+        temp: true,
+        pressure: true,
+        humidity: true,
+        wind: true,
+        overall: true
+    },
+    temperature: '',
+    rows: null,
+    measure: 'Kelvin',
+    toggle: false,
+    cityName: ''
+};
+
+const initialState: State = {
     yourCity: [],
     cities: [],
     citiesCache: [],
     weather: '',
     error: null,
-    filters: {
-        columns: {
-            coords: true,
-            temp: true,
-            pressure: true,
-            humidity: true,
-            wind: true,
-            overall: true
-        },
-        temperature: '',
-        rows: null,
-        measure: 'Kelvin',
-        toggle: false,
-        cityName: ''
-    }
+    filters: testFilters
 };
 
 describe('Meteo reducer', () => {
@@ -58,6 +71,50 @@ describe('Meteo reducer', () => {
         expect(
             reducer(undefined, { type: 'test' })
         ).toEqual(initialState)
+    });
+
+    it('should handle LOAD_SUCCESS', () => {
+        const allCities: any = testLoadPayload[0].list;
+        const yourCity: City = testLoadPayload[1];
+        const cities: City[] = allCities.map((city: City) =>
+            Object.assign({}, city, {
+                hidden: false
+            })
+        );
+        const actual: any = Object.assign({}, initialState, { yourCity, cities });
+
+        expect(reducer(initialState, {
+            type: meteo.ActionTypes.LOAD_SUCCESS,
+            payload: testLoadPayload
+        })).toEqual(actual);
+    });
+
+    it('should handle LOAD_FAIL', () => {
+        expect(reducer(initialState, {
+            type: meteo.ActionTypes.LOAD_FAIL,
+            payload: 'ERROR'
+        })
+        ).toEqual(Object.assign({}, initialState, {
+            error: 'ERROR'
+        }));
+    });
+
+    it('should handle UPDATE', () => {
+        const actual: any = Object.assign({}, initialState, { cities: testPayload });
+
+        expect(reducer(initialState, {
+            type: meteo.ActionTypes.UPDATE,
+            payload: testPayload
+        })).toEqual(actual);
+    });
+
+    it('should handle FILTER', () => {
+        const actual: any = Object.assign({}, initialState, { filters: testFilters });
+
+        expect(reducer(initialState, {
+            type: meteo.ActionTypes.FILTER,
+            payload: testFilters
+        })).toEqual(actual);
     });
 
     it('should handle ADD_CACHE', () => {
@@ -106,7 +163,7 @@ describe('Meteo reducer', () => {
 
     it('should handle HIGHLIGHT', () => {
         const payload: number = 1;
-        const state: State = Object.assign(initialState, {
+        const state: State = Object.assign({}, initialState, {
             cities: initialState.cities.concat([testPayload, testPayload, testPayload])
         });
         const highlight: City[] = state.cities.map((city: City, index: number) =>

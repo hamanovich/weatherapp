@@ -4,14 +4,14 @@
     "description": "Weather App using Angular 2",
     "main": "build/src/app/app.module.js",
     "scripts": {
-        "cleanup": "rimraf src/app/**/*.ngfactory.ts src/app/**/*.ngstyle.ts src/app/**/*.ngsummary.json build dist",
+        "cleanup": "rimraf src/app/**/*.ngfactory.ts src/app/**/*.ngstyle.ts src/app/**/*.ngsummary.json build dist coverage",
         "explorer": "source-map-explorer ./dist/main.bundle.js ./dist/main.bundle.js.map",
         "ngc": "ngc",
         "build": "npm run cleanup && npm run ngc && webpack --config webpack.aot.config.js -p",
         "aot": "npm run cleanup && npm run ngc && concurrently -r \"webpack-dev-server --config webpack.aot.config.js\" \"node ./bin/ngc-watch.js\"",
         "jit": "npm run cleanup && webpack-dev-server --config webpack.jit.config.js",
         "lint": "tslint \"src/app/**/*.ts\"",
-        "test": "npm run cleanup && karma start",
+        "test": "karma start",
         "test:headless": "karma start --browsers PhantomJS"
     },
     "keywords": [

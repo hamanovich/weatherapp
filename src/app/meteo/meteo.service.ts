@@ -21,7 +21,6 @@ export class MeteoService {
 
     getCityByName(name: string): Observable<any> {
         const search: URLSearchParams = new URLSearchParams();
-
         search.append('q', name);
         search.append('appid', GEO_API_KEY);
 
@@ -49,10 +48,7 @@ export class MeteoService {
     }
 
     getCityByLocation(coords: Coords): Observable<any> {
-        if (!coords) return Observable.of(false);
-
         const search: URLSearchParams = new URLSearchParams();
-
         search.append('lat', String(coords.latitude));
         search.append('lon', String(coords.longitude));
         search.append('appid', GEO_API_KEY);
@@ -67,7 +63,6 @@ export class MeteoService {
 
     getCityById(id: number): Observable<any> {
         const search: URLSearchParams = new URLSearchParams();
-
         search.append('id', String(id));
         search.append('appid', GEO_API_KEY);
 
@@ -79,9 +74,21 @@ export class MeteoService {
         return this.httpRequest('/weather', options);
     }
 
-    httpRequest(url: string, options: RequestOptions): Observable<any> {
+    private extractData(response: Response) {
+        if (response.status < 200 || response.status >= 300) {
+            throw new Error('Bad response status: ' + response.status);
+        }
+        return response.json() || {};
+    }
+
+    private handleError(error: any) {
+        let errMsg: string = error.message || 'Server error';
+        return Observable.throw(errMsg);
+    }
+
+    private httpRequest(url: string, options: RequestOptions): Observable<any> {
         return this.http.request(url, options)
-            .map((response: Response) => response.json())
-            .catch(() => Observable.of(false));
+            .map(this.extractData)
+            .catch(this.handleError);
     }
 }

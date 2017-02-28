@@ -6,19 +6,19 @@ import { GoogleMapComponent } from './google-map.component';
 import { GoogleMapService } from './google-map.service';
 
 import { Store, StoreModule } from '@ngrx/store';
+import { reducer } from '../dataflow/reducers';
 
 describe('Component: GoogleMapComponent', () => {
     let component: GoogleMapComponent;
     let fixture: ComponentFixture<GoogleMapComponent>;
 
-    let spy: jasmine.Spy;
     let de: DebugElement;
     let el: HTMLElement;
     let googleMapService: GoogleMapService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [StoreModule.provideStore({})],
+            imports: [StoreModule.provideStore(reducer)],
             declarations: [GoogleMapComponent],
             providers: [GoogleMapService]
         })
@@ -30,8 +30,6 @@ describe('Component: GoogleMapComponent', () => {
         component = fixture.componentInstance;
 
         googleMapService = fixture.debugElement.injector.get(GoogleMapService);
-
-        spy = spyOn(googleMapService, 'init').and.returnValue('');
     });
 
     it('should have a defined component', () => {
