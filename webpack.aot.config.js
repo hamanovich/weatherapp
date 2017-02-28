@@ -9,5 +9,8 @@ module.exports = {
     resolve: require('./webpack/resolve'),
     devServer: require('./webpack/dev-server'),
     stats: 'errors-only',
-    devtool: 'source-map'
+    devtool: 'source-map',
+    performance: {
+        hints: false
+    }
 };
