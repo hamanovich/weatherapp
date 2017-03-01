@@ -47,6 +47,7 @@ export class WeatherComponent implements OnInit {
     }
 
     onSelect(id: number): void {
-        this.router.navigate(['/weatherDetails', id]);
+        const url: string = `/weatherDetails/${id}`;
+        this.router.navigateByUrl(url);
     }
 }

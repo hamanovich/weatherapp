@@ -27,7 +27,7 @@ module.exports = config => {
         },
         reporters: ['coverage', 'remap-coverage'],
         colors: true,
-        singleRun: false,
+        singleRun: true,
         autoWatch: false,
         webpack: require('./webpack.test.config.js'),
         webpackMiddleware: {

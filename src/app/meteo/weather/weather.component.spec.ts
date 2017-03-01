@@ -7,11 +7,53 @@ import { WeatherComponent } from './weather.component';
 import { MeteoModule } from '../meteo.module';
 
 import { reducer } from '../../dataflow/reducers';
-import { Store, StoreModule } from '@ngrx/store';
+import { Action, Store, StoreModule } from '@ngrx/store';
+
+import * as fromRoot from '../../dataflow/reducers';
+import * as meteo from '../../dataflow/actions/meteo.actions';
+
+import City from '../../models/city';
 
 class RouterStub {
     navigateByUrl(url: string) { return url; }
 }
+
+const testPayload: City = {
+    coord: {
+        lon: 25.32,
+        lat: 53.09
+    },
+    weather: [
+        {
+            id: 804,
+            main: "Clouds",
+            description: "overcast clouds",
+            icon: "04d"
+        }
+    ],
+    main: {
+        temp: 277.238,
+        pressure: 1003.11,
+        humidity: 96
+    },
+    wind: {
+        speed: 5.73,
+        deg: 258.505
+    },
+    dt: 1488178119,
+    id: 621754,
+    name: "Slonim"
+};
+
+const testLoadPayload: any = [
+    {
+        message: 'accurate',
+        cod: 200,
+        count: 25,
+        list: [testPayload, testPayload, testPayload]
+    },
+    testPayload
+];
 
 describe('WeatherComponent', () => {
     let component: WeatherComponent;
@@ -33,23 +75,39 @@ describe('WeatherComponent', () => {
 
     beforeEach(() => {
         fixture = TestBed.createComponent(WeatherComponent);
-
         component = fixture.componentInstance;
     });
 
-    // it('should tell ROUTER to navigate when city clicked',
-    //     inject([Router], (router: Router) => {
+    it('should NOT have cities before ngOnInit', () => {
+        expect(component.cities$).not.toBeDefined();
+    });
 
-    //         const spy = spyOn(router, 'navigateByUrl');
+    it('should NOT have cities after ngOnInit', () => {
+        fixture.detectChanges();
+        expect(component.cities$).toBeDefined();
+    });
 
-    //         const cityEl = fixture.debugElement.query(By.css('.test'));
-    //         cityEl.triggerEventHandler('click', component.cities$[0]);
+    describe('after get cities', () => {
+        let allCities: City[];
 
-    //         const navArgs = spy.calls.first().args[0];
+        beforeEach(inject([Store], (store: Store<fromRoot.State>) => {
+            store.dispatch(new meteo.LoadSuccessAction(testLoadPayload));
+        }));
 
-    //         const id = component.cities$[0].id;
-    //         expect(navArgs).toBe('/weatherDetails/' + id,
-    //             'should nav to WeatherDetails for first city');
-    //     }));
+        it('should HAVE cities', inject([Store], (store: Store<fromRoot.State>) => {
+            store.select(fromRoot.getWeatherCities)
+            .subscribe((cities: City[]) => {
+                allCities = cities;
+                expect(allCities.length).toBeGreaterThan(0);
+            });
+        }));
 
+        it('should raise selected event when clicked', inject([Store], (store: Store<fromRoot.State>) => {
+            store.dispatch(new meteo.RemoveAction(1));
+            store.select(fromRoot.getWeatherCities)
+            .subscribe((cities: City[]) => {
+                expect(cities.length).toEqual(2);
+            });
+        }));
+    });
 });
