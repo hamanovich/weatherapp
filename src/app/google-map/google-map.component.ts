@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 
 import { GoogleMapService } from './google-map.service';
 
@@ -16,9 +16,9 @@ import Coords from '../models/coords';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class GoogleMapComponent implements OnInit, OnDestroy {
-    GOOGLE_MAP_TITLE: string;
-    GOOGLE_MAP_TITLE_SUB: string;
+export class GoogleMapComponent implements OnInit {
+    GOOGLE_MAP_TITLE: string = 'Google Map';
+    GOOGLE_MAP_TITLE_SUB: string = 'Maps JavaScript API';
 
     subscription: Subscription;
     position: Observable<Coords>;
@@ -27,19 +27,13 @@ export class GoogleMapComponent implements OnInit, OnDestroy {
 
     constructor(private gMapService: GoogleMapService,
                 private store: Store<fromRoot.State>) {
-        this.GOOGLE_MAP_TITLE = 'Google Map';
-        this.GOOGLE_MAP_TITLE_SUB = 'Maps JavaScript API';
     }
 
     ngOnInit() {
-        this.subscription = this.store.select(fromRoot.getGeoCoords).subscribe((position: Coords) => {
+        this.store.select(fromRoot.getGeoCoords).subscribe((position: Coords) => {
             if (position) {
                 this.gMapService.init(position, this.googleMapElememt.nativeElement);
             }
         });
-    }
-
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
     }
 }

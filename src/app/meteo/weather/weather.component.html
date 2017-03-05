@@ -4,41 +4,31 @@
             <small>Weather stats</small>
         </h2>
     </header>
-    <div class="table-responsive table-cities"
-         [ngClass]="{'done': (cities$ | async)[0]}"
-         *ngIf="!(errorText$ | async)">
+    <div class="table-responsive table-cities" [ngClass]="{'done': (cities$ | async)[0]}" *ngIf="!(errorText$ | async)">
         <table class="table table-bordered">
             <thead [hidden]="toggle$ | async">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th [hidden]="!(thead$ | async)?.coords">Coords</th>
-                <th [hidden]="!(thead$ | async)?.temp">Temp</th>
-                <th [hidden]="!(thead$ | async)?.pressure">Pressure</th>
-                <th [hidden]="!(thead$ | async)?.humidity">Humidity</th>
-                <th [hidden]="!(thead$ | async)?.wind">Wind</th>
-                <th [hidden]="!(thead$ | async)?.overall">Overall</th>
-                <th>Remove</th>
-            </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th [hidden]="!(thead$ | async)?.coords">Coords</th>
+                    <th [hidden]="!(thead$ | async)?.temp">Temp</th>
+                    <th [hidden]="!(thead$ | async)?.pressure">Pressure</th>
+                    <th [hidden]="!(thead$ | async)?.humidity">Humidity</th>
+                    <th [hidden]="!(thead$ | async)?.wind">Wind</th>
+                    <th [hidden]="!(thead$ | async)?.overall">Overall</th>
+                    <th>Remove</th>
+                </tr>
             </thead>
             <tbody class="cities">
-            <ng-container *ngFor="let city of (cities$ | async); let i = index">
-                <tr wapi-city *ngIf="!city.hidden"
-                    (remove)="onRemove(i)"
-                    (contextmenu)="onHighlight(i)"
-                    (click)="onSelect(city.id)"
-                    [colorWeather]="city"
-                    [city]="city"
-                    [ngClass]="{highlight: city.isHighlight}"
-                    [columns]="thead$ | async">
-                </tr>
-            </ng-container>
+                <ng-container *ngFor="let city of (cities$ | async); let i = index">
+                    <tr wapi-city *ngIf="!city.hidden" (remove)="onRemove(i)" (contextmenu)="onHighlight(i)" (click)="onSelect(city.id)" [colorWeather]="city" [city]="city" [ngClass]="{highlight: city.isHighlight}" [columns]="thead$ | async">
+                    </tr>
+                </ng-container>
             </tbody>
         </table>
     </div>
-    
+
     <div class="alert alert-danger" *ngIf="errorText$ | async">
-        <span *ngIf="(errorText$ | async)?.status">{{(errorText$ | async)?.status}} :</span>
-        {{(errorText$ | async)?.statusText}}
+        <span *ngIf="(errorText$ | async)?.status">{{(errorText$ | async)?.status}} :</span> {{(errorText$ | async)?.statusText}}
     </div>
 </section>

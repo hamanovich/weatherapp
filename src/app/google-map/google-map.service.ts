@@ -9,7 +9,7 @@ export class GoogleMapService {
     private marker: google.maps.Marker;
     private options: MapOptions;
 
-    init(position: Coords, el: Element, options?: MapOptions) {
+    init(position: Coords, el: Element, options?: MapOptions): void {
         const pos: {lat: number, lng: number} = {
             lat: position.latitude,
             lng: position.longitude

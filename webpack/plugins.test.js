@@ -17,9 +17,7 @@ module.exports = [
     new CopyWebpackPlugin([
         { from: 'index.html' }
     ]),
-    new webpack.optimize.CommonsChunkPlugin({
-        name: 'polyfill'
-    }),
+
     HTMLWebpackPluginConfig,
     new webpack.DefinePlugin({
         PRODUCTION: JSON.stringify(false)

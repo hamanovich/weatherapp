@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { Response } from "@angular/http";
 
 import City from '../../models/city';
+import Coords from '../../models/coords';
 import Filters from "../../models/filters";
 import ResponseError from '../../models/response.error';
 
@@ -20,7 +21,7 @@ export const ActionTypes = {
 export class LoadAction implements Action {
     type: string = ActionTypes.LOAD;
 
-    constructor(public payload?: string | any) {
+    constructor(public payload?: Coords) {
     }
 }
 

@@ -1,14 +1,17 @@
 const path = require('path');
 
 module.exports = {
-    rules: [
-        {
+    rules: [{
             test: /\.ts$/,
             use: ['awesome-typescript-loader', 'angular2-template-loader', 'angular2-router-loader']
         },
         {
             test: /\.html$/,
             use: 'raw-loader'
+        },
+        {
+            test: /\.json$/,
+            loader: 'json-loader'
         },
         {
             test: /\.css$/,

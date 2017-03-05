@@ -18,11 +18,11 @@ export class ColorWeather implements OnInit {
     @Input('colorWeather') city: City;
 
     constructor(private el: ElementRef,
-                private renderer: Renderer) {
+        private renderer: Renderer) {
     }
 
     ngOnInit() {
-        const temp: number = new Celsius().transform(this.city.main.temp);
+        const temp: number = new Celsius().transform(this.city.main.temp) || 0;
 
         this.renderer.setElementStyle(
             this.el.nativeElement,

@@ -3,19 +3,29 @@ interface City {
     name?: string;
     main?: {
         temp: number;
-        pressure: number;
-        humidity: number;
+        pressure?: number;
+        humidity?: number;
+        temp_min?: number;
+        temp_max?: number;
     };
     coord?: {
-        lat: string;
-        lon: string;
+        lat: number;
+        lon: number;
     };
     dt?: number;
     isHighlight?: boolean;
     hidden?: boolean;
-    weather?: {
+    weather?: [{
+        id?: number;
         description: string;
         main: string;
+        icon?: string;
+    }];
+    sys?: {
+        country?: string;
+    };
+    clouds?: {
+        all?: number;
     };
     wind?: {
         speed: number;

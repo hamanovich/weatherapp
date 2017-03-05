@@ -9,9 +9,10 @@
             true,
             "spaces"
         ],
+        "no-unused-expression": true,
         "no-duplicate-variable": true,
         "no-eval": true,
-        "no-any": true,
+        "no-any": false,
         "no-internal-module": true,
         "no-trailing-whitespace": true,
         "no-var-keyword": true,
